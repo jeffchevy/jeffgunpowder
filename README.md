@@ -1,6 +1,6 @@
-# README
+# Gunpowder
 
-This is a Template for getting a project started quickly.
+This is the backend server for Drill and blast data 
 
 ## Requirements
 
