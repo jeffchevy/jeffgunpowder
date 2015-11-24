@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ADD TITLE HERE</title>
+
+    <!-- set the base path for angular routing -->
+    <base href="/">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <!-- load bootstrap and fontawesome via CDN -->
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+
+    <!-- JS -->
+    <!-- load angular and angular-route via CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
+    <script src="app/app.routes.js"></script>
+    <script src="app/app.js"></script>
+
+    <!-- services -->
+
+    <!--Angular injections -->
+
+    <!-- Animation -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js"></script>
+
+    <!-- Custom JS -->
+
+</head>
+
+<body class="container" ng-app="appNameApp" ng-controller="mainController as main"> <!-- TODO Change ng-app name -->
+
+<!-- HEADER AND NAVBAR -->
+<header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"> APP NAME</a> <!-- TODO -->
+        </div>
+
+        <ul class="nav navbar-nav">
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+    </nav>
+
+</header>
+
+<!-- MAIN CONTENT AND INJECTED VIEWS -->
+<main>
+    <!-- angular templating will go here -->
+    <!-- this is where content will be injected -->
+
+    <div id="content-views">
+        <div ng-view></div>
+        //TODO update all the todo items in the public/app/views/index.html page.
+    </div>
+
+</main>
+
+</body>
+</html>
