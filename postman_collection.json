@@ -1,0 +1,88 @@
+{
+	"id": "ff5bca54-2e58-317a-ab2c-a2841bcfb9a8",
+	"name": "3Rivers Backend Server",
+	"description": "",
+	"order": [
+		"bdd64907-7f3c-27df-3ed3-bba2fce43596",
+		"dc0c00ad-d4e0-b86f-d442-73198523e6b4",
+		"3f1d19d3-dc07-7c1c-3890-d005cfb5f700"
+	],
+	"folders": [],
+	"timestamp": 1448336256406,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "3f1d19d3-dc07-7c1c-3890-d005cfb5f700",
+			"headers": "Application: null\n",
+			"url": "localhost:1337/api/v1/users?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoidGVzdCIsInVzZXJuYW1lIjoidGVzdCIsImlhdCI6MTQ0ODM1MjU5NSwiZXhwIjoxNDQ4NDM4OTk1fQ.AmcahnNJHe6aAvOypmsx5wT5KHLk7TtXKrv_L0GS-Uo",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "username",
+					"value": "jack",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "secret",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1448352681290,
+			"name": "Users",
+			"description": "",
+			"collectionId": "ff5bca54-2e58-317a-ab2c-a2841bcfb9a8",
+			"responses": []
+		},
+		{
+			"id": "bdd64907-7f3c-27df-3ed3-bba2fce43596",
+			"headers": "Application: null\n",
+			"url": "localhost:1337/api/v1/ping",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1448338463246,
+			"name": "Ping",
+			"description": "Ping/Pong",
+			"collectionId": "ff5bca54-2e58-317a-ab2c-a2841bcfb9a8",
+			"responses": []
+		},
+		{
+			"id": "dc0c00ad-d4e0-b86f-d442-73198523e6b4",
+			"headers": "Content-Type: application/json\nAccept: application/json\n",
+			"url": "localhost:1337/api/v1/authenticate",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1448349628399,
+			"name": "Authenticate",
+			"description": "",
+			"collectionId": "ff5bca54-2e58-317a-ab2c-a2841bcfb9a8",
+			"responses": [],
+			"rawModeData": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}"
+		}
+	]
+}

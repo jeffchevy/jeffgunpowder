@@ -1,0 +1,1 @@
+bower components will be installed here.  .bowerrc file points to this directory

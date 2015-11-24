@@ -1,0 +1,16 @@
+{
+  "name": "appName",
+  "version": "1.0.0",
+  "authors": [
+    "Jeremy Stowell <jeremy.stowell@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
