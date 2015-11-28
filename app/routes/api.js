@@ -1,9 +1,8 @@
-//var bodyParser = require(' body-parser'); 	// get body-parser
 var User = require('../models/user');
+var DrillLog = require('../models/drillLog');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/config');
 
-//var JwtStrategy = require('passport-jwt').Strategy;
 
 module.exports = function (app, express, passport) {
 
@@ -33,6 +32,61 @@ module.exports = function (app, express, passport) {
             });
         });
 
+
+    //Drill Log
+    //TODO need to move below authentication middleware
+    /**
+     * Drill Log API call
+     * get - Returns all drill logs
+     * post - Save a drill log
+     * delete - remove the drill log with the passed in ID
+     */
+    apiRouter.route('/drillLog')
+
+        // Get call to return all drill logs
+        .get(function (req, res) {
+            DrillLog.find({}, function (err, logs) {
+                if (err) res.send(err);
+
+                // return the users
+                res.json(logs);
+            });
+        })
+        .post(function (req, res) {
+            var log = new DrillLog();		// create a new instance of the DrillLog model
+            log.name = req.body.name;  // set the log name (comes from the request)
+
+            log.save(function (err) {
+                if (err) {
+                    return res.send(err);
+                }
+
+                // return a message
+                res.json({message: 'Drill Log created!', drillLog: log});
+            });
+        });
+
+
+    apiRouter.route('/drillLog/:id')
+
+        .post(function (req, res) {
+            //DrillLog.findByIdAndUpdate()
+
+            //TODO, do we want to pass in the whole document to update or just change values in a document?
+            res.json({message: 'TODO - '});
+        })
+        
+        .delete(function (req, res) {
+            DrillLog.findByIdAndRemove(req.params.id, function (err, log) {
+                if (err) {
+                    res.json({message: 'There was an error deleteing the drill log. ', error: err})
+                }
+
+                res.json({message: 'Drill Log deleted!', drillLog: log})
+            });
+
+
+        });
 
     // ================================================================================
     // Route Middleware ===============================================================
@@ -102,7 +156,7 @@ module.exports = function (app, express, passport) {
                 }
 
                 // return a message
-                res.json({message: 'User created!'});
+                res.json({message: 'User created!', user: user});
             });
 
         })
