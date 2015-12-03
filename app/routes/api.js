@@ -21,7 +21,7 @@ module.exports = function (app, express, passport) {
             // if user is found and password is right, create a token
             var token = jwt.sign({
                 name: req.user.name,
-                username: req.user.username
+                email: req.user.email
             }, config.secret, {
                 expiresInMinutes: config.tokenExpiration
             });
@@ -143,14 +143,14 @@ module.exports = function (app, express, passport) {
 
             var user = new User();		// create a new instance of the User model
             user.name = req.body.name;  // set the users name (comes from the request)
-            user.email = req.body.email;  // set the users username (comes from the request)
+            user.email = req.body.email;  // set the users email (comes from the request)
             user.password = req.body.password;  // set the users password (comes from the request)
 
             user.save(function (err) {
                 if (err) {
                     // duplicate entry
                     if (err.code == 11000)
-                        return res.json({success: false, message: 'A user with that username already exists. '});
+                        return res.json({success: false, message: 'A user with that email already exists. '});
                     else
                         return res.send(err);
                 }
@@ -194,7 +194,7 @@ module.exports = function (app, express, passport) {
 
                 // set the new user information if it exists in the request
                 if (req.body.name) user.name = req.body.name;
-                if (req.body.username) user.username = req.body.username;
+                if (req.body.email) user.email = req.body.email;
                 if (req.body.password) user.password = req.body.password;
 
                 // save the user

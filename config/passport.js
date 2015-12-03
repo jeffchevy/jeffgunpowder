@@ -25,10 +25,10 @@ module.exports = function (passport) {
                     return done(err);
                 }
                 if (!user) {
-                    return done(null, false, {message: 'Incorrect username.'}); //TODO where does message get used?  Is this only for flash messages?  If this is displayed, I need to return the same message for username and password.
+                    return done(null, false, {message: 'Incorrect email or password.'});
                 }
                 if (!user.comparePassword(password)) {
-                    return done(null, false, {message: 'Incorrect password.'});
+                    return done(null, false, {message: 'Incorrect email or password.'});
                 }
                 return done(null, user);
             });
