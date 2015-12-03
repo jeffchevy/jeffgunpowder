@@ -25,7 +25,7 @@ angular.module('mainCtrl', [])
             // clear the error
             vm.error = '';
 
-            Auth.login(vm.loginData.username, vm.loginData.password)
+            Auth.login(vm.loginData.email, vm.loginData.password)
                 .success(function (data) {
                     vm.processing = false;
 
