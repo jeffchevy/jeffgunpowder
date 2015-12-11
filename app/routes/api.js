@@ -55,6 +55,10 @@ module.exports = function (app, express, passport) {
         .post(function (req, res) {
             var log = new DrillLog();		// create a new instance of the DrillLog model
             log.name = req.body.name;  // set the log name (comes from the request)
+            log.contractorsName = req.body.contractorsName;
+            log.fuelLog = req.body.fuelLog;
+
+            console.log(req.body.fuelLog);
 
             log.save(function (err) {
                 if (err) {

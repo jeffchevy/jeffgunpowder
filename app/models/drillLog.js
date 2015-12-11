@@ -1,6 +1,18 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+//var FuelLog = new Schema({
+//    //drillNumber: String,
+//    //date: String,
+//    //gallonsPumped: String,
+//    //bulkTankPumpedFrom: String,
+//    //hourMeterStart: String,
+//    //hourMeterEnd: String
+//
+//    name: String,
+//    message: String
+//});
+
 // drill log schema
 var DrillLogSchema = new Schema({
     //name: String
@@ -8,10 +20,9 @@ var DrillLogSchema = new Schema({
     jobName: String,
     logStartDate: String, //TODO Should this be a date?
     shotNumber: String, //TODO should this be an int?
-    FuelLog: {
-        drillNumber: String, date: String, gallonsPumped: String,
-        bulkTankPumpedFrom: String, hourMeterStart: String, hourMeterEnd: String
-    }, //TODO this needs to be an object.  Also, check data types of each of these once I get this working.
+    fuelLog: {type: Array, default: []},
+
+    //], //TODO this needs to be an object.  Also, check data types of each of these once I get this working.
     holeCountAtEachDepth: String, //TODO what is this?
     holeCount: String,
     totalDepthOfAllHolesIncludingSubDrill: String,
@@ -29,6 +40,8 @@ var DrillLogSchema = new Schema({
     drillersName: String
 
 });
+
+
 
 
 module.exports = mongoose.model('DrillLog', DrillLogSchema);
