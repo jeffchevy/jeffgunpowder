@@ -47,26 +47,39 @@ module.exports = function (app, express, passport) {
         .get(function (req, res) {
             DrillLog.find({}, function (err, logs) {
                 if (err) res.send(err);
-
-                // return the users
-                res.json(logs);
+                res.json(logs); // return the users
             });
         })
         .post(function (req, res) {
-            var log = new DrillLog();		// create a new instance of the DrillLog model
-            log.name = req.body.name;  // set the log name (comes from the request)
-            log.contractorsName = req.body.contractorsName;
-            log.fuelLog = req.body.fuelLog;
+            var drillLog = new DrillLog();		// create a new instance of the DrillLog model
+            drillLog.contractorsName = req.body.contractorsName;
+            drillLog.jobName = req.body.jobName;
+            drillLog.logStartDate = req.body.logStartDate;
+            drillLog.shotNumber = req.body.shotNumber;
+            drillLog.fuelLogs = req.body.fuelLogs;
+            drillLog.holeCountAtEachDepth = req.body.holeCountAtEachDepth;
+            drillLog.holeCount = req.body.holeCount;
+            drillLog.totalDepthOfAllHolesIncludingSubDrill = req.body.totalDepthOfAllHolesIncludingSubDrill;
+            drillLog.avgHoleDepthIncludingSubDrill = req.body.avgHoleDepthIncludingSubDrill;
+            drillLog.drillerName = req.body.drillerName;
+            drillLog.auditedFlag = req.body.auditedFlag;
+            drillLog.customer = req.body.customer;
+            drillLog.threeRiversSupervisor = req.body.threeRiversSupervisor;
+            drillLog.notes = req.body.notes;
+            drillLog.stakeNumbers = req.body.stakeNumbers;
+            console.log('logdate: ' + req.body.logDate);
+            drillLog.logDate = req.body.logDate;
+            drillLog.areaNumber = req.body.areaNumber;
+            drillLog.pattern = req.body.pattern;
+            drillLog.stakeNumber = req.body.stakeNumber;
+            drillLog.drillersName = req.body.drillersName;
+            drillLog.holePositions = req.body.holePositions;
 
-            console.log(req.body.fuelLog);
-
-            log.save(function (err) {
+            drillLog.save(function (err) {
                 if (err) {
                     return res.send(err);
                 }
-
-                // return a message
-                res.json({message: 'Drill Log created!', drillLog: log});
+                res.json({message: 'Drill Log created!', drillLog: drillLog});
             });
         });
 
@@ -79,7 +92,7 @@ module.exports = function (app, express, passport) {
             //TODO, do we want to pass in the whole document to update or just change values in a document?
             res.json({message: 'TODO - '});
         })
-        
+
         .delete(function (req, res) {
             DrillLog.findByIdAndRemove(req.params.id, function (err, log) {
                 if (err) {

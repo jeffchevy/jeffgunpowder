@@ -15,33 +15,28 @@ var Schema = mongoose.Schema;
 
 // drill log schema
 var DrillLogSchema = new Schema({
-    //name: String
     contractorsName: String,
     jobName: String,
-    logStartDate: String, //TODO Should this be a date?
+    logStartDate: {type: Date, default: Date.now},
     shotNumber: String, //TODO should this be an int?
-    fuelLog: {type: Array, default: []},
-
-    //], //TODO this needs to be an object.  Also, check data types of each of these once I get this working.
+    fuelLogs: {type: Array, default: []}, //todo is there a way to make this a fuelLogs type?
     holeCountAtEachDepth: String, //TODO what is this?
     holeCount: String,
     totalDepthOfAllHolesIncludingSubDrill: String,
     avgHoleDepthIncludingSubDrill: String,
     drillerName: String,
-    auditedFlag: String,
+    auditedFlag: Boolean,
     customer: String,
     threeRiversSupervisor: String,
     notes: String,
     stakeNumbers: String,
-    logDate: String,
+    logDate: {type: Date, default: Date.now},
     areaNumber: String,
     pattern: String,
     stakeNumber: String,
-    drillersName: String
-
+    drillersName: String,
+    holePositions: {type: Array, default: {}} //This will hold a value of 'active' hole locations  x:y position ex-) 5:9 would be 5 over 9 down is a hole.
 });
-
-
 
 
 module.exports = mongoose.model('DrillLog', DrillLogSchema);
