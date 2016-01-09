@@ -57,22 +57,15 @@ module.exports = function (app, express, passport) {
             drillLog.logStartDate = req.body.logStartDate;
             drillLog.shotNumber = req.body.shotNumber;
             drillLog.fuelLogs = req.body.fuelLogs;
-            drillLog.holeCountAtEachDepth = req.body.holeCountAtEachDepth;
-            drillLog.holeCount = req.body.holeCount;
-            drillLog.totalDepthOfAllHolesIncludingSubDrill = req.body.totalDepthOfAllHolesIncludingSubDrill;
-            drillLog.avgHoleDepthIncludingSubDrill = req.body.avgHoleDepthIncludingSubDrill;
             drillLog.drillerName = req.body.drillerName;
             drillLog.auditedFlag = req.body.auditedFlag;
             drillLog.customer = req.body.customer;
             drillLog.threeRiversSupervisor = req.body.threeRiversSupervisor;
             drillLog.notes = req.body.notes;
             drillLog.stakeNumbers = req.body.stakeNumbers;
-            console.log('logdate: ' + req.body.logDate);
-            drillLog.logDate = req.body.logDate;
             drillLog.areaNumber = req.body.areaNumber;
             drillLog.pattern = req.body.pattern;
             drillLog.stakeNumber = req.body.stakeNumber;
-            drillLog.drillersName = req.body.drillersName;
             drillLog.holePositions = req.body.holePositions;
 
             drillLog.save(function (err) {

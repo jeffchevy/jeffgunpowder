@@ -20,27 +20,17 @@ var DrillLogSchema = new Schema({
     logStartDate: {type: Date, default: Date.now},
     shotNumber: String, //TODO should this be an int?
     fuelLogs: {type: Array, default: []}, //todo is there a way to make this a fuelLogs type?
-    holeCountAtEachDepth: String, //TODO what is this?
-    holeCount: String,
-    totalDepthOfAllHolesIncludingSubDrill: String,
-    avgHoleDepthIncludingSubDrill: String,
     drillerName: String,
-    auditedFlag: Boolean,
+    auditedFlag: {type: Boolean, default: false},
     customer: String,
     threeRiversSupervisor: String,
     notes: String,
-    stakeNumbers: String,
-    logDate: {type: Date, default: Date.now},
+    stakeNumbers: String,  //TODO what is this?
     areaNumber: String,
     pattern: String,
     stakeNumber: String,
-    drillersName: String,
-    holePositions: {type: Array, default: {}} //This will hold a value of 'active' hole locations  x:y position ex-) 5:9 would be 5 over 9 down is a hole.
+    holePositions: {type: Array, default: {}} //This will hold a value of 'active' hole locations  x, y, depth values.
 });
 
 
 module.exports = mongoose.model('DrillLog', DrillLogSchema);
-
-
-
-

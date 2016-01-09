@@ -40,6 +40,16 @@ angular.module('app.routes', ['ngRoute'])
                 templateUrl: 'app/views/pages/users/single.html',
                 controller: 'userEditController',
                 controllerAs: 'user'
+            })
+            .when('/logs/view', {
+                templateUrl: 'app/views/pages/drillLog/view.html',
+                controller: 'logController',
+                controllerAs: 'log'
+            })
+            .when('/logs/create', {
+                templateUrl: 'app/views/pages/drillLog/create.html',
+                controller: 'logController',
+                controllerAs: 'log'
             });
 
         $locationProvider.html5Mode(true);
