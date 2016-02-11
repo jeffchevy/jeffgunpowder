@@ -41,19 +41,19 @@ angular.module('app.routes', ['ngRoute'])
                 controller: 'userEditController',
                 controllerAs: 'user'
             })
-            .when('/logs/view', {
-                templateUrl: 'app/views/pages/drillLog/view.html',
+            .when('/drillLogs', {
+                templateUrl: 'app/views/pages/drillLog/all.html',
                 controller: 'logController',
                 controllerAs: 'log'
             })
-            .when('/logs/create', {
-                templateUrl: 'app/views/pages/drillLog/create.html',
-                controller: 'logController',
+            .when('/drillLogs/create', {
+                templateUrl: 'app/views/pages/drillLog/single.html',
+                controller: 'logCreateController',
                 controllerAs: 'log'
             })
-            .when('/logs/edit/:id', {
-                templateUrl: 'app/views/pages/drillLog/edit.html',
-                controller: 'logController',
+            .when('/drillLogs/:log_id', {
+                templateUrl: 'app/views/pages/drillLog/single.html',
+                controller: 'logEditController',
                 controllerAs: 'log'
             });
 

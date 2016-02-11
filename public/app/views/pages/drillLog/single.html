@@ -1,0 +1,118 @@
+<div class="page-header">
+    <h1 ng-if="log.type == 'create'">Create Log</h1>
+    <h1 ng-if="log.type == 'edit'">Edit Log</h1>
+</div>
+
+<div>
+    <!--<form ng-submit="login.doLogin()">-->
+    <form class="form-horizontal" ng-submit="log.saveLog()">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Job name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.jobName">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Contractors Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.contractorsName">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Shot Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.shotNumber">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Driller Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.drillerName">
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+        <!--<label class="col-sm-2 control-label">Audited Flag</label>-->
+        <!--<div class="col-sm-10">-->
+        <!--<input type="text" class="form-control" ng-model="log.auditedFlag">-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Customer</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.customer">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Three Rivers Supervisor</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.threeRiversSupervisor">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Notes</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.notes">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Stake Numbers</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.stakeNumbers">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Area Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.areaNumber">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Pattern</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.pattern">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Stake Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="log.logData.stakeNumber">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="log.type == 'create'">Create log
+                </button>
+                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="log.type == 'edit'">Update log
+                </button>
+            </div>
+        </div>
+
+        <!--<button type="submit" class="btn btn-primary col-sm-offset-2 col-sm-2">-->
+        <!--Submit-->
+        <!--</button>-->
+
+    </form>
+
+</div>
+
+<div class="row show-hide-message" ng-show="log.message">
+    <div class="col-sm-6 col-sm-offset-2">
+
+        <div class="alert alert-info">
+            {{ log.message }}
+        </div>
+
+    </div>
+</div>

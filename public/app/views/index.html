@@ -28,6 +28,7 @@
     <!-- services -->
     <script src="app/services/authService.js"></script>
     <script src="app/services/userService.js"></script>
+    <script src="app/services/logService.js"></script>
 
     <!-- main Angular app files -->
     <script src="app/app.routes.js"></script>
@@ -45,8 +46,8 @@
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
-                <li><a href="/logs/view"><span class="fa fa-bullseye"></span> View Drill logs</a></li>
-                <li><a href="/logs/create"><span class="fa fa-bullseye"></span> Create Drill logs</a></li>
+                <li><a href="/drillLogs"><span class="fa fa-bullseye"></span> View Drill logs</a></li>
+                <li><a href="/drillLogs/create"><span class="fa fa-bullseye"></span> Create Drill logs</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
