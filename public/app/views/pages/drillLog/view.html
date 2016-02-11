@@ -5,7 +5,7 @@
 
     <ul>
         <li ng-repeat="log in log.all">
-            {{log._id}}
+            <a href="/logs/edit/{{log._id}}">{{log._id}}</a>
             {{log}}
         </li>
     </ul>

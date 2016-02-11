@@ -50,6 +50,11 @@ angular.module('app.routes', ['ngRoute'])
                 templateUrl: 'app/views/pages/drillLog/create.html',
                 controller: 'logController',
                 controllerAs: 'log'
+            })
+            .when('/logs/edit/:id', {
+                templateUrl: 'app/views/pages/drillLog/edit.html',
+                controller: 'logController',
+                controllerAs: 'log'
             });
 
         $locationProvider.html5Mode(true);

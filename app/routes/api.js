@@ -79,11 +79,47 @@ module.exports = function (app, express, passport) {
 
     apiRouter.route('/drillLog/:id')
 
-        .post(function (req, res) {
-            //DrillLog.findByIdAndUpdate()
+        //Get a single drill log
+        .get(function (req, res) {
+            DrillLog.findById(req.params.id, function (err, drillLog) {
+                if (err) res.send(err);
 
-            //TODO, do we want to pass in the whole document to update or just change values in a document?
-            res.json({message: 'TODO - '});
+                res.json(drillLog); // return the users
+            });
+        })
+
+        // update the drillLog with this id
+        .put(function (req, res) {
+            DrillLog.findById(req.params.id, function (err, drillLog) {
+
+                if (err) res.send(err);
+
+                // set the new drillLog information if it exists in the request
+                if (req.body.contractorsName) drillLog.contractorsName = req.body.contractorsName;
+                if (req.body.jobName) drillLog.jobName = req.body.jobName;
+                if (req.body.logStartDate) drillLog.logStartDate = req.body.logStartDate;
+                if (req.body.shotNumber) drillLog.shotNumber = req.body.shotNumber;
+                if (req.body.fuelLogs) drillLog.fuelLogs = req.body.fuelLogs;
+                if (req.body.drillerName) drillLog.drillerName = req.body.drillerName;
+                if (req.body.auditedFlag) drillLog.auditedFlag = req.body.auditedFlag;
+                if (req.body.customer) drillLog.customer = req.body.customer;
+                if (req.body.threeRiversSupervisor) drillLog.threeRiversSupervisor = req.body.threeRiversSupervisor;
+                if (req.body.notes) drillLog.notes = req.body.notes;
+                if (req.body.stakeNumbers) drillLog.stakeNumbers = req.body.stakeNumbers;
+                if (req.body.areaNumber) drillLog.areaNumber = req.body.areaNumber;
+                if (req.body.pattern) drillLog.pattern = req.body.pattern;
+                if (req.body.stakeNumber) drillLog.stakeNumber = req.body.stakeNumber;
+                if (req.body.holePositions) drillLog.holePositions = req.body.holePositions;
+
+                // save the user
+                drillLog.save(function (err) {
+                    if (err) res.send(err);
+
+                    // return a message
+                    res.json({message: 'DrillLog updated!'});
+                });
+
+            });
         })
 
         .delete(function (req, res) {
