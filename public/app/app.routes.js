@@ -41,20 +41,20 @@ angular.module('app.routes', ['ngRoute'])
                 controller: 'userEditController',
                 controllerAs: 'user'
             })
-            .when('/drillLogs', {
-                templateUrl: 'app/views/pages/drillLog/all.html',
-                controller: 'logController',
-                controllerAs: 'log'
+            .when('/project', {
+                templateUrl: 'app/views/pages/project/all.html',
+                controller: 'projectController',
+                controllerAs: 'project'
             })
-            .when('/drillLogs/create', {
-                templateUrl: 'app/views/pages/drillLog/single.html',
-                controller: 'logCreateController',
-                controllerAs: 'log'
+            .when('/project/create', {
+                templateUrl: 'app/views/pages/project/single.html',
+                controller: 'projectCreateController',
+                controllerAs: 'project'
             })
-            .when('/drillLogs/:log_id', {
-                templateUrl: 'app/views/pages/drillLog/single.html',
-                controller: 'logEditController',
-                controllerAs: 'log'
+            .when('/project/:project_id', {
+                templateUrl: 'app/views/pages/project/single.html',
+                controller: 'projectEditController',
+                controllerAs: 'project'
             });
 
         $locationProvider.html5Mode(true);

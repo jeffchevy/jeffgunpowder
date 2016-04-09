@@ -1,23 +1,23 @@
 <div class="page-header">
-    <h1 ng-if="log.type == 'create'">Create Log</h1>
-    <h1 ng-if="log.type == 'edit'">Edit Log</h1>
+    <h1 ng-if="project.type == 'create'">Create Project</h1>
+    <h1 ng-if="project.type == 'edit'">Edit Project</h1>
 </div>
 
 <div>
-    <!--<form ng-submit="login.doLogin()">-->
-    <form class="form-horizontal" ng-submit="log.saveLog()">
+    <!--<form ng-submit="projectin.doLogin()">-->
+    <form class="form-horizontal" ng-submit="project.saveProject()">
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Job name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.jobName">
+                <input type="text" class="form-control" ng-model="project.projectData.jobName">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Contractors Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.contractorsName">
+                <input type="text" class="form-control" ng-model="project.projectData.contractorsName">
             </div>
         </div>
 
@@ -25,76 +25,76 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Shot Number</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.shotNumber">
+                <input type="text" class="form-control" ng-model="project.projectData.shotNumber">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Driller Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.drillerName">
+                <input type="text" class="form-control" ng-model="project.projectData.drillerName">
             </div>
         </div>
         <!--<div class="form-group">-->
         <!--<label class="col-sm-2 control-label">Audited Flag</label>-->
         <!--<div class="col-sm-10">-->
-        <!--<input type="text" class="form-control" ng-model="log.auditedFlag">-->
+        <!--<input type="text" class="form-control" ng-model="project.auditedFlag">-->
         <!--</div>-->
         <!--</div>-->
         <div class="form-group">
             <label class="col-sm-2 control-label">Customer</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.customer">
+                <input type="text" class="form-control" ng-model="project.projectData.customer">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Three Rivers Supervisor</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.threeRiversSupervisor">
+                <input type="text" class="form-control" ng-model="project.projectData.threeRiversSupervisor">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Notes</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.notes">
+                <input type="text" class="form-control" ng-model="project.projectData.notes">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Stake Numbers</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.stakeNumbers">
+                <input type="text" class="form-control" ng-model="project.projectData.stakeNumbers">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Area Number</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.areaNumber">
+                <input type="text" class="form-control" ng-model="project.projectData.areaNumber">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Pattern</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.pattern">
+                <input type="text" class="form-control" ng-model="project.projectData.pattern">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Stake Number</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="log.logData.stakeNumber">
+                <input type="text" class="form-control" ng-model="project.projectData.stakeNumber">
             </div>
         </div>
 
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-6">
-                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="log.type == 'create'">Create log
+                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'create'">Create project
                 </button>
-                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="log.type == 'edit'">Update log
+                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'edit'">Update project
                 </button>
             </div>
         </div>
@@ -107,11 +107,11 @@
 
 </div>
 
-<div class="row show-hide-message" ng-show="log.message">
+<div class="row show-hide-message" ng-show="project.message">
     <div class="col-sm-6 col-sm-offset-2">
 
         <div class="alert alert-info">
-            {{ log.message }}
+            {{ project.message }}
         </div>
 
     </div>

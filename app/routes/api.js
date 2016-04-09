@@ -1,4 +1,6 @@
 var User = require('../models/user');
+var Project = require('../models/project');
+var dailyLog = require('../models/dailyLog');
 var DrillLog = require('../models/drillLog');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/config');
@@ -33,102 +35,100 @@ module.exports = function (app, express, passport) {
         });
 
 
-    //Drill Log
+    //Project
     //TODO need to move below authentication middleware
     /**
-     * Drill Log API call
-     * get - Returns all drill logs
-     * post - Save a drill log
-     * delete - remove the drill log with the passed in ID
+     * Project API call
+     * get - Returns all Project info
+     * post - Save a project
+     * delete - remove the project with the passed in ID
      */
-    apiRouter.route('/drillLog')
+    apiRouter.route('/project')
 
         // Get call to return all drill logs
         .get(function (req, res) {
-            DrillLog.find({}, function (err, logs) {
+            Project.find({}, function (err, proj) {
                 if (err) res.send(err);
-                res.json(logs); // return the users
+                res.json(proj); // return the users
             });
         })
         .post(function (req, res) {
-            var drillLog = new DrillLog();		// create a new instance of the DrillLog model
-            drillLog.contractorsName = req.body.contractorsName;
-            drillLog.jobName = req.body.jobName;
-            drillLog.logStartDate = req.body.logStartDate;
-            drillLog.shotNumber = req.body.shotNumber;
-            drillLog.fuelLogs = req.body.fuelLogs;
-            drillLog.drillerName = req.body.drillerName;
-            drillLog.auditedFlag = req.body.auditedFlag;
-            drillLog.customer = req.body.customer;
-            drillLog.threeRiversSupervisor = req.body.threeRiversSupervisor;
-            drillLog.notes = req.body.notes;
-            drillLog.stakeNumbers = req.body.stakeNumbers;
-            drillLog.areaNumber = req.body.areaNumber;
-            drillLog.pattern = req.body.pattern;
-            drillLog.stakeNumber = req.body.stakeNumber;
-            drillLog.holePositions = req.body.holePositions;
+            var project = new Project();		// create a new instance of the Project model
+            project.contractorsName = req.body.contractorsName;
+            project.jobName = req.body.jobName;
+            project.logStartDate = req.body.logStartDate;
+            project.shotNumber = req.body.shotNumber;
+            project.drillerName = req.body.drillerName;
+            project.auditedFlag = req.body.auditedFlag;
+            project.customer = req.body.customer;
+            project.threeRiversSupervisor = req.body.threeRiversSupervisor;
+            project.notes = req.body.notes;
+            project.stakeNumbers = req.body.stakeNumbers;
+            project.areaNumber = req.body.areaNumber;
+            project.pattern = req.body.pattern;
+            project.stakeNumber = req.body.stakeNumber;
 
-            drillLog.save(function (err) {
+            project.save(function (err) {
                 if (err) {
                     return res.send(err);
                 }
-                res.json({message: 'Drill Log created!', drillLog: drillLog});
+                res.json({message: 'Project created!', project: project});
             });
         });
 
 
-    apiRouter.route('/drillLog/:id')
+    apiRouter.route('/project/:id')
 
-        //Get a single drill log
+        //Get a single project
         .get(function (req, res) {
-            DrillLog.findById(req.params.id, function (err, drillLog) {
+            Project.findById(req.params.id, function (err, project) {
                 if (err) res.send(err);
 
-                res.json(drillLog); // return the users
+                res.json(project); // return the users
             });
         })
 
-        // update the drillLog with this id
+        // update the project with this id
         .put(function (req, res) {
-            DrillLog.findById(req.params.id, function (err, drillLog) {
+            Project.findById(req.params.id, function (err, project) {
 
                 if (err) res.send(err);
 
-                // set the new drillLog information if it exists in the request
-                if (req.body.contractorsName) drillLog.contractorsName = req.body.contractorsName;
-                if (req.body.jobName) drillLog.jobName = req.body.jobName;
-                if (req.body.logStartDate) drillLog.logStartDate = req.body.logStartDate;
-                if (req.body.shotNumber) drillLog.shotNumber = req.body.shotNumber;
-                if (req.body.fuelLogs) drillLog.fuelLogs = req.body.fuelLogs;
-                if (req.body.drillerName) drillLog.drillerName = req.body.drillerName;
-                if (req.body.auditedFlag) drillLog.auditedFlag = req.body.auditedFlag;
-                if (req.body.customer) drillLog.customer = req.body.customer;
-                if (req.body.threeRiversSupervisor) drillLog.threeRiversSupervisor = req.body.threeRiversSupervisor;
-                if (req.body.notes) drillLog.notes = req.body.notes;
-                if (req.body.stakeNumbers) drillLog.stakeNumbers = req.body.stakeNumbers;
-                if (req.body.areaNumber) drillLog.areaNumber = req.body.areaNumber;
-                if (req.body.pattern) drillLog.pattern = req.body.pattern;
-                if (req.body.stakeNumber) drillLog.stakeNumber = req.body.stakeNumber;
-                if (req.body.holePositions) drillLog.holePositions = req.body.holePositions;
+                // set the new project information if it exists in the request
+                if (req.body.contractorsName) project.contractorsName = req.body.contractorsName;
+                if (req.body.jobName) project.jobName = req.body.jobName;
+                if (req.body.logStartDate) project.logStartDate = req.body.logStartDate;
+                if (req.body.shotNumber) project.shotNumber = req.body.shotNumber;
+//                if (req.body.dailylogs) project.dailyLogs = req.body.dailyLogs;
+                if (req.body.drillerName) project.drillerName = req.body.drillerName;
+                if (req.body.auditedFlag) project.auditedFlag = req.body.auditedFlag;
+                if (req.body.customer) project.customer = req.body.customer;
+                if (req.body.threeRiversSupervisor) project.threeRiversSupervisor = req.body.threeRiversSupervisor;
+                if (req.body.notes) project.notes = req.body.notes;
+                if (req.body.stakeNumbers) project.stakeNumbers = req.body.stakeNumbers;
+                if (req.body.areaNumber) project.areaNumber = req.body.areaNumber;
+                if (req.body.pattern) project.pattern = req.body.pattern;
+                if (req.body.stakeNumber) project.stakeNumber = req.body.stakeNumber;
+//                if (req.body.drillLogs) project.drillLogs = req.body.drillLogs;
 
                 // save the user
-                drillLog.save(function (err) {
+                project.save(function (err) {
                     if (err) res.send(err);
 
                     // return a message
-                    res.json({message: 'DrillLog updated!'});
+                    res.json({message: 'project updated!'});
                 });
 
             });
         })
 
         .delete(function (req, res) {
-            DrillLog.findByIdAndRemove(req.params.id, function (err, log) {
+            Project.findByIdAndRemove(req.params.id, function (err, project) {
                 if (err) {
-                    res.json({message: 'There was an error deleteing the drill log. ', error: err})
+                    res.json({message: 'There was an error deleteing the project. ', error: err})
                 }
 
-                res.json({message: 'Drill Log deleted!', drillLog: log})
+                res.json({message: 'Project deleted!', project: project})
             });
 
 
