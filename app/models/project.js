@@ -1,17 +1,46 @@
 var mongoose = require('mongoose');
-var dailyLog = require('../models/dailyLog');
-var drillLog = require('../models/drillLog');
 var Schema = mongoose.Schema;
 
 // drill log schema
 var ProjectSchema = new Schema({
     jobName: String,
     contractorsName: String,
-    shotNumber: String, //TODO should this be an int?
+    shotNumber: Number,
     drillerName: String,
     startDate: {type: Date, default: Date.now},
-    drillLogs: [ drillLog ],
-    dailyLogs: [ dailyLog ],
+    dailyLogs: [
+        {
+            drillNumber: String,
+            date: {type: Date, default: Date.now},
+            gallonsPumped: Number,
+            bulkTankPumpedFrom: String,
+            hourMeterStart: String,
+            hourMeterEnd: String,
+            percussionTime: String, // int?
+            name: String,
+            message: String
+        }
+    ],
+    drillLogs: [
+        {
+            drillLog: [
+                {
+                    name: String,
+                    drillerName: String,
+                    holes: [
+                        {
+                            x: Number,
+                            y: Number,
+                            z: Number,
+                            comments: String,
+                            bitSize: String,
+                            date: {type: Date, default: Date.now}
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
     auditedFlag: {type: Boolean, default: false},
     customer: String,
     threeRiversSupervisor: String,

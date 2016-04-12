@@ -1,7 +1,5 @@
 var User = require('../models/user');
 var Project = require('../models/project');
-var dailyLog = require('../models/dailyLog');
-var DrillLog = require('../models/drillLog');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/config');
 
