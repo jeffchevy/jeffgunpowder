@@ -23,20 +23,16 @@ var ProjectSchema = new Schema({
     ],
     drillLogs: [
         {
-            drillLog: [
+            name: String,
+            drillerName: String,
+            holes: [
                 {
-                    name: String,
-                    drillerName: String,
-                    holes: [
-                        {
-                            x: Number,
-                            y: Number,
-                            z: Number,
-                            comments: String,
-                            bitSize: String,
-                            date: {type: Date, default: Date.now}
-                        }
-                    ]
+                    x: Number,
+                    y: Number,
+                    z: Number,
+                    comments: String,
+                    bitSize: String,
+                    date: {type: Date, default: Date.now}
                 }
             ]
         }

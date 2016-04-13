@@ -3,7 +3,6 @@ var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/config');
 
-
 module.exports = function (app, express, passport) {
 
     var apiRouter = express.Router();
@@ -52,19 +51,7 @@ module.exports = function (app, express, passport) {
         })
         .post(function (req, res) {
             var project = new Project();		// create a new instance of the Project model
-            project.contractorsName = req.body.contractorsName;
-            project.jobName = req.body.jobName;
-            project.logStartDate = req.body.logStartDate;
-            project.shotNumber = req.body.shotNumber;
-            project.drillerName = req.body.drillerName;
-            project.auditedFlag = req.body.auditedFlag;
-            project.customer = req.body.customer;
-            project.threeRiversSupervisor = req.body.threeRiversSupervisor;
-            project.notes = req.body.notes;
-            project.stakeNumbers = req.body.stakeNumbers;
-            project.areaNumber = req.body.areaNumber;
-            project.pattern = req.body.pattern;
-            project.stakeNumber = req.body.stakeNumber;
+            stuffTheProject(req, project);
 
             project.save(function (err) {
                 if (err) {
@@ -89,26 +76,10 @@ module.exports = function (app, express, passport) {
         // update the project with this id
         .put(function (req, res) {
             Project.findById(req.params.id, function (err, project) {
-
                 if (err) res.send(err);
 
                 // set the new project information if it exists in the request
-                if (req.body.contractorsName) project.contractorsName = req.body.contractorsName;
-                if (req.body.jobName) project.jobName = req.body.jobName;
-                if (req.body.logStartDate) project.logStartDate = req.body.logStartDate;
-                if (req.body.shotNumber) project.shotNumber = req.body.shotNumber;
-//                if (req.body.dailylogs) project.dailyLogs = req.body.dailyLogs;
-                if (req.body.drillerName) project.drillerName = req.body.drillerName;
-                if (req.body.auditedFlag) project.auditedFlag = req.body.auditedFlag;
-                if (req.body.customer) project.customer = req.body.customer;
-                if (req.body.threeRiversSupervisor) project.threeRiversSupervisor = req.body.threeRiversSupervisor;
-                if (req.body.notes) project.notes = req.body.notes;
-                if (req.body.stakeNumbers) project.stakeNumbers = req.body.stakeNumbers;
-                if (req.body.areaNumber) project.areaNumber = req.body.areaNumber;
-                if (req.body.pattern) project.pattern = req.body.pattern;
-                if (req.body.stakeNumber) project.stakeNumber = req.body.stakeNumber;
-//                if (req.body.drillLogs) project.drillLogs = req.body.drillLogs;
-
+                stuffTheProject(req, project)
                 // save the user
                 project.save(function (err) {
                     if (err) res.send(err);
@@ -131,6 +102,56 @@ module.exports = function (app, express, passport) {
 
 
         });
+
+    stuffTheProject = function (req, project) {
+        project.contractorsName = req.body.contractorsName;
+        project.jobName = req.body.jobName;
+        project.logStartDate = req.body.logStartDate;
+        project.shotNumber = req.body.shotNumber;
+        project.drillerName = req.body.drillerName;
+        project.auditedFlag = req.body.auditedFlag;
+        project.customer = req.body.customer;
+        project.threeRiversSupervisor = req.body.threeRiversSupervisor;
+        project.notes = req.body.notes;
+        project.stakeNumbers = req.body.stakeNumbers;
+        project.areaNumber = req.body.areaNumber;
+        project.pattern = req.body.pattern;
+        project.stakeNumber = req.body.stakeNumber;
+        project.dailyLogs = [];
+        for (var i=0;i<req.body.dailyLogs.length;i++) {
+            var dailyLog = {
+                drillNumber: req.body.dailyLogs[i].name,
+                gallonsPumped: req.body.dailyLogs[i].gallonsPumped,
+                bulkTankPumpedFrom: req.body.dailyLogs[i].bulkTankPumpedFrom,
+                hourMeterStart: req.body.dailyLogs[i].hourMeterStart,
+                hourMeterEnd: req.body.dailyLogs[i].hourMeterEnd,
+                percussionTime: req.body.dailyLogs[i].percussionTime, // int?
+                name: req.body.dailyLogs[i].name,
+                message: req.body.dailyLogs[i].name
+            }
+            project.dailyLogs.push(dailyLog);
+        }
+        project.drillLogs = [];
+        for(var i=0;i<req.body.drillLogs.length;i++) {
+            var holes = [];
+            for (var j=0;j<req.body.drillLogs[i].holes.length;j++) {
+                var hole = {
+                    x: req.body.drillLogs[i].holes[j].x,
+                    y: req.body.drillLogs[i].holes[j].y,
+                    z: req.body.drillLogs[i].holes[j].z,
+                    comments: req.body.drillLogs[i].holes[j].comments,
+                    bitSize: req.body.drillLogs[i].holes[j].bitSize
+                }
+                holes.push(hole);
+            }
+            var drillLog = {
+                name: req.body.drillLogs[i].name,
+                drillerName: req.body.drillLogs[i].drillerName,
+                holes: holes
+            }
+            project.drillLogs.push(drillLog);
+        }
+    };
 
     // ================================================================================
     // Route Middleware ===============================================================
