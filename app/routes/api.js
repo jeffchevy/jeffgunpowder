@@ -45,7 +45,9 @@ module.exports = function (app, express, passport) {
         // Get call to return all drill logs
         .get(function (req, res) {
             Project.find({}, function (err, proj) {
-                if (err) res.send(err);
+                if (err) {
+                    res.send(err);
+                }
                 res.json(proj); // return the users
             });
         })
@@ -61,13 +63,39 @@ module.exports = function (app, express, passport) {
             });
         });
 
+    apiRouter.route('/dailyLogs/:id')
+        .post(function (req, res) {
+            var updateObject = {
+                $push: {
+                    "dailyLogs": {
+                        drillNumber: req.body.drillNumber,
+                        gallonsPumped: req.body.gallonsPumped,
+                        bulkTankPumpedFrom: req.body.bulkTankPumpedFrom,
+                        hourMeterStart: req.body.hourMeterStart,
+                        hourMeterEnd: req.body.hourMeterEnd,
+                        percussionTime: req.body.percussionTime
+                    }
+                }
+            };
 
+            Project.findByIdAndUpdate(req.params.id, updateObject, function(err, project) {
+                if (err) {
+                    console.log(err.message);
+                    return;
+                }
+                else {
+                    res.json({message: "DailyLog Added!"});
+                }
+            });
+        });
     apiRouter.route('/project/:id')
 
         //Get a single project
         .get(function (req, res) {
             Project.findById(req.params.id, function (err, project) {
-                if (err) res.send(err);
+                if (err) {
+                    res.send(err);
+                }
 
                 res.json(project); // return the users
             });
@@ -82,7 +110,9 @@ module.exports = function (app, express, passport) {
                 stuffTheProject(req, project)
                 // save the user
                 project.save(function (err) {
-                    if (err) res.send(err);
+                    if (err) {
+                        res.send(err);
+                    }
 
                     // return a message
                     res.json({message: 'project updated!'});
