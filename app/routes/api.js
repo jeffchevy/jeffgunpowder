@@ -64,6 +64,8 @@ module.exports = function (app, express, passport) {
         });
 
     apiRouter.route('/drillLogs/:id')
+        // CREATE --
+        // Add a new drill log
         .post(function (req, res) {
             var updateObject = {
                 $push: {
@@ -85,31 +87,75 @@ module.exports = function (app, express, passport) {
                 }
             });
         });
-    apiRouter.route('/drillLogs/:id/:drillId')
-        .post(function (req, res) {
-            var query = { _id: req.params.id, "drillLogs._id": req.params.drillId };
-            var updateObject = {
-                $push: {
-                    "holes": {
-                        x: req.body.x,
-                        y: req.body.y,
-                        z: req.body.z,
-                        comments: req.body.comments,
-                        bitSize: req.body.bitSize
-                    }
-                }
-            };
-            Project.findOneAndUpdate(query, updateObject, function(err, project) {
+    apiRouter.route('/holes/:id/:drillId/:holeId')
+        .put(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
                 if (err) {
-                    console.log(err.message);
-                    return;
+                    res.send(err);
                 }
-                else {
-                    res.json({message: "Drill Log Added!"});
-                }
+                var hole = project.drillLogs.id(req.params.drillId).holes.id(req.params.holeId);
+                hole.x = req.body.x;
+                hole.y = req.body.y;
+                hole.z = req.body.z;
+                hole.comments = req.body.comments;
+                hole.bitSize = req.body.bitSize;
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Drill Log Entry Updated!"});
+                });
             });
         });
 
+    apiRouter.route('/drillLogs/:id/:drillId')
+        //
+        // Create new Drill log entry - DrillLog.Holes.hole
+        .post(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                var drillLog = project.drillLogs.id(req.params.drillId);
+                var hole = {
+                    x: req.body.x,
+                    y: req.body.y,
+                    z: req.body.z,
+                    comments: req.body.comments,
+                    bitSize: req.body.bitSize
+                }
+                drillLog.holes.push(hole);
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Drill Log Entry Added!"});
+                });
+            });
+
+        })
+        // update drill log header information
+        .put(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                var drillLog = project.drillLogs.id(req.params.drillId);
+                drillLog.name = req.body.name;
+                drillLog.drillerName = req.body.drillerName;
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Drill Log Updated!"});
+                });
+            });
+        });
+
+    // UPDATE --
     // update a daily log entry using the ProjectId and the dailyLogId
     apiRouter.route('/dailyLogs/:id/:dailyLogId')
         .put(function (req, res) {
@@ -134,6 +180,8 @@ module.exports = function (app, express, passport) {
             });
         });
 
+    // CREATE --
+    // Create a new daily log for the given project id
     apiRouter.route('/dailyLogs/:id')
         .post(function (req, res) {
 
