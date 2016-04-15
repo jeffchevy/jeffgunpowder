@@ -63,8 +63,80 @@ module.exports = function (app, express, passport) {
             });
         });
 
+    apiRouter.route('/drillLogs/:id')
+        .post(function (req, res) {
+            var updateObject = {
+                $push: {
+                    "drillLogs": {
+                        name: req.body.name,
+                        drillerName: req.body.drillerName,
+                        holes: []
+                    }
+                }
+            };
+
+            Project.findByIdAndUpdate(req.params.id, updateObject, function(err, project) {
+                if (err) {
+                    console.log(err.message);
+                    return;
+                }
+                else {
+                    res.json({message: "Drill Log Added!"});
+                }
+            });
+        });
+    apiRouter.route('/drillLogs/:id/:drillId')
+        .post(function (req, res) {
+            var query = { _id: req.params.id, "drillLogs._id": req.params.drillId };
+            var updateObject = {
+                $push: {
+                    "holes": {
+                        x: req.body.x,
+                        y: req.body.y,
+                        z: req.body.z,
+                        comments: req.body.comments,
+                        bitSize: req.body.bitSize
+                    }
+                }
+            };
+            Project.findOneAndUpdate(query, updateObject, function(err, project) {
+                if (err) {
+                    console.log(err.message);
+                    return;
+                }
+                else {
+                    res.json({message: "Drill Log Added!"});
+                }
+            });
+        });
+
+    // update a daily log entry using the ProjectId and the dailyLogId
+    apiRouter.route('/dailyLogs/:id/:dailyLogId')
+        .put(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                var dailyLog = project.dailyLogs.id(req.params.dailyLogId);
+                dailyLog.drillNumber = req.body.drillNumber;
+                dailyLog.gallonsPumped = req.body.gallonsPumped;
+                dailyLog.bulkTankPumpedFrom = req.body.bulkTankPumpedFrom;
+                dailyLog.hourMeterStart = req.body.hourMeterStart;
+                dailyLog.hourMeterEnd = req.body.hourMeterEnd;
+                dailyLog.percussionTime = req.body.percussionTime;
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Daily Log Updated!"});
+                });
+            });
+        });
+
     apiRouter.route('/dailyLogs/:id')
         .post(function (req, res) {
+
             var updateObject = {
                 $push: {
                     "dailyLogs": {
