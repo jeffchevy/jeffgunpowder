@@ -100,12 +100,12 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1448349628399,
+			"time": 1449621854406,
 			"name": "Authenticate",
 			"description": "",
 			"collectionId": "ff5bca54-2e58-317a-ab2c-a2841bcfb9a8",
 			"responses": [],
-			"rawModeData": "{\n    \"username\": \"test\",\n    \"password\": \"test\"\n}"
+			"rawModeData": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"test\"\n}"
 		},
 		{
 			"id": "e01c0065-070e-dc20-57b0-0a2f5252ce09",
@@ -148,7 +148,7 @@
 		},
 		{
 			"id": "efc1f626-6a49-e516-90b1-d1147666fd59",
-			"headers": "Application: null\n",
+			"headers": "Accept: application/json\nContent-Type: application/json\n",
 			"url": "localhost:1337/api/v1/drillLog",
 			"preRequestScript": "",
 			"pathVariables": {},
@@ -159,12 +159,12 @@
 			"tests": "",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1448729593457,
+			"time": 1449800555119,
 			"name": "Drill Log - post",
 			"description": "",
 			"collectionId": "ff5bca54-2e58-317a-ab2c-a2841bcfb9a8",
 			"responses": [],
-			"rawModeData": "{\n    \"name\": \"Jeremy\"\n}"
+			"rawModeData": "{\r\n    \"contractorsName\": \"Jeremy\",\r\n    \"jobName\": \"TestJob\",\r\n    \"logStartDate\": \"1449795232308\",\r\n    \"shotNumber\": \"1\",\r\n    \"fuelLogs\": [{\r\n        \"drillNumber\": \"1\",\r\n        \"date\": \"1449795232308\",\r\n        \"gallonsPumped\": \"100\",\r\n        \"bulkTankPumpedFrom\": \"main tank\",\r\n        \"hourMeterStart\": \"1\",\r\n        \"hourMeterEnd\": \"5\"\r\n    },\r\n        {\r\n            \"drillNumber\": \"2\",\r\n            \"date\": \"1449795232309\",\r\n            \"gallonsPumped\": \"200\",\r\n            \"bulkTankPumpedFrom\": \"secondary tank\",\r\n            \"hourMeterStart\": \"6\",\r\n            \"hourMeterEnd\": \"11\"\r\n        }],\r\n    \"holeCountAtEachDepth\": \"3\",\r\n    \"holeCount\": \"12\",\r\n    \"totalDepthOfAllHolesIncludingSubDrill\": \"11\",\r\n    \"avgHoleDepthIncludingSubDrill\": \"22\",\r\n    \"drillerName\": \"John Doe\",\r\n    \"auditedFlag\": true,\r\n    \"customer\": \"My Customer\",\r\n    \"threeRiversSupervisor\": \"Jim Anderson\",\r\n    \"notes\": \"Here are some notes.\",\r\n    \"stakeNumbers\": \"3\",\r\n    \"logDate\": \"1449795232308\",\r\n    \"areaNumber\": \"1\",\r\n    \"pattern\": \"star\",\r\n    \"stakeNumber\": \"1\",\r\n    \"drillersName\": \"Mr. Driller\",\r\n    \"holePositions\": [{\"x\": \"5\", \"y\": \"9\", \"anyOtherDetail\": \"more detail could be added to each hole.\"}]\r\n}"
 		}
 	]
 }

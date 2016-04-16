@@ -2,31 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NEW APP TITLE</title> <!-- TODO change app title -->
+    <title>3 Rivers - Projects</title> <!-- TODO change app title -->
 
     <!-- FOR ANGULAR ROUTING -->
     <base href="/">
 
     <!-- CSS  -->
     <!-- load bootstrap from CDN and custom CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- JS -->
     <!-- load angular and angular-route via CDN -->
+
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js"></script>
 
-    <!-- controllers -->
+        <!-- controllers -->
     <script src="app/controllers/mainCtrl.js"></script>
     <script src="app/controllers/userCtrl.js"></script>
+    <script src="app/controllers/projectCtrl.js"></script>
 
     <!-- services -->
     <script src="app/services/authService.js"></script>
     <script src="app/services/userService.js"></script>
+    <script src="app/services/projectService.js"></script>
 
     <!-- main Angular app files -->
     <script src="app/app.routes.js"></script>
@@ -39,15 +42,17 @@
     <div class="navbar navbar-inverse" ng-if="main.loggedIn">
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand"><span class="fa fa-code-fork"></span> NEW APP TITLE</a>
+                <a href="/" class="navbar-brand"><span class="fa fa-code-fork"></span> 3 Rivers - Drill Log</a>
                 <!-- TODO change app title -->
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+                <li><a href="/project"><span class="fa fa-bullseye"></span> View Projects</a></li>
+                <li><a href="/project/create"><span class="fa fa-bullseye"></span> Create Projects</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
-                <li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>
+                <li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.name }}!</li>
                 <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
             </ul>
         </div>

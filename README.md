@@ -1,5 +1,7 @@
 # Gunpowder
 
+[ ![Codeship Status for jeffchevy/gunpowder](https://codeship.com/projects/b5f4f850-e0af-0133-25ec-0625a2f269b3/status?branch=develop)](https://codeship.com/projects/145236)
+
 This is the backend server for Drill and blast data 
 
 ## Requirements

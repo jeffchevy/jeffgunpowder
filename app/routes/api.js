@@ -1,8 +1,7 @@
 var User = require('../models/user');
-var DrillLog = require('../models/drillLog');
+var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/config');
-
 
 module.exports = function (app, express, passport) {
 
@@ -21,7 +20,7 @@ module.exports = function (app, express, passport) {
             // if user is found and password is right, create a token
             var token = jwt.sign({
                 name: req.user.name,
-                username: req.user.username
+                email: req.user.email
             }, config.secret, {
                 expiresInMinutes: config.tokenExpiration
             });
@@ -33,60 +32,276 @@ module.exports = function (app, express, passport) {
         });
 
 
-    //Drill Log
+    //Project
     //TODO need to move below authentication middleware
     /**
-     * Drill Log API call
-     * get - Returns all drill logs
-     * post - Save a drill log
-     * delete - remove the drill log with the passed in ID
+     * Project API call
+     * get - Returns all Project info
+     * post - Save a project
+     * delete - remove the project with the passed in ID
      */
-    apiRouter.route('/drillLog')
+    apiRouter.route('/project')
 
         // Get call to return all drill logs
         .get(function (req, res) {
-            DrillLog.find({}, function (err, logs) {
-                if (err) res.send(err);
-
-                // return the users
-                res.json(logs);
+            Project.find({}, function (err, proj) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(proj); // return the users
             });
         })
         .post(function (req, res) {
-            var log = new DrillLog();		// create a new instance of the DrillLog model
-            log.name = req.body.name;  // set the log name (comes from the request)
+            var project = new Project();		// create a new instance of the Project model
+            stuffTheProject(req, project);
 
-            log.save(function (err) {
+            project.save(function (err) {
                 if (err) {
                     return res.send(err);
                 }
-
-                // return a message
-                res.json({message: 'Drill Log created!', drillLog: log});
+                res.json({message: 'Project created!', project: project});
             });
         });
 
-
-    apiRouter.route('/drillLog/:id')
-
+    apiRouter.route('/drillLogs/:id')
+        // CREATE --
+        // Add a new drill log
         .post(function (req, res) {
-            //DrillLog.findByIdAndUpdate()
+            var updateObject = {
+                $push: {
+                    "drillLogs": {
+                        name: req.body.name,
+                        drillerName: req.body.drillerName,
+                        holes: []
+                    }
+                }
+            };
 
-            //TODO, do we want to pass in the whole document to update or just change values in a document?
-            res.json({message: 'TODO - '});
-        })
-        
-        .delete(function (req, res) {
-            DrillLog.findByIdAndRemove(req.params.id, function (err, log) {
+            Project.findByIdAndUpdate(req.params.id, updateObject, function(err, project) {
                 if (err) {
-                    res.json({message: 'There was an error deleteing the drill log. ', error: err})
+                    console.log(err.message);
+                    return;
+                }
+                else {
+                    res.json({message: "Drill Log Added!"});
+                }
+            });
+        });
+    apiRouter.route('/holes/:id/:drillId/:holeId')
+        .put(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                var hole = project.drillLogs.id(req.params.drillId).holes.id(req.params.holeId);
+                hole.x = req.body.x;
+                hole.y = req.body.y;
+                hole.z = req.body.z;
+                hole.comments = req.body.comments;
+                hole.bitSize = req.body.bitSize;
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Drill Log Entry Updated!"});
+                });
+            });
+        });
+
+    apiRouter.route('/drillLogs/:id/:drillId')
+        //
+        // Create new Drill log entry - DrillLog.Holes.hole
+        .post(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                var drillLog = project.drillLogs.id(req.params.drillId);
+                var hole = {
+                    x: req.body.x,
+                    y: req.body.y,
+                    z: req.body.z,
+                    comments: req.body.comments,
+                    bitSize: req.body.bitSize
+                }
+                drillLog.holes.push(hole);
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Drill Log Entry Added!"});
+                });
+            });
+
+        })
+        // update drill log header information
+        .put(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                var drillLog = project.drillLogs.id(req.params.drillId);
+                drillLog.name = req.body.name;
+                drillLog.drillerName = req.body.drillerName;
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Drill Log Updated!"});
+                });
+            });
+        });
+
+    // UPDATE --
+    // update a daily log entry using the ProjectId and the dailyLogId
+    apiRouter.route('/dailyLogs/:id/:dailyLogId')
+        .put(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                var dailyLog = project.dailyLogs.id(req.params.dailyLogId);
+                dailyLog.drillNumber = req.body.drillNumber;
+                dailyLog.gallonsPumped = req.body.gallonsPumped;
+                dailyLog.bulkTankPumpedFrom = req.body.bulkTankPumpedFrom;
+                dailyLog.hourMeterStart = req.body.hourMeterStart;
+                dailyLog.hourMeterEnd = req.body.hourMeterEnd;
+                dailyLog.percussionTime = req.body.percussionTime;
+                project.save(function (err,obj) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: "Daily Log Updated!"});
+                });
+            });
+        });
+
+    // CREATE --
+    // Create a new daily log for the given project id
+    apiRouter.route('/dailyLogs/:id')
+        .post(function (req, res) {
+
+            var updateObject = {
+                $push: {
+                    "dailyLogs": {
+                        drillNumber: req.body.drillNumber,
+                        gallonsPumped: req.body.gallonsPumped,
+                        bulkTankPumpedFrom: req.body.bulkTankPumpedFrom,
+                        hourMeterStart: req.body.hourMeterStart,
+                        hourMeterEnd: req.body.hourMeterEnd,
+                        percussionTime: req.body.percussionTime
+                    }
+                }
+            };
+
+            Project.findByIdAndUpdate(req.params.id, updateObject, function(err, project) {
+                if (err) {
+                    console.log(err.message);
+                    return;
+                }
+                else {
+                    res.json({message: "DailyLog Added!"});
+                }
+            });
+        });
+    apiRouter.route('/project/:id')
+
+        //Get a single project
+        .get(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
                 }
 
-                res.json({message: 'Drill Log deleted!', drillLog: log})
+                res.json(project); // return the users
+            });
+        })
+
+        // update the project with this id
+        .put(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) res.send(err);
+
+                // set the new project information if it exists in the request
+                stuffTheProject(req, project)
+                // save the user
+                project.save(function (err) {
+                    if (err) {
+                        res.send(err);
+                    }
+
+                    // return a message
+                    res.json({message: 'project updated!'});
+                });
+
+            });
+        })
+
+        .delete(function (req, res) {
+            Project.findByIdAndRemove(req.params.id, function (err, project) {
+                if (err) {
+                    res.json({message: 'There was an error deleteing the project. ', error: err})
+                }
+
+                res.json({message: 'Project deleted!', project: project})
             });
 
 
         });
+
+    stuffTheProject = function (req, project) {
+        project.contractorsName = req.body.contractorsName;
+        project.jobName = req.body.jobName;
+        project.logStartDate = req.body.logStartDate;
+        project.shotNumber = req.body.shotNumber;
+        project.drillerName = req.body.drillerName;
+        project.auditedFlag = req.body.auditedFlag;
+        project.customer = req.body.customer;
+        project.threeRiversSupervisor = req.body.threeRiversSupervisor;
+        project.notes = req.body.notes;
+        project.stakeNumbers = req.body.stakeNumbers;
+        project.areaNumber = req.body.areaNumber;
+        project.pattern = req.body.pattern;
+        project.stakeNumber = req.body.stakeNumber;
+        project.dailyLogs = [];
+        for (var i=0;i<req.body.dailyLogs.length;i++) {
+            var dailyLog = {
+                drillNumber: req.body.dailyLogs[i].name,
+                gallonsPumped: req.body.dailyLogs[i].gallonsPumped,
+                bulkTankPumpedFrom: req.body.dailyLogs[i].bulkTankPumpedFrom,
+                hourMeterStart: req.body.dailyLogs[i].hourMeterStart,
+                hourMeterEnd: req.body.dailyLogs[i].hourMeterEnd,
+                percussionTime: req.body.dailyLogs[i].percussionTime, // int?
+                name: req.body.dailyLogs[i].name,
+                message: req.body.dailyLogs[i].name
+            }
+            project.dailyLogs.push(dailyLog);
+        }
+        project.drillLogs = [];
+        for(var i=0;i<req.body.drillLogs.length;i++) {
+            var holes = [];
+            for (var j=0;j<req.body.drillLogs[i].holes.length;j++) {
+                var hole = {
+                    x: req.body.drillLogs[i].holes[j].x,
+                    y: req.body.drillLogs[i].holes[j].y,
+                    z: req.body.drillLogs[i].holes[j].z,
+                    comments: req.body.drillLogs[i].holes[j].comments,
+                    bitSize: req.body.drillLogs[i].holes[j].bitSize
+                }
+                holes.push(hole);
+            }
+            var drillLog = {
+                name: req.body.drillLogs[i].name,
+                drillerName: req.body.drillLogs[i].drillerName,
+                holes: holes
+            }
+            project.drillLogs.push(drillLog);
+        }
+    };
 
     // ================================================================================
     // Route Middleware ===============================================================
@@ -143,14 +358,14 @@ module.exports = function (app, express, passport) {
 
             var user = new User();		// create a new instance of the User model
             user.name = req.body.name;  // set the users name (comes from the request)
-            user.username = req.body.username;  // set the users username (comes from the request)
+            user.email = req.body.email;  // set the users email (comes from the request)
             user.password = req.body.password;  // set the users password (comes from the request)
 
             user.save(function (err) {
                 if (err) {
                     // duplicate entry
                     if (err.code == 11000)
-                        return res.json({success: false, message: 'A user with that username already exists. '});
+                        return res.json({success: false, message: 'A user with that email already exists. '});
                     else
                         return res.send(err);
                 }
@@ -194,7 +409,7 @@ module.exports = function (app, express, passport) {
 
                 // set the new user information if it exists in the request
                 if (req.body.name) user.name = req.body.name;
-                if (req.body.username) user.username = req.body.username;
+                if (req.body.email) user.email = req.body.email;
                 if (req.body.password) user.password = req.body.password;
 
                 // save the user
