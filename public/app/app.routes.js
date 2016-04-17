@@ -55,6 +55,16 @@ angular.module('app.routes', ['ngRoute'])
                 templateUrl: 'app/views/pages/project/single.html',
                 controller: 'projectEditController',
                 controllerAs: 'project'
+            })
+            .when('/project/view/:project_id', {
+                templateUrl: 'app/views/pages/project/viewSingle.html',
+                controller: 'projectEditController',
+                controllerAs: 'project'
+            })
+            .when('/reports', {
+                templateUrl: 'app/views/pages/reports/reportsIndex.html'
+                //controller: 'reportsController',
+                //controllerAs: 'report'
             });
 
         $locationProvider.html5Mode(true);

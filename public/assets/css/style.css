@@ -52,3 +52,8 @@ header .navbar {
         -moz-transform: rotate(360deg);
     }
 }
+
+.editProjectButton{
+    position: relative;
+    top: -48px;
+}

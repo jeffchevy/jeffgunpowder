@@ -1,0 +1,47 @@
+<div class="page-header">
+    <h2>{{project.projectData.jobName}}
+        <small>({{project.projectData.contractorsName}})</small>
+    </h2>
+    <a href="/project/{{project.projectData._id}}"><div class="btn btn-success span2 pull-right editProjectButton" ng-click="/project/{{project.projectData._id}}">Edit Project</div></a>
+</div>
+<!--{{project.projectData}}-->
+<div>
+    <strong>Stake Number:</strong> {{project.projectData.stakeNumber}}<br>
+    <strong>Pattern:</strong> {{project.projectData.pattern}}<br>
+    <strong>Area Number:</strong> {{project.projectData.areaNumber}}<br>
+    <strong>Stake Numbers:</strong> {{project.projectData.stakeNumbers}}<br>
+    <strong>Three Rivers Supervisor:</strong> {{project.projectData.threeRiversSupervisor}}<br>
+    <strong>Customer:</strong> {{project.projectData.customer}}<br>
+    <strong>Driller Name:</strong> {{project.projectData.drillerName}}<br>
+    <strong>Shot Number:</strong> {{project.projectData.shotNumber}}<br>
+    <strong>Audited:</strong> {{project.projectData.auditedFlag}}<br>
+    <strong>Drill Logs:</strong> <br>
+    <div ng-repeat="drillLog in project.projectData.drillLogs">
+        <pre>
+        <strong>Name:</strong> {{drillLog.name}}
+        <strong>Driller Name:</strong> {{drillLog.drillerName}}
+        <strong>Holes:</strong> {{drillLog.holes}}
+        </pre>
+    </div>
+    <strong>Daily Logs:</strong> <br>
+    <div ng-repeat="dailyLog in project.projectData.dailyLogs">
+        <pre>
+        <strong>Drill Number:</strong> {{dailyLog.drillNumber}}
+        <strong>Gallons Pumped:</strong> {{dailyLog.gallonsPumped}}
+        <strong>Bulk Tank Pumped From:</strong> {{dailyLog.bulkTankPumpedFrom}}
+        <strong>Hour Meter Start:</strong> {{dailyLog.hourMeterStart}}
+        <strong>Hour Meter End:</strong> {{dailyLog.hourMeterEnd}}
+        <strong>Percussion Time:</strong> {{dailyLog.percussionTime}}
+        <strong>Date:</strong> {{dailyLog.date}}
+        </pre>
+    </div>
+</div>
+
+<div class="row show-hide-message" ng-show="project.message">
+    <div class="col-sm-6 col-sm-offset-2">
+        <div class="alert alert-info">
+            {{ project.message }}
+        </div>
+
+    </div>
+</div>

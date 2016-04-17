@@ -3,9 +3,96 @@
     <h1 ng-if="project.type == 'edit'">Edit Project</h1>
 </div>
 
+<!--{{project.projectData}}-->
+
 <div>
     <!--<form ng-submit="projectin.doLogin()">-->
     <form class="form-horizontal" ng-submit="project.saveProject()">
+
+        <div class="form-group">
+            <div ng-repeat="dailyLog in project.projectData.dailyLogs" class="jumbotron">
+                Daily Logs: <br>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Drill Number</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="dailyLog.drillNumber">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Gallons Pumped</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="dailyLog.gallonsPumped">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Bulk Tank Pumped From</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="dailyLog.bulkTankPumpedFrom">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Hour Meter Start</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="dailyLog.hourMeterStart">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Hour Meter End</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="dailyLog.hourMeterEnd">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Percussion Time</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="dailyLog.percussionTime">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="dailyLog.date">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <!--<label class="col-sm-2 control-label">Drill Logs</label>-->
+            <!--<div class="col-sm-10">-->
+            <!--<input type="text" class="form-control" ng-model="project.projectData.drillLogs">-->
+            <!--</div>-->
+
+            <div ng-repeat="drillLog in project.projectData.drillLogs" class="jumbotron">
+                Drill Logs: <br>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="drillLog.name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Driller Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="drillLog.drillerName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Holes</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" ng-model="drillLog.holes">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Audited</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.auditedFlag">
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Job name</label>
@@ -92,9 +179,11 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-6">
-                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'create'">Create project
+                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'create'">Create
+                    project
                 </button>
-                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'edit'">Update project
+                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'edit'">Update
+                    project
                 </button>
             </div>
         </div>
