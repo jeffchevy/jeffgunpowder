@@ -77,7 +77,7 @@ module.exports = function (app, express, passport) {
                 }
             };
 
-            Project.findByIdAndUpdate(req.params.id, updateObject, function(err, project) {
+            Project.findByIdAndUpdate(req.params.id, updateObject, function (err, project) {
                 if (err) {
                     console.log(err.message);
                     return;
@@ -99,7 +99,7 @@ module.exports = function (app, express, passport) {
                 hole.z = req.body.z;
                 hole.comments = req.body.comments;
                 hole.bitSize = req.body.bitSize;
-                project.save(function (err,obj) {
+                project.save(function (err, obj) {
                     if (err) {
                         res.send(err);
                     }
@@ -124,9 +124,9 @@ module.exports = function (app, express, passport) {
                     z: req.body.z,
                     comments: req.body.comments,
                     bitSize: req.body.bitSize
-                }
+                };
                 drillLog.holes.push(hole);
-                project.save(function (err,obj) {
+                project.save(function (err, obj) {
                     if (err) {
                         res.send(err);
                     }
@@ -145,7 +145,7 @@ module.exports = function (app, express, passport) {
                 var drillLog = project.drillLogs.id(req.params.drillId);
                 drillLog.name = req.body.name;
                 drillLog.drillerName = req.body.drillerName;
-                project.save(function (err,obj) {
+                project.save(function (err, obj) {
                     if (err) {
                         res.send(err);
                     }
@@ -170,7 +170,7 @@ module.exports = function (app, express, passport) {
                 dailyLog.hourMeterStart = req.body.hourMeterStart;
                 dailyLog.hourMeterEnd = req.body.hourMeterEnd;
                 dailyLog.percussionTime = req.body.percussionTime;
-                project.save(function (err,obj) {
+                project.save(function (err, obj) {
                     if (err) {
                         res.send(err);
                     }
@@ -198,7 +198,7 @@ module.exports = function (app, express, passport) {
                 }
             };
 
-            Project.findByIdAndUpdate(req.params.id, updateObject, function(err, project) {
+            Project.findByIdAndUpdate(req.params.id, updateObject, function (err, project) {
                 if (err) {
                     console.log(err.message);
                     return;
@@ -227,7 +227,7 @@ module.exports = function (app, express, passport) {
                 if (err) res.send(err);
 
                 // set the new project information if it exists in the request
-                stuffTheProject(req, project)
+                stuffTheProject(req, project);
                 // save the user
                 project.save(function (err) {
                     if (err) {
@@ -268,9 +268,9 @@ module.exports = function (app, express, passport) {
         project.pattern = req.body.pattern;
         project.stakeNumber = req.body.stakeNumber;
         project.dailyLogs = [];
-        for (var i=0;i<req.body.dailyLogs.length;i++) {
+        for (var i = 0; i < req.body.dailyLogs.length; i++) {
             var dailyLog = {
-                drillNumber: req.body.dailyLogs[i].name,
+                drillNumber: req.body.dailyLogs[i].drillNumber,
                 gallonsPumped: req.body.dailyLogs[i].gallonsPumped,
                 bulkTankPumpedFrom: req.body.dailyLogs[i].bulkTankPumpedFrom,
                 hourMeterStart: req.body.dailyLogs[i].hourMeterStart,
@@ -278,27 +278,27 @@ module.exports = function (app, express, passport) {
                 percussionTime: req.body.dailyLogs[i].percussionTime, // int?
                 name: req.body.dailyLogs[i].name,
                 message: req.body.dailyLogs[i].name
-            }
+            };
             project.dailyLogs.push(dailyLog);
         }
         project.drillLogs = [];
-        for(var i=0;i<req.body.drillLogs.length;i++) {
+        for (var i = 0; i < req.body.drillLogs.length; i++) {
             var holes = [];
-            for (var j=0;j<req.body.drillLogs[i].holes.length;j++) {
+            for (var j = 0; j < req.body.drillLogs[i].holes.length; j++) {
                 var hole = {
                     x: req.body.drillLogs[i].holes[j].x,
                     y: req.body.drillLogs[i].holes[j].y,
                     z: req.body.drillLogs[i].holes[j].z,
                     comments: req.body.drillLogs[i].holes[j].comments,
                     bitSize: req.body.drillLogs[i].holes[j].bitSize
-                }
+                };
                 holes.push(hole);
             }
             var drillLog = {
                 name: req.body.drillLogs[i].name,
                 drillerName: req.body.drillLogs[i].drillerName,
                 holes: holes
-            }
+            };
             project.drillLogs.push(drillLog);
         }
     };
