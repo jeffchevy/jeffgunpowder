@@ -9,7 +9,7 @@ angular.module('projectCtrl', ['projectService'])
 
         //grab all the projects at page load
         Project.all()
-            .success(function (data){
+            .success(function (data) {
 
                 //when all projects come back, remove the processing variable
                 vm.processing = false;
@@ -19,7 +19,7 @@ angular.module('projectCtrl', ['projectService'])
             });
 
         //function to delete a project
-        vm.deleteProject = function (id){
+        vm.deleteProject = function (id) {
             vm.processing = true;
 
             Project.delete(id)
@@ -35,6 +35,8 @@ angular.module('projectCtrl', ['projectService'])
                         });
                 });
         };
+
+
     })
 
     // controller applied to project creation page
@@ -58,6 +60,29 @@ angular.module('projectCtrl', ['projectService'])
                     vm.message = data.message;
                 });
         };
+
+        vm.addBlankDailyLog = function () {
+            console.log('addBlankDailyLog clicked');
+            // vm.projectData = {
+            //     dailyLogs: [{
+            //         drillNumber: '',
+            //         gallonsPumped: '',
+            //         bulkTankPumpedFrom: '',
+            //         hourMeterStart: '',
+            //         hourMeterEnd: '',
+            //         percussionTime: ''
+            //     }]
+            // };
+
+            // vm.projectData.dailyLogs.push([{
+            //     drillNumber: '',
+            //     gallonsPumped: '',
+            //     bulkTankPumpedFrom: '',
+            //     hourMeterStart: '',
+            //     hourMeterEnd: '',
+            //     percussionTime: ''
+            // }])
+        }
     })
 
     // controller applied to project edit page

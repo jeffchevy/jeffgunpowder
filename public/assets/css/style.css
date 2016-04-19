@@ -53,7 +53,25 @@ header .navbar {
     }
 }
 
-.editProjectButton{
+.editProjectButton {
     position: relative;
     top: -48px;
 }
+
+/*.dailyLogsEdit {*/
+    /*padding: 10px;*/
+    /*border: 1px solid black;*/
+    /*background: #ccffcc;*/
+    /*margin-bottom: 4px;*/
+/*}*/
+
+.drillLogsEdit{
+    border: 1px solid black;
+    background: #eeeeff;
+}
+
+/*.notesEdit{*/
+    /*position: relative;*/
+    /*top: 600px;*/
+    /*left: 800px;*/
+/*}*/

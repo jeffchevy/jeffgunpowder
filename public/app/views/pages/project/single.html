@@ -1,65 +1,65 @@
 <div class="page-header">
-    <h1 ng-if="project.type == 'create'">Create Project</h1>
-    <h1 ng-if="project.type == 'edit'">Edit Project</h1>
+    <h1 ng-if="project.type == 'create'"><i class="fa fa-plus"></i> Create Project</h1>
+    <h1 ng-if="project.type == 'edit'"><i class="fa fa-pencil-square-o"></i> Edit Project</h1>
 </div>
 
 <!--{{project.projectData}}-->
 
-<div>
+<div class="well bs-component">
     <form class="form-horizontal" ng-submit="project.saveProject()">
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Job name</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.jobName">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Contractors Name</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.contractorsName">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Stake Number</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.stakeNumber">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Pattern</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.pattern">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Area Number</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.areaNumber">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Stake Numbers</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.stakeNumbers">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Three Rivers Supervisor</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.threeRiversSupervisor">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Customer</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.customer">
             </div>
         </div>
@@ -67,20 +67,20 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Driller Name</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" ng-model="drillLog.drillerName">
+                <input type="text" class="form-control" ng-model="project.projectData.drillerName">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Shot Number</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.shotNumber">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Audited</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" class="form-control" ng-model="project.projectData.auditedFlag">
             </div>
         </div>
@@ -88,13 +88,18 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Notes</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.notes">
+                <textarea class="form-control" rows="10" ng-model="project.projectData.notes"></textarea>
             </div>
         </div>
 
+        <div class="btn btn-success" ng-click="project.addBlankDailyLog()"><i class="fa fa-plus"></i> Add Daily log</div>
+        <div class="btn btn-success"><i class="fa fa-crosshairs"></i> Add Drill log</div>
+
         <div class="form-group">
-            <div ng-repeat="dailyLog in project.projectData.dailyLogs" class="jumbotron">
-                Daily Logs: <br>
+            Daily Logs: <br>
+
+            <div ng-repeat="dailyLog in project.projectData.dailyLogs" class="dailyLogsEdit">
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Drill Number</label>
                     <div class="col-sm-4">
@@ -137,11 +142,13 @@
                         <input type="text" class="form-control" ng-model="dailyLog.date">
                     </div>
                 </div>
+
+                <div class="btn btn-danger"><i class="fa fa-trash"></i> Delete</div>
             </div>
         </div>
 
         <div class="form-group">
-            <div ng-repeat="drillLog in project.projectData.drillLogs" class="jumbotron">
+            <div ng-repeat="drillLog in project.projectData.drillLogs" class="drillLogsEdit">
                 Drill Logs: <br>
 
                 <div class="form-group">
