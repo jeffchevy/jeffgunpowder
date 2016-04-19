@@ -6,8 +6,91 @@
 <!--{{project.projectData}}-->
 
 <div>
-    <!--<form ng-submit="projectin.doLogin()">-->
     <form class="form-horizontal" ng-submit="project.saveProject()">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Job name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.jobName">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Contractors Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.contractorsName">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Stake Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.stakeNumber">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Pattern</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.pattern">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Area Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.areaNumber">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Stake Numbers</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.stakeNumbers">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Three Rivers Supervisor</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.threeRiversSupervisor">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Customer</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.customer">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Driller Name</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="drillLog.drillerName">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Shot Number</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.shotNumber">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Audited</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.auditedFlag">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Notes</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="project.projectData.notes">
+            </div>
+        </div>
 
         <div class="form-group">
             <div ng-repeat="dailyLog in project.projectData.dailyLogs" class="jumbotron">
@@ -58,11 +141,6 @@
         </div>
 
         <div class="form-group">
-            <!--<label class="col-sm-2 control-label">Drill Logs</label>-->
-            <!--<div class="col-sm-10">-->
-            <!--<input type="text" class="form-control" ng-model="project.projectData.drillLogs">-->
-            <!--</div>-->
-
             <div ng-repeat="drillLog in project.projectData.drillLogs" class="jumbotron">
                 Drill Logs: <br>
 
@@ -72,107 +150,13 @@
                         <input type="text" class="form-control" ng-model="drillLog.name">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Driller Name</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" ng-model="drillLog.drillerName">
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Holes</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" ng-model="drillLog.holes">
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Audited</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.auditedFlag">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Job name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.jobName">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Contractors Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.contractorsName">
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Shot Number</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.shotNumber">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Driller Name</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.drillerName">
-            </div>
-        </div>
-        <!--<div class="form-group">-->
-        <!--<label class="col-sm-2 control-label">Audited Flag</label>-->
-        <!--<div class="col-sm-10">-->
-        <!--<input type="text" class="form-control" ng-model="project.auditedFlag">-->
-        <!--</div>-->
-        <!--</div>-->
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Customer</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.customer">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Three Rivers Supervisor</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.threeRiversSupervisor">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Notes</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.notes">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Stake Numbers</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.stakeNumbers">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Area Number</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.areaNumber">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Pattern</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.pattern">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Stake Number</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="project.projectData.stakeNumber">
             </div>
         </div>
 
@@ -187,11 +171,6 @@
                 </button>
             </div>
         </div>
-
-        <!--<button type="submit" class="btn btn-primary col-sm-offset-2 col-sm-2">-->
-        <!--Submit-->
-        <!--</button>-->
-
     </form>
 
 </div>

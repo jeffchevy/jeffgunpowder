@@ -2,7 +2,11 @@
     <h2>{{project.projectData.jobName}}
         <small>({{project.projectData.contractorsName}})</small>
     </h2>
-    <a href="/project/{{project.projectData._id}}"><div class="btn btn-success span2 pull-right editProjectButton" ng-click="/project/{{project.projectData._id}}">Edit Project</div></a>
+    <a href="/project/{{project.projectData._id}}">
+        <div class="btn btn-success span2 pull-right editProjectButton" ng-click="/project/{{project.projectData._id}}">
+            Edit Project
+        </div>
+    </a>
 </div>
 <!--{{project.projectData}}-->
 <div>
@@ -15,14 +19,8 @@
     <strong>Driller Name:</strong> {{project.projectData.drillerName}}<br>
     <strong>Shot Number:</strong> {{project.projectData.shotNumber}}<br>
     <strong>Audited:</strong> {{project.projectData.auditedFlag}}<br>
-    <strong>Drill Logs:</strong> <br>
-    <div ng-repeat="drillLog in project.projectData.drillLogs">
-        <pre>
-        <strong>Name:</strong> {{drillLog.name}}
-        <strong>Driller Name:</strong> {{drillLog.drillerName}}
-        <strong>Holes:</strong> {{drillLog.holes}}
-        </pre>
-    </div>
+    <strong>Notes:</strong> {{project.projectData.notes}}<br>
+
     <strong>Daily Logs:</strong> <br>
     <div ng-repeat="dailyLog in project.projectData.dailyLogs">
         <pre>
@@ -33,6 +31,15 @@
         <strong>Hour Meter End:</strong> {{dailyLog.hourMeterEnd}}
         <strong>Percussion Time:</strong> {{dailyLog.percussionTime}}
         <strong>Date:</strong> {{dailyLog.date}}
+        </pre>
+    </div>
+
+    <strong>Drill Logs:</strong> <br>
+    <div ng-repeat="drillLog in project.projectData.drillLogs">
+        <pre>
+        <strong>Name:</strong> {{drillLog.name}}
+        <strong>Driller Name:</strong> {{drillLog.drillerName}}
+        <strong>Holes:</strong> {{drillLog.holes}}
         </pre>
     </div>
 </div>

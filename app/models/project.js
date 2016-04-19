@@ -41,7 +41,7 @@ var ProjectSchema = new Schema({
     customer: String,
     threeRiversSupervisor: String,
     notes: String,
-    stakeNumbers: String,  //TODO what is this?
+    stakeNumbers: String,  //TODO what is this, is this different from stakeNumber?
     areaNumber: String,
     pattern: String,
     stakeNumber: String,
