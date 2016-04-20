@@ -42,6 +42,10 @@ angular.module('projectCtrl', ['projectService'])
     // controller applied to project creation page
     .controller('projectCreateController', function (Project) {
         var vm = this;
+        vm.projectData = {
+            dailyLogs: [],
+            drillLogs: []
+        };
 
         // variable to hide/show elements of the view
         // differentiates between create or edit pages
@@ -61,28 +65,16 @@ angular.module('projectCtrl', ['projectService'])
                 });
         };
 
+        //Add a blank daily log to the object.
         vm.addBlankDailyLog = function () {
-            console.log('addBlankDailyLog clicked');
-            // vm.projectData = {
-            //     dailyLogs: [{
-            //         drillNumber: '',
-            //         gallonsPumped: '',
-            //         bulkTankPumpedFrom: '',
-            //         hourMeterStart: '',
-            //         hourMeterEnd: '',
-            //         percussionTime: ''
-            //     }]
-            // };
+            vm.projectData.dailyLogs.push({});
+        };
 
-            // vm.projectData.dailyLogs.push([{
-            //     drillNumber: '',
-            //     gallonsPumped: '',
-            //     bulkTankPumpedFrom: '',
-            //     hourMeterStart: '',
-            //     hourMeterEnd: '',
-            //     percussionTime: ''
-            // }])
-        }
+        //Remove a daily log from the object
+        vm.deleteDailyLog = function (drillLog){
+            var index = vm.projectData.dailyLogs.indexOf(drillLog);
+            vm.projectData.dailyLogs.splice(index, 1);
+        };
     })
 
     // controller applied to project edit page
@@ -117,5 +109,16 @@ angular.module('projectCtrl', ['projectService'])
                     // bind the message from our API to vm.message
                     vm.message = data.message;
                 });
+        };
+
+        //Add a blank daily log to the object.
+        vm.addBlankDailyLog = function () {
+            vm.projectData.dailyLogs.push({});
+        };
+
+        //Remove a daily log from the object
+        vm.deleteDailyLog = function (drillLog){
+            var index = vm.projectData.dailyLogs.indexOf(drillLog);
+            vm.projectData.dailyLogs.splice(index, 1);
         };
     });

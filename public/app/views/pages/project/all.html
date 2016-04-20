@@ -14,7 +14,7 @@
     <ul>
         <li ng-repeat="project in project.projects">
             <a href="/project/view/{{project._id}}">{{project.jobName}}</a>
-            {{project.contractorsName}}
+            {{project.contractorsName}} -- {{project._id}}
         </li>
     </ul>
 </div>
