@@ -2,6 +2,11 @@
     <h2>{{project.projectData.jobName}}
         <small>({{project.projectData.contractorsName}})</small>
     </h2>
+
+        <div class="btn btn-danger span2 pull-right editProjectButton" ng-click="project.deleteProject(project.projectData._id)">
+            <i class="fa fa-trash"></i> Delete Project
+        </div>
+
     <a href="/project/{{project.projectData._id}}">
         <div class="btn btn-success span2 pull-right editProjectButton">
             <i class="fa fa-pencil-square-o"></i> Edit Project

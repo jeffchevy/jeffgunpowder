@@ -56,22 +56,41 @@ header .navbar {
 .editProjectButton {
     position: relative;
     top: -48px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 /*.dailyLogsEdit {*/
-    /*padding: 10px;*/
-    /*border: 1px solid black;*/
-    /*background: #ccffcc;*/
-    /*margin-bottom: 4px;*/
+/*padding: 10px;*/
+/*border: 1px solid black;*/
+/*background: #ccffcc;*/
+/*margin-bottom: 4px;*/
 /*}*/
-
-.drillLogsEdit{
-    border: 1px solid black;
-    background: #eeeeff;
-}
 
 /*.notesEdit{*/
-    /*position: relative;*/
-    /*top: 600px;*/
-    /*left: 800px;*/
+/*position: relative;*/
+/*top: 600px;*/
+/*left: 800px;*/
 /*}*/
+
+
+/*Daily and Drill Logs*/
+.logSection {
+    margin: 20px;
+}
+
+.log{
+    background: #ECF0F1;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #404040;
+}
+
+.logDeleteButton {
+    position:relative;
+    /*font-size: 2em;*/
+    /*text-align: right;"*/
+    /*right: 0px;*/
+    float:right;
+    /*clear:both;*/
+}

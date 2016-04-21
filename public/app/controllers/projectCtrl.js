@@ -71,14 +71,25 @@ angular.module('projectCtrl', ['projectService'])
         };
 
         //Remove a daily log from the object
-        vm.deleteDailyLog = function (drillLog){
-            var index = vm.projectData.dailyLogs.indexOf(drillLog);
+        vm.deleteDailyLog = function (dailyLog) {
+            var index = vm.projectData.dailyLogs.indexOf(dailyLog);
             vm.projectData.dailyLogs.splice(index, 1);
+        };
+
+        //Add a blank drill log to the object
+        vm.addBlankDrillLog = function () {
+            vm.projectData.drillLogs.push({});
+        };
+
+        //Remove a drill log from the object
+        vm.deleteDrillLog = function (drillLog) {
+            var index = vm.projectData.drillLogs.indexOf(drillLog);
+            vm.projectData.drillLogs.splice(index, 1);
         };
     })
 
     // controller applied to project edit page
-    .controller('projectEditController', function ($routeParams, Project) {
+    .controller('projectEditController', function ($routeParams, Project, $location) {
 
         var vm = this;
 
@@ -117,8 +128,33 @@ angular.module('projectCtrl', ['projectService'])
         };
 
         //Remove a daily log from the object
-        vm.deleteDailyLog = function (drillLog){
+        vm.deleteDailyLog = function (drillLog) {
             var index = vm.projectData.dailyLogs.indexOf(drillLog);
             vm.projectData.dailyLogs.splice(index, 1);
         };
+
+        //Add a blank drill log to the object
+        vm.addBlankDrillLog = function () {
+            vm.projectData.drillLogs.push({});
+        };
+
+        //Remove a drill log from the object
+        vm.deleteDrillLog = function (drillLog) {
+            var index = vm.projectData.drillLogs.indexOf(drillLog);
+            vm.projectData.drillLogs.splice(index, 1);
+        };
+
+
+        //function to delete a project
+        vm.deleteProject = function (id) {
+            vm.processing = true;
+
+            // TODO add delete confirmation -- archive project instead of delete???
+            Project.delete(id)
+                .success(function (data) {
+                    $location.path("/project");
+                });
+        };
+
+
     });
