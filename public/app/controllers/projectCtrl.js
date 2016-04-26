@@ -157,4 +157,25 @@ angular.module('projectCtrl', ['projectService'])
         };
 
 
+        //Create object for grid
+        var holeObject = [{x: 2, y: 2}, {x: 4, y: 4, comment: 'Hello Comment'}],  //TODO remove this hardcoded and get actual data
+        //Set the displayed grid size.
+            gridSizeX = '20', //horizontal rows
+            gridSizeY = '10'; //vertical columns
+
+        var viewData = [];
+        for (var row = 0; row < gridSizeY; row++) {
+            var rowArray = [];
+            for (var col = 0; col < gridSizeX; col++) {
+                rowArray.push({hole: false});
+            }
+            viewData.push(rowArray);
+        }
+
+        for (var i = 0; i < holeObject.length; i++) {
+            var hole = holeObject[i];
+            hole.hasHole = true;
+            viewData[holeObject[i].x - 1][holeObject[i].y - 1] = hole;  //Subtracting 1 to compensate for the 0 based index of the arrays
+        }
+        vm.viewData = viewData;
     });

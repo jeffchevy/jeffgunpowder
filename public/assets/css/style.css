@@ -73,13 +73,12 @@ header .navbar {
 /*left: 800px;*/
 /*}*/
 
-
 /*Daily and Drill Logs*/
 .logSection {
     margin: 20px;
 }
 
-.log{
+.log {
     background: #ECF0F1;
     margin: 20px;
     padding: 20px;
@@ -87,10 +86,27 @@ header .navbar {
 }
 
 .logDeleteButton {
-    position:relative;
+    position: relative;
     /*font-size: 2em;*/
     /*text-align: right;"*/
     /*right: 0px;*/
-    float:right;
+    float: right;
     /*clear:both;*/
+}
+
+.holesTable{
+
+}
+
+.holesTable tr {
+    height: 20px;
+}
+
+.holesTable td, th {
+    width: 40px;
+    border: 1px solid black;
+}
+
+.hasHole{
+    background: #00bfff;
 }

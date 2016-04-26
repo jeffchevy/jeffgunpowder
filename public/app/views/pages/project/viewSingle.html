@@ -3,9 +3,10 @@
         <small>({{project.projectData.contractorsName}})</small>
     </h2>
 
-        <div class="btn btn-danger span2 pull-right editProjectButton" ng-click="project.deleteProject(project.projectData._id)">
-            <i class="fa fa-trash"></i> Delete Project
-        </div>
+    <div class="btn btn-danger span2 pull-right editProjectButton"
+         ng-click="project.deleteProject(project.projectData._id)">
+        <i class="fa fa-trash"></i> Delete Project
+    </div>
 
     <a href="/project/{{project.projectData._id}}">
         <div class="btn btn-success span2 pull-right editProjectButton">
@@ -47,7 +48,17 @@
         <strong>Holes:</strong> {{drillLog.holes}}
         </pre>
     </div>
+
+    <!--TODO - move this into the holes section-->
+    <table class="holesTable">
+        <tr ng-repeat="row in project.viewData">
+            <td ng-repeat="td in row" ng-class="{true: 'hasHole', false: ''}[td.hasHole]">
+                {{td.x}} - {{td.y}}
+            </td>
+        </tr>
+    </table>
 </div>
+
 
 <div class="row show-hide-message" ng-show="project.message">
     <div class="col-sm-6 col-sm-offset-2">
