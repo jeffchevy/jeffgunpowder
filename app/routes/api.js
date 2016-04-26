@@ -183,6 +183,15 @@ module.exports = function (app, express, passport) {
     // CREATE --
     // Create a new daily log for the given project id
     apiRouter.route('/dailyLogs/:id')
+        .get(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(project.dailyLogs);
+            });
+        })
+
         .post(function (req, res) {
 
             var updateObject = {
