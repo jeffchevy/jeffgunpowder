@@ -45,22 +45,17 @@
         <div class="well">
             <strong>Name:</strong> {{drillLog.name}} </br>
             <strong>Driller Name:</strong> {{drillLog.drillerName}}
-
-
             <table class="holesTable">
                 <tr ng-repeat="row in drillLog.viewData">
-                    <td ng-repeat="td in row" ng-class="{true: 'hasHole', false: ''}[td.hasHole]"></td>
+                    <td ng-repeat="td in row" ng-class="{true: 'hasHole', false: ''}[td.hasHole]">
+                        <span ng-class="{true: 'hasComment', false: 'noComment'}[td.comments.length > 1]"
+                              uib-popover="Comments: {{td.comments}}" popover-title="Date: {{td.date | date}}"
+                              popover-trigger="mouseenter"></span>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
-
-    <table class="holesTable">
-        <tr ng-repeat="row in drillLog.viewData">
-            <td ng-repeat="td in row" ng-class="{true: 'hasHole', false: ''}[td.hasHole]">
-            </td>
-        </tr>
-    </table>
 </div>
 
 

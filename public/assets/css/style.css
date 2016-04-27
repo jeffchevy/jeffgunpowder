@@ -111,3 +111,16 @@ header .navbar {
 .hasHole{
     background: #00bfff;
 }
+
+.hasComment {
+    position:relative;
+}
+.hasComment:before {
+    content: "\f075";
+    /*content: "\f0e5";*/
+    font-family: FontAwesome;
+    left:5px;
+    position:absolute;
+    top:3px;
+    font-size: .8em;
+}
