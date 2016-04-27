@@ -33,6 +33,7 @@ var ProjectSchema = new Schema({
     jobName: String,
     contractorsName: String,
     shotNumber: Number,
+    bitSize: Number,
     drillerName: String,
     startDate: {type: Date, default: Date.now},
     dailyLogs: [ DailyLog ],

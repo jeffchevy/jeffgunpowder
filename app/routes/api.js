@@ -42,13 +42,13 @@ module.exports = function (app, express, passport) {
      */
     apiRouter.route('/project')
 
-        // Get call to return all drill logs
+        // Get call to return all projects
         .get(function (req, res) {
             Project.find({}, function (err, proj) {
                 if (err) {
                     res.send(err);
                 }
-                res.json(proj); // return the users
+                res.json(proj); // return the projects
             });
         })
         .post(function (req, res) {
@@ -180,8 +180,6 @@ module.exports = function (app, express, passport) {
             });
         });
 
-    // CREATE --
-    // Create a new daily log for the given project id
     apiRouter.route('/dailyLogs/:id')
         .get(function (req, res) {
             Project.findById(req.params.id, function (err, project) {
@@ -192,6 +190,8 @@ module.exports = function (app, express, passport) {
             });
         })
 
+        // CREATE --
+        // Create a new daily log for the given project id
         .post(function (req, res) {
 
             var updateObject = {
@@ -277,38 +277,42 @@ module.exports = function (app, express, passport) {
         project.pattern = req.body.pattern;
         project.stakeNumber = req.body.stakeNumber;
         project.dailyLogs = [];
-        for (var i = 0; i < req.body.dailyLogs.length; i++) {
-            var dailyLog = {
-                drillNumber: req.body.dailyLogs[i].drillNumber,
-                gallonsPumped: req.body.dailyLogs[i].gallonsPumped,
-                bulkTankPumpedFrom: req.body.dailyLogs[i].bulkTankPumpedFrom,
-                hourMeterStart: req.body.dailyLogs[i].hourMeterStart,
-                hourMeterEnd: req.body.dailyLogs[i].hourMeterEnd,
-                percussionTime: req.body.dailyLogs[i].percussionTime, // int?
-                name: req.body.dailyLogs[i].name,
-                message: req.body.dailyLogs[i].name
-            };
-            project.dailyLogs.push(dailyLog);
+        if (req.body.dailyLogs) {
+            for (var i = 0; i < req.body.dailyLogs.length; i++) {
+                var dailyLog = {
+                    drillNumber: req.body.dailyLogs[i].drillNumber,
+                    gallonsPumped: req.body.dailyLogs[i].gallonsPumped,
+                    bulkTankPumpedFrom: req.body.dailyLogs[i].bulkTankPumpedFrom,
+                    hourMeterStart: req.body.dailyLogs[i].hourMeterStart,
+                    hourMeterEnd: req.body.dailyLogs[i].hourMeterEnd,
+                    percussionTime: req.body.dailyLogs[i].percussionTime, // int?
+                    name: req.body.dailyLogs[i].name,
+                    message: req.body.dailyLogs[i].name
+                };
+                project.dailyLogs.push(dailyLog);
+            }
         }
         project.drillLogs = [];
-        for (var i = 0; i < req.body.drillLogs.length; i++) {
-            var holes = [];
-            for (var j = 0; j < req.body.drillLogs[i].holes.length; j++) {
-                var hole = {
-                    x: req.body.drillLogs[i].holes[j].x,
-                    y: req.body.drillLogs[i].holes[j].y,
-                    z: req.body.drillLogs[i].holes[j].z,
-                    comments: req.body.drillLogs[i].holes[j].comments,
-                    bitSize: req.body.drillLogs[i].holes[j].bitSize
+        if (req.body.drillLogs) {
+            for (var i = 0; i < req.body.drillLogs.length; i++) {
+                var holes = [];
+                for (var j = 0; j < req.body.drillLogs[i].holes.length; j++) {
+                    var hole = {
+                        x: req.body.drillLogs[i].holes[j].x,
+                        y: req.body.drillLogs[i].holes[j].y,
+                        z: req.body.drillLogs[i].holes[j].z,
+                        comments: req.body.drillLogs[i].holes[j].comments,
+                        bitSize: req.body.drillLogs[i].holes[j].bitSize
+                    };
+                    holes.push(hole);
+                }
+                var drillLog = {
+                    name: req.body.drillLogs[i].name,
+                    drillerName: req.body.drillLogs[i].drillerName,
+                    holes: holes
                 };
-                holes.push(hole);
+                project.drillLogs.push(drillLog);
             }
-            var drillLog = {
-                name: req.body.drillLogs[i].name,
-                drillerName: req.body.drillLogs[i].drillerName,
-                holes: holes
-            };
-            project.drillLogs.push(drillLog);
         }
     };
 
@@ -324,7 +328,7 @@ module.exports = function (app, express, passport) {
         console.log('Somebody just came to our app!');
 
         // check header or url parameters or post parameters for token
-        var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+        var token = req.body.token || req.headers['token'] || req.headers['x-access-token'];
 
         // decode token
         if (token) {
