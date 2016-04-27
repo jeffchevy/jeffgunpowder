@@ -42,18 +42,22 @@
 
     <strong>Drill Logs:</strong> <br>
     <div ng-repeat="drillLog in project.projectData.drillLogs">
-        <pre>
-        <strong>Name:</strong> {{drillLog.name}}
-        <strong>Driller Name:</strong> {{drillLog.drillerName}}
-        <strong>Holes:</strong> {{drillLog.holes}}
-        </pre>
+        <div class="well">
+            <strong>Name:</strong> {{drillLog.name}} </br>
+            <strong>Driller Name:</strong> {{drillLog.drillerName}}
+
+
+            <table class="holesTable">
+                <tr ng-repeat="row in drillLog.viewData">
+                    <td ng-repeat="td in row" ng-class="{true: 'hasHole', false: ''}[td.hasHole]"></td>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <!--TODO - move this into the holes section-->
     <table class="holesTable">
-        <tr ng-repeat="row in project.viewData">
+        <tr ng-repeat="row in drillLog.viewData">
             <td ng-repeat="td in row" ng-class="{true: 'hasHole', false: ''}[td.hasHole]">
-                {{td.x}} - {{td.y}}
             </td>
         </tr>
     </table>

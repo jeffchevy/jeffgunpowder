@@ -97,11 +97,13 @@ angular.module('projectCtrl', ['projectService'])
         // differentiates between create or edit pages
         vm.type = 'edit';
 
+
         // get the project data for the project you want to edit
         // $routeParams is the way we grab data from the URL
         Project.get($routeParams.project_id)
             .success(function (data) {
                 vm.projectData = data;
+                assignHoles();
             });
 
         // function to save the project
@@ -157,25 +159,31 @@ angular.module('projectCtrl', ['projectService'])
         };
 
 
-        //Create object for grid
-        var holeObject = [{x: 2, y: 2}, {x: 4, y: 4, comment: 'Hello Comment'}],  //TODO remove this hardcoded and get actual data
-        //Set the displayed grid size.
-            gridSizeX = '20', //horizontal rows
-            gridSizeY = '10'; //vertical columns
+        //Assigns all holes and no-holes.
+        function assignHoles() {
+            //Set the displayed grid size.
+            var gridSizeX = '50', //horizontal rows
+                gridSizeY = '10'; //vertical columns
 
-        var viewData = [];
-        for (var row = 0; row < gridSizeY; row++) {
-            var rowArray = [];
-            for (var col = 0; col < gridSizeX; col++) {
-                rowArray.push({hole: false});
+            //for each drillLog, look through the holes data and create a viewHoleData object and add it to the drillLog
+            for (dLog = 0; dLog < vm.projectData.drillLogs.length; dLog++) {
+                var holeObject = vm.projectData.drillLogs[dLog];
+
+                var viewData = [];
+                for (var row = 0; row < gridSizeY; row++) {
+                    var rowArray = [];
+                    for (var col = 0; col < gridSizeX; col++) {
+                        rowArray.push({hole: false});
+                    }
+                    viewData.push(rowArray);
+                }
+
+                for (var i = 0; i < holeObject.holes.length; i++) {
+                    var hole = holeObject.holes[i];
+                    hole.hasHole = true;
+                    viewData[holeObject.holes[i].y - 1][holeObject.holes[i].x - 1] = hole;  //Subtracting 1 to compensate for the 0 based index of the arrays
+                }
+                vm.projectData.drillLogs[dLog].viewData = viewData;
             }
-            viewData.push(rowArray);
         }
-
-        for (var i = 0; i < holeObject.length; i++) {
-            var hole = holeObject[i];
-            hole.hasHole = true;
-            viewData[holeObject[i].x - 1][holeObject[i].y - 1] = hole;  //Subtracting 1 to compensate for the 0 based index of the arrays
-        }
-        vm.viewData = viewData;
     });
