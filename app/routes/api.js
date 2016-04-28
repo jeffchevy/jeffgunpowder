@@ -64,6 +64,15 @@ module.exports = function (app, express, passport) {
         });
 
     apiRouter.route('/drillLogs/:id')
+        .get(function (req, res) {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(project.drillLogs);
+            });
+        })
+
         // CREATE --
         // Add a new drill log
         .post(function (req, res) {
