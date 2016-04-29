@@ -97,6 +97,7 @@ module.exports = function (app, express, passport) {
             });
         });
     apiRouter.route('/holes/:id/:drillId/:holeId')
+        // update a drill log entry
         .put(function (req, res) {
             Project.findById(req.params.id, function (err, project) {
                 if (err) {
@@ -135,12 +136,15 @@ module.exports = function (app, express, passport) {
                     bitSize: req.body.bitSize
                 };
                 drillLog.holes.push(hole);
-                project.save(function (err, obj) {
+                project.save(function (err, obj, test) {
                     if (err) {
                         res.send(err);
                     }
+                    // we need to return the object id
+                    var temp = obj.drillLogs.id(req.params.drillId);
+                    var hole = temp._doc.holes[temp._doc.holes.length-1];
                     // return a message
-                    res.json({message: "Drill Log Entry Added!"});
+                    res.json({message: "Drill Log Entry Added!", id: hole._id.toString()});
                 });
             });
 
