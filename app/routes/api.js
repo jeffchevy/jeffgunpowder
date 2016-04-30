@@ -297,7 +297,7 @@ module.exports = function (app, express, passport) {
                     bulkTankPumpedFrom: req.body.dailyLogs[i].bulkTankPumpedFrom,
                     hourMeterStart: req.body.dailyLogs[i].hourMeterStart,
                     hourMeterEnd: req.body.dailyLogs[i].hourMeterEnd,
-                    percussionTime: req.body.dailyLogs[i].percussionTime, // int?
+                    percussionTime: req.body.dailyLogs[i].percussionTime,
                     name: req.body.dailyLogs[i].name,
                     message: req.body.dailyLogs[i].name
                 };

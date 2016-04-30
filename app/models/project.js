@@ -6,9 +6,9 @@ var DailyLog = new Schema({
     date: {type: Date, default: Date.now},
     gallonsPumped: Number,
     bulkTankPumpedFrom: String,
-    hourMeterStart: String,
-    hourMeterEnd: String,
-    percussionTime: String, // int?
+    hourMeterStart: Number,
+    hourMeterEnd: Number,
+    percussionTime: Number,
     name: String,
     message: String
 });
