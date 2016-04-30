@@ -288,7 +288,6 @@ module.exports = function (app, express, passport) {
         project.stakeNumbers = req.body.stakeNumbers;
         project.areaNumber = req.body.areaNumber;
         project.pattern = req.body.pattern;
-        project.stakeNumber = req.body.stakeNumber;
         project.dailyLogs = [];
         if (req.body.dailyLogs) {
             for (var i = 0; i < req.body.dailyLogs.length; i++) {

@@ -16,10 +16,9 @@
 </div>
 <!--{{project.projectData}}-->
 <div>
-    <strong>Stake Number:</strong> {{project.projectData.stakeNumber}}<br>
+    <strong>Stake Numbers:</strong> {{project.projectData.stakeNumbers}}<br>
     <strong>Pattern:</strong> {{project.projectData.pattern}}<br>
     <strong>Area Number:</strong> {{project.projectData.areaNumber}}<br>
-    <strong>Stake Numbers:</strong> {{project.projectData.stakeNumbers}}<br>
     <strong>Three Rivers Supervisor:</strong> {{project.projectData.threeRiversSupervisor}}<br>
     <strong>Customer:</strong> {{project.projectData.customer}}<br>
     <strong>Driller Name:</strong> {{project.projectData.drillerName}}<br>
@@ -50,7 +49,8 @@
                     <td ng-repeat="td in row" ng-class="{true: 'hasHole', false: ''}[td.hasHole]">
                         <span class="white-text">{{td.z}}</span>
                         <span ng-class="{true: 'hasComment', false: 'noComment'}[td.comments.length > 1]"
-                              uib-popover="Comments: {{td.comments}}, Date: {{td.date | date}}" popover-title="Depth: {{td.z}}"
+                              uib-popover="Comments: {{td.comments}}, Date: {{td.date | date}}"
+                              popover-title="Depth: {{td.z}}"
                               popover-trigger="mouseenter"></span>
                     </td>
                 </tr>
