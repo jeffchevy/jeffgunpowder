@@ -63,6 +63,34 @@ module.exports = function (app, express, passport) {
             });
         });
 
+    /**
+     * ActiveProjects 
+     *  get - Will return all projects that do not have a closing date.
+     */
+    apiRouter.route('/activeProjects')
+        .get(function(req, res){
+            Project.find({closingDate: null}, function (err, proj) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(proj); // return the projects
+            });
+        });
+
+    /**
+     * ClosedProjects
+     *  get - Will return all projects that have a closing date.
+     */
+    apiRouter.route('/closedProjects')
+        .get(function(req, res){
+            Project.find({closingDate: {$ne: null}}, function (err, proj) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(proj); // return the projects
+            });
+        });
+
     apiRouter.route('/drillLogs/:id')
         .get(function (req, res) {
             Project.findById(req.params.id, function (err, project) {

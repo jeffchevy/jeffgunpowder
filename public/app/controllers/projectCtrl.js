@@ -8,14 +8,23 @@ angular.module('projectCtrl', ['projectService'])
         vm.processing = true;
 
         //grab all the projects at page load
-        Project.all()
+        Project.closed()
             .success(function (data) {
-
                 //when all projects come back, remove the processing variable
                 vm.processing = false;
 
                 //bind the projects that come back
-                vm.projects = data;
+                vm.closedProjects = data;
+            });
+
+        //Grab all the active projects
+        Project.active()
+            .success(function (data) {
+                //when all projects come back, remove the processing variable
+                vm.processing = false;
+
+                //bind the projects that come back
+                vm.activeProjects = data;
             });
 
         //function to delete a project
@@ -35,8 +44,6 @@ angular.module('projectCtrl', ['projectService'])
                         });
                 });
         };
-
-
     })
 
     // controller applied to project creation page

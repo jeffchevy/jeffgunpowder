@@ -44,7 +44,8 @@ var ProjectSchema = new Schema({
     notes: String,
     stakeNumbers: String,
     areaNumber: String,
-    pattern: String
+    pattern: String,
+    closingDate: {type: Date, default: null}
 });
 
 

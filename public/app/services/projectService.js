@@ -15,6 +15,17 @@ angular.module('projectService', [])
             return $http.get('/api/v1/project/');
         };
 
+        // get active projects - will not return any with a closing date.
+        projectFactory.active = function () {
+            return $http.get('/api/v1/activeProjects/');            
+        };
+
+        // get active projects - will not return any with a closing date.
+        projectFactory.closed = function () {
+            return $http.get('/api/v1/closedProjects/');
+        };
+        
+
         // create a project
         projectFactory.create = function (logData) {
             return $http.post('/api/v1/project/', logData);

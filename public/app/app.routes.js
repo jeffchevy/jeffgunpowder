@@ -42,7 +42,12 @@ angular.module('app.routes', ['ngRoute'])
                 controllerAs: 'user'
             })
             .when('/project', {
-                templateUrl: 'app/views/pages/project/all.html',
+                templateUrl: 'app/views/pages/project/allActive.html',
+                controller: 'projectController',
+                controllerAs: 'project'
+            })
+            .when('/closedProject', {
+                templateUrl: 'app/views/pages/project/allClosed.html',
                 controller: 'projectController',
                 controllerAs: 'project'
             })
