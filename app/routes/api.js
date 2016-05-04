@@ -207,26 +207,32 @@ module.exports = function (app, express, passport) {
         // Create a new daily log for the given project id
         .post(function (req, res) {
 
-            var updateObject = {
-                $push: {
-                    "dailyLogs": {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+
+                    var dailyLog = {
                         drillNumber: req.body.drillNumber,
                         gallonsPumped: req.body.gallonsPumped,
                         bulkTankPumpedFrom: req.body.bulkTankPumpedFrom,
                         hourMeterStart: req.body.hourMeterStart,
                         hourMeterEnd: req.body.hourMeterEnd,
                         percussionTime: req.body.percussionTime
-                    }
-                }
-            };
+                    };
 
-            Project.findByIdAndUpdate(req.params.id, updateObject, function (err, project) {
-                if (err) {
-                    console.log(err.message);
-                    return;
-                }
-                else {
-                    res.json({message: "DailyLog Added!"});
+                    project.dailyLogs.push(dailyLog);
+                    project.save(function (err, obj, test) {
+                        if (err) {
+                            res.send(err);
+                        }
+                        // we need to return the object id
+                        var dailyLog = obj.dailyLogs[obj.dailyLogs.length-1];
+                        // return a message
+                        // we need to return the object id
+                        res.json({message: "DailyLog Added!", id: dailyLog._id.toString()});
+                    });
                 }
             });
         });
