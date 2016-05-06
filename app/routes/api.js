@@ -118,25 +118,32 @@ module.exports = function (app, express, passport) {
         // CREATE --
         // Add a new drill log
         .post(function (req, res) {
-            var updateObject = {
-                $push: {
-                    "drillLogs": {
+            Project.findById(req.params.id, function (err, project) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+
+                    var drillLog = {
                         name: req.body.name,
                         drillerName: req.body.drillerName,
                         holes: []
-                    }
-                }
-            };
+                    };
 
-            Project.findByIdAndUpdate(req.params.id, updateObject, function (err, project) {
-                if (err) {
-                    console.log(err.message);
-                    return;
-                }
-                else {
-                    res.json({message: "Drill Log Added!"});
+                    project.drillLogs.push(drillLog);
+                    project.save(function (err, obj, test) {
+                        if (err) {
+                            res.send(err);
+                        }
+                        // we need to return the object id
+                        var drillLog = obj.drillLogs[obj.drillLogs.length-1];
+                        // return a message
+                        // we need to return the object id
+                        res.json({message: "Drill Log Added!", id: drillLog._id.toString()});
+                    });
                 }
             });
+
         });
     apiRouter.route('/holes/:id/:drillId/:holeId')
         // update a drill log entry
