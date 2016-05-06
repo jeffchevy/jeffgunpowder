@@ -291,7 +291,7 @@ angular.module('projectCtrl', ['projectService'])
             function assignHoles() {
                 //Set the displayed grid size.
                 var gridSizeX = '50', //horizontal rows
-                    gridSizeY = '10'; //vertical columns
+                    gridSizeY = '26'; //vertical columns
 
                 //for each drillLog, look through the holes data and create a viewHoleData object and add it to the drillLog
                 for (dLog = 0; dLog < vm.projectData.drillLogs.length; dLog++) {
