@@ -51,6 +51,12 @@ angular.module('app.routes', ['ngRoute'])
                 controller: 'projectController',
                 controllerAs: 'project'
             })
+            .when('/deletedProject', {
+                templateUrl: 'app/views/pages/project/allDeleted.html',
+                controller: 'projectController',
+                controllerAs: 'project'
+            })
+        
             .when('/project/create', {
                 templateUrl: 'app/views/pages/project/single.html',
                 controller: 'projectCreateController',

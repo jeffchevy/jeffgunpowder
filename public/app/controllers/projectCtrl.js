@@ -27,11 +27,39 @@ angular.module('projectCtrl', ['projectService'])
                 vm.activeProjects = data;
             });
 
+        //Grab all the deleted projects
+        Project.deleted()
+            .success(function (data) {
+                //when all projects come back, remove the processing variable
+                vm.processing = false;
+
+                //bind the projects that come back
+                vm.deletedProjects = data;
+            });
+
         //function to delete a project
         vm.deleteProject = function (id) {
             vm.processing = true;
 
             Project.delete(id)
+                .success(function (data) {
+
+                    // get all projects to update the table
+                    // you can also set up your api
+                    // to return the list of projects with the delete call
+                    Project.all()
+                        .success(function (data) {
+                            vm.processing = false;
+                            vm.projects = data;
+                        });
+                });
+        };
+
+        //function to unDelete a project
+        vm.unDeleteProject = function (id) {
+            vm.processing = true;
+
+            Project.unDelete(id)
                 .success(function (data) {
 
                     // get all projects to update the table
@@ -175,6 +203,64 @@ angular.module('projectCtrl', ['projectService'])
                         $location.path("/project");
                     });
             };
+
+            //function to unDelete a project
+            vm.unDeleteProject = function (id) {
+                vm.processing = true;
+
+                Project.unDelete(id, vm.projectData)
+                    .success(function (data) {
+
+                        // get all projects to update the table
+                        // you can also set up your api
+                        // to return the list of projects with the delete call
+                        Project.all()
+                            .success(function (data) {
+                                // vm.processing = false;
+                                // vm.projects = data;
+                                $location.path("/project");
+                            });
+                    });
+            };
+
+            //function to unDelete a project
+            vm.closeProject = function (id) {
+                vm.processing = true;
+
+                Project.closeProject(id, vm.projectData)
+                    .success(function (data) {
+
+                        // get all projects to update the table
+                        // you can also set up your api
+                        // to return the list of projects with the delete call
+                        Project.all()
+                            .success(function (data) {
+                                // vm.processing = false;
+                                // vm.projects = data;
+                                $location.path("/project");
+                            });
+                    });
+            };
+
+            //function to unDelete a project
+            vm.reOpenProject = function (id) {
+                vm.processing = true;
+
+                Project.reOpenProject(id, vm.projectData)
+                    .success(function (data) {
+
+                        // get all projects to update the table
+                        // you can also set up your api
+                        // to return the list of projects with the delete call
+                        Project.all()
+                            .success(function (data) {
+                                // vm.processing = false;
+                                // vm.projects = data;
+                                $location.path("/project");
+                            });
+                    });
+            };
+
 
             function calculateHoleTotals(project) {
                 console.log(project.drillLogs);

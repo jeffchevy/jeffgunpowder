@@ -64,12 +64,12 @@ module.exports = function (app, express, passport) {
         });
 
     /**
-     * ActiveProjects 
-     *  get - Will return all projects that do not have a closing date.
+     * ActiveProjects
+     *  get - Will return all projects that have a status of active.
      */
     apiRouter.route('/activeProjects')
-        .get(function(req, res){
-            Project.find({closingDate: null}, function (err, proj) {
+        .get(function (req, res) {
+            Project.find({status: 'active'}, function (err, proj) {
                 if (err) {
                     res.send(err);
                 }
@@ -79,11 +79,25 @@ module.exports = function (app, express, passport) {
 
     /**
      * ClosedProjects
-     *  get - Will return all projects that have a closing date.
+     *  get - Will return all projects that have a status of closed
      */
     apiRouter.route('/closedProjects')
-        .get(function(req, res){
-            Project.find({closingDate: {$ne: null}}, function (err, proj) {
+        .get(function (req, res) {
+            Project.find({status: 'closed'}, function (err, proj) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(proj); // return the projects
+            });
+        });
+
+    /**
+     * DeletedProjects
+     *  get - Will return all projects that have a status of deleted.
+     */
+    apiRouter.route('/deletedProjects')
+        .get(function (req, res) {
+            Project.find({status: 'deleted'}, function (err, proj) {
                 if (err) {
                     res.send(err);
                 }
@@ -170,7 +184,7 @@ module.exports = function (app, express, passport) {
                     }
                     // we need to return the object id
                     var temp = obj.drillLogs.id(req.params.drillId);
-                    var hole = temp._doc.holes[temp._doc.holes.length-1];
+                    var hole = temp._doc.holes[temp._doc.holes.length - 1];
                     // return a message
                     res.json({message: "Drill Log Entry Added!", id: hole._id.toString()});
                 });
@@ -256,7 +270,7 @@ module.exports = function (app, express, passport) {
                             res.send(err);
                         }
                         // we need to return the object id
-                        var dailyLog = obj.dailyLogs[obj.dailyLogs.length-1];
+                        var dailyLog = obj.dailyLogs[obj.dailyLogs.length - 1];
                         // return a message
                         // we need to return the object id
                         res.json({message: "DailyLog Added!", id: dailyLog._id.toString()});
@@ -298,16 +312,40 @@ module.exports = function (app, express, passport) {
         })
 
         .delete(function (req, res) {
-            Project.findByIdAndRemove(req.params.id, function (err, project) {
-                if (err) {
-                    res.json({message: 'There was an error deleteing the project. ', error: err})
-                }
+            Project.findById(req.params.id, function (err, project) {
+                if (err) res.send(err);
 
-                res.json({message: 'Project deleted!', project: project})
+                // set the new project information if it exists in the request
+                project.status = 'deleted';
+
+                // save the user
+                project.save(function (err) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    // return a message
+                    res.json({message: 'project deleted!'});
+                });
             });
-
-
         });
+
+        // .put(function (req, res) {
+        //     Project.findById(req.params.id, function (err, project) {
+        //         if (err) res.send(err);
+        //
+        //         // set the new project information if it exists in the request
+        //         project.status = 'active';
+        //
+        //         // save the user
+        //         project.save(function (err) {
+        //             if (err) {
+        //                 res.send(err);
+        //             }
+        //             // return a message
+        //             res.json({message: 'project un-deleted!'});
+        //         });
+        //     });
+        // });
 
     stuffTheProject = function (req, project) {
         project.contractorsName = req.body.contractorsName;
@@ -322,6 +360,8 @@ module.exports = function (app, express, passport) {
         project.stakeNumbers = req.body.stakeNumbers;
         project.areaNumber = req.body.areaNumber;
         project.pattern = req.body.pattern;
+        project.status = req.body.status;
+        project.closingDate = req.body.closingDate;
         project.dailyLogs = [];
         if (req.body.dailyLogs) {
             for (var i = 0; i < req.body.dailyLogs.length; i++) {

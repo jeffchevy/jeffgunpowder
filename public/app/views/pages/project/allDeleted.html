@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1><i class="fa fa-binoculars"></i> View active Projects</h1>
+    <h1><i class="fa fa-binoculars"></i> View deleted Projects</h1>
 </div>
 
 <div>
@@ -21,7 +21,7 @@
         </thead>
         <tbody>
         <!--TODO - Order descending-->
-        <tr ng-repeat="project in project.activeProjects">
+        <tr ng-repeat="project in project.deletedProjects">
             <td><a href="/project/view/{{project._id}}">{{project.jobName}}</a></td>
             <td>{{project.contractorsName}}</td>
             <td>{{ project.startDate | date : format : timezone}}</td>
@@ -29,6 +29,6 @@
         </tbody>
     </table>
 
-    <a class="pull-right" href="/closedProject">View Closed Projects</a></br>
-    <a class="pull-right" href="/deletedProject">View Deleted Projects</a>
+    <a class="pull-right" href="/project">View Active Projects</a></br>
+    <a class="pull-right" href="/closedProject">View Closed Projects</a>
 </div>

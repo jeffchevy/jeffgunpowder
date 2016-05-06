@@ -45,6 +45,7 @@ var ProjectSchema = new Schema({
     stakeNumbers: String,
     areaNumber: String,
     pattern: String,
+    status: {type: String, default: 'active'},
     closingDate: {type: Date, default: null}
 });
 

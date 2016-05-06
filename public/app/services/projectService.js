@@ -15,15 +15,21 @@ angular.module('projectService', [])
             return $http.get('/api/v1/project/');
         };
 
-        // get active projects - will not return any with a closing date.
+        // get active projects
         projectFactory.active = function () {
             return $http.get('/api/v1/activeProjects/');            
         };
 
-        // get active projects - will not return any with a closing date.
+        // get active projects
         projectFactory.closed = function () {
             return $http.get('/api/v1/closedProjects/');
         };
+
+        // get deleted projects
+        projectFactory.deleted = function () {
+            return $http.get('/api/v1/deletedProjects/');
+        };
+        
         
 
         // create a project
@@ -41,6 +47,28 @@ angular.module('projectService', [])
             return $http.delete('/api/v1/project/' + id);
         };
 
+        // unDelete a project
+        projectFactory.unDelete = function (id, logData) {
+            logData.status = 'active';
+            return $http.put('/api/v1/project/' + id, logData);
+        };
+
+        // close a project
+        projectFactory.closeProject = function (id, logData) {
+            logData.status = 'closed';
+            logData.closingDate = Date.now();
+            return $http.put('/api/v1/project/' + id, logData);
+        };
+
+        // reOpen a project
+        projectFactory.reOpenProject = function (id, logData) {
+            logData.status = 'active';
+            logData.closingDate = null;
+            return $http.put('/api/v1/project/' + id, logData);
+        };
+
+
+        
         // return our entire userFactory object
         return projectFactory;
 
