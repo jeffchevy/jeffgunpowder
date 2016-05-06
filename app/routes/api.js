@@ -182,24 +182,37 @@ module.exports = function (app, express, passport) {
                     res.send(err);
                 }
                 var drillLog = project.drillLogs.id(req.params.drillId);
-                var hole = {
-                    x: req.body.x,
-                    y: req.body.y,
-                    z: req.body.z,
-                    comments: req.body.comments,
-                    bitSize: req.body.bitSize
-                };
-                drillLog.holes.push(hole);
-                project.save(function (err, obj, test) {
-                    if (err) {
-                        res.send(err);
+                if (drillLog != null) {
+                    var hole = {
+                        x: req.body.x,
+                        y: req.body.y,
+                        z: req.body.z,
+                        comments: req.body.comments,
+                        bitSize: req.body.bitSize
+                    };
+
+                    if (drillLog.holes == undefined){
+                        drillLog.holes = [];
                     }
-                    // we need to return the object id
-                    var temp = obj.drillLogs.id(req.params.drillId);
-                    var hole = temp._doc.holes[temp._doc.holes.length - 1];
-                    // return a message
-                    res.json({message: "Drill Log Entry Added!", id: hole._id.toString()});
-                });
+                    drillLog.holes.push(hole);
+                    project.save(function (err, obj, test) {
+                        if (err) {
+                            res.send(err);
+                        }
+                        // we need to return the object id
+                        var temp = obj.drillLogs.id(req.params.drillId);
+                        var hole = temp._doc.holes[temp._doc.holes.length - 1];
+                        // return a message
+                        res.json({message: "Drill Log Entry Added!", id: hole._id.toString()});
+                    });
+                }
+                else {
+                    res.status(400).send({
+                        success: false,
+                        message: "Project: ["+req.params.id+"] Cannot get drillLog for id: ["+req.params.drillId+"]"
+                    });
+
+                }
             });
 
         })
