@@ -272,7 +272,7 @@ angular.module('projectCtrl', ['projectService'])
                 var totalDepth = 0;
 
 
-                for (var i = 0; i < project.drillLogs.length; i++) {
+                for (i = 0; i < project.drillLogs.length; i++) {
                     for (h = 0; h < project.drillLogs[i].holes.length; h++) {
                         holeCount = holeCount + 1;
                         totalDepth = totalDepth + project.drillLogs[i].holes[h].z;
@@ -281,9 +281,10 @@ angular.module('projectCtrl', ['projectService'])
 
                     }
 
-                    return {holeCount: holeCount, totalDepth: totalDepth};
-                    // return '1,000,000'
+
                 }
+                return {holeCount: holeCount, totalDepth: totalDepth};
+                // return '1,000,000'
             }
 
 
