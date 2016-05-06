@@ -97,6 +97,10 @@ angular.module('projectCtrl', ['projectService'])
                     vm.processing = false;
                     vm.projectData = {};
                     vm.message = data.message;
+                })
+                .error(function (data) {
+                    vm.processing = false;
+                    vm.message = data.message;
                 });
         };
 

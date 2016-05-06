@@ -57,7 +57,12 @@ module.exports = function (app, express, passport) {
 
             project.save(function (err) {
                 if (err) {
-                    return res.send(err);
+                    if (err.name == 'ValidationError') {
+                        for (field in err.errors) {
+                            console.log(err.errors[field].message);
+                        }
+                    }
+                    return res.status(400).send({message: err.errors[field].message});
                 }
                 res.json({message: 'Project created!', project: project});
             });
@@ -136,7 +141,7 @@ module.exports = function (app, express, passport) {
                             res.send(err);
                         }
                         // we need to return the object id
-                        var drillLog = obj.drillLogs[obj.drillLogs.length-1];
+                        var drillLog = obj.drillLogs[obj.drillLogs.length - 1];
                         // return a message
                         // we need to return the object id
                         res.json({message: "Drill Log Added!", id: drillLog._id.toString()});
@@ -336,38 +341,24 @@ module.exports = function (app, express, passport) {
             });
         });
 
-        // .put(function (req, res) {
-        //     Project.findById(req.params.id, function (err, project) {
-        //         if (err) res.send(err);
-        //
-        //         // set the new project information if it exists in the request
-        //         project.status = 'active';
-        //
-        //         // save the user
-        //         project.save(function (err) {
-        //             if (err) {
-        //                 res.send(err);
-        //             }
-        //             // return a message
-        //             res.json({message: 'project un-deleted!'});
-        //         });
-        //     });
-        // });
-
     stuffTheProject = function (req, project) {
         project.contractorsName = req.body.contractorsName;
         project.jobName = req.body.jobName;
         project.logStartDate = req.body.logStartDate;
         project.shotNumber = req.body.shotNumber;
         project.drillerName = req.body.drillerName;
-        project.auditedFlag = req.body.auditedFlag;
+        if (req.body.auditedFlag != null) {
+            project.auditedFlag = req.body.auditedFlag;
+        }
         project.customer = req.body.customer;
         project.threeRiversSupervisor = req.body.threeRiversSupervisor;
         project.notes = req.body.notes;
         project.stakeNumbers = req.body.stakeNumbers;
         project.areaNumber = req.body.areaNumber;
         project.pattern = req.body.pattern;
-        project.status = req.body.status;
+        if (req.body.status != null) {
+            project.status = req.body.status;
+        }
         project.closingDate = req.body.closingDate;
         project.dailyLogs = [];
         if (req.body.dailyLogs) {

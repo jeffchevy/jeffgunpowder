@@ -18,7 +18,7 @@ var Hole = new Schema({
     y: Number,
     z: Number,
     comments: String,
-    bitSize: String,
+    bitSize: Number,
     date: {type: Date, default: Date.now}
 });
 
@@ -30,14 +30,14 @@ var DrillLog = new Schema({
 
 // drill log schema
 var ProjectSchema = new Schema({
-    jobName: String,
-    contractorsName: String,
+    jobName: {type: String, required: true},
+    contractorsName: {type: String, required: true},
     shotNumber: Number,
     bitSize: Number,
     drillerName: String,
     startDate: {type: Date, default: Date.now},
-    dailyLogs: [ DailyLog ],
-    drillLogs: [ DrillLog ],
+    dailyLogs: [DailyLog],
+    drillLogs: [DrillLog],
     auditedFlag: {type: Boolean, default: false},
     customer: String,
     threeRiversSupervisor: String,
@@ -47,7 +47,7 @@ var ProjectSchema = new Schema({
     pattern: String,
     status: {type: String, default: 'active'},
     closingDate: {type: Date, default: null}
-});
+});//REMINDER - if you are setting a default value here, you need to put an if check around the stuffTheProject for that value.  --  see status.
 
 
 module.exports = mongoose.model('Project', ProjectSchema);
