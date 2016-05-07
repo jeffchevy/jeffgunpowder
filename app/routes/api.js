@@ -355,10 +355,8 @@ module.exports = function (app, express, passport) {
         });
 
     stuffTheProject = function (req, project) {
-        project.contractorsName = req.body.contractorName;
+        project.contractorName = req.body.contractorName;
         project.projectName = req.body.projectName;
-        project.logStartDate = req.body.logStartDate;
-        project.shotNumber = req.body.shotNumber;
         if (req.body.auditedFlag != null) {
             project.auditedFlag = req.body.auditedFlag;
         }

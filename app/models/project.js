@@ -22,11 +22,11 @@ var Hole = new Schema({
 });
 
 var DrillLog = new Schema({
-    name: String,
-    drillerName: String,
-    pattern: String,
-    shotNumber: Number,
-    bitSize: String,
+    name: {type: String, required: true},
+    drillerName: {type: String, required: true},
+    pattern: {type: String, required: true},
+    shotNumber: {type: Number, required: true},
+    bitSize: {type: String, required: true},
     holes: [Hole]
 });
 
