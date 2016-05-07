@@ -1,6 +1,6 @@
 <div class="page-header">
-    <h2>{{project.projectData.jobName}}
-        <small>({{project.projectData.contractorsName}})</small>
+    <h2>{{project.projectData.projectName}}
+        <small>({{project.projectData.contractorName}})</small>
     </h2>
 
     <div ng-if="project.projectData.status == 'active' || project.projectData.status == 'closed'" class="btn btn-danger span2 pull-right editProjectButton"
@@ -44,7 +44,7 @@
     <strong>Stake Numbers:</strong> {{project.projectData.stakeNumbers}}<br>
     <strong>Pattern:</strong> {{project.projectData.pattern}}<br>
     <strong>Area Number:</strong> {{project.projectData.areaNumber}}<br>
-    <strong>Three Rivers Supervisor:</strong> {{project.projectData.threeRiversSupervisor}}<br>
+    <strong>Three Rivers Supervisor:</strong> {{project.projectData.supervisor}}<br>
     <strong>Customer:</strong> {{project.projectData.customer}}<br>
     <strong>Driller Name:</strong> {{project.projectData.drillerName}}<br>
     <strong>Shot Number:</strong> {{project.projectData.shotNumber}}<br>

@@ -22,8 +22,8 @@
         <tbody>
         <!--TODO - Order descending-->
         <tr ng-repeat="project in project.deletedProjects">
-            <td><a href="/project/view/{{project._id}}">{{project.jobName}}</a></td>
-            <td>{{project.contractorsName}}</td>
+            <td><a href="/project/view/{{project._id}}">{{project.projectName}}</a></td>
+            <td>{{project.contractorName}}</td>
             <td>{{ project.startDate | date : format : timezone}}</td>
         </tr>
         </tbody>
