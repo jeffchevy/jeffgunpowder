@@ -132,6 +132,9 @@ module.exports = function (app, express, passport) {
                     var drillLog = {
                         name: req.body.name,
                         drillerName: req.body.drillerName,
+                        pattern: req.body.pattern,
+                        shotNumber: req.body.shotNumber,
+                        bitSize: req.body.bitSize,
                         holes: []
                     };
 
@@ -140,11 +143,16 @@ module.exports = function (app, express, passport) {
                         if (err) {
                             res.send(err);
                         }
-                        // we need to return the object id
-                        var drillLog = obj.drillLogs[obj.drillLogs.length - 1];
-                        // return a message
-                        // we need to return the object id
-                        res.json({message: "Drill Log Added!", id: drillLog._id.toString()});
+                        if (obj != null) {
+                            // we need to return the object id
+                            var drillLog = obj.drillLogs[obj.drillLogs.length - 1];
+                            // return a message
+                            // we need to return the object id
+                            res.json({message: "Drill Log Added!", id: drillLog._id.toString()});
+                        } else {
+                            res.json({status: "false", message: "Failed to add!"});
+                        }
+
                     });
                 }
             });
