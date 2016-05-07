@@ -355,20 +355,18 @@ module.exports = function (app, express, passport) {
         });
 
     stuffTheProject = function (req, project) {
-        project.contractorsName = req.body.contractorsName;
-        project.jobName = req.body.jobName;
+        project.contractorsName = req.body.contractorName;
+        project.projectName = req.body.projectName;
         project.logStartDate = req.body.logStartDate;
         project.shotNumber = req.body.shotNumber;
-        project.drillerName = req.body.drillerName;
         if (req.body.auditedFlag != null) {
             project.auditedFlag = req.body.auditedFlag;
         }
         project.customer = req.body.customer;
-        project.threeRiversSupervisor = req.body.threeRiversSupervisor;
+        project.supervisor = req.body.supervisor;
         project.notes = req.body.notes;
         project.stakeNumbers = req.body.stakeNumbers;
         project.areaNumber = req.body.areaNumber;
-        project.pattern = req.body.pattern;
         if (req.body.status != null) {
             project.status = req.body.status;
         }
@@ -406,6 +404,9 @@ module.exports = function (app, express, passport) {
                 var drillLog = {
                     name: req.body.drillLogs[i].name,
                     drillerName: req.body.drillLogs[i].drillerName,
+                    pattern: req.body.drillLogs[i].pattern,
+                    shotNumber: req.body.drillLogs[i].shotNumber,
+                    bitSize: req.body.drillLogs[i].bitSize,
                     holes: holes
                 };
                 project.drillLogs.push(drillLog);
