@@ -397,15 +397,17 @@ module.exports = function (app, express, passport) {
         if (req.body.drillLogs) {
             for (var i = 0; i < req.body.drillLogs.length; i++) {
                 var holes = [];
-                for (var j = 0; j < req.body.drillLogs[i].holes.length; j++) {
-                    var hole = {
-                        x: req.body.drillLogs[i].holes[j].x,
-                        y: req.body.drillLogs[i].holes[j].y,
-                        z: req.body.drillLogs[i].holes[j].z,
-                        comments: req.body.drillLogs[i].holes[j].comments,
-                        bitSize: req.body.drillLogs[i].holes[j].bitSize
-                    };
-                    holes.push(hole);
+                if(req.body.drillLogs[i].holes){
+                    for (var j = 0; j < req.body.drillLogs[i].holes.length; j++) {
+                        var hole = {
+                            x: req.body.drillLogs[i].holes[j].x,
+                            y: req.body.drillLogs[i].holes[j].y,
+                            z: req.body.drillLogs[i].holes[j].z,
+                            comments: req.body.drillLogs[i].holes[j].comments,
+                            bitSize: req.body.drillLogs[i].holes[j].bitSize
+                        };
+                        holes.push(hole);
+                    }
                 }
                 var drillLog = {
                     name: req.body.drillLogs[i].name,
