@@ -292,6 +292,7 @@ module.exports = function (app, express, passport) {
                         drillNumber: req.body.drillNumber,
                         gallonsPumped: req.body.gallonsPumped,
                         bulkTankPumpedFrom: req.body.bulkTankPumpedFrom,
+                        date: req.body.date,
                         hourMeterStart: req.body.hourMeterStart,
                         hourMeterEnd: req.body.hourMeterEnd,
                         percussionTime: req.body.percussionTime
