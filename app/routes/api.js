@@ -258,6 +258,7 @@ module.exports = function (app, express, passport) {
                 dailyLog.hourMeterStart = req.body.hourMeterStart;
                 dailyLog.hourMeterEnd = req.body.hourMeterEnd;
                 dailyLog.percussionTime = req.body.percussionTime;
+                dailyLog.date = req.body.date;
                 project.save(function (err, obj) {
                     if (err) {
                         res.send(err);
