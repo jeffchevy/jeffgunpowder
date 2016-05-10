@@ -199,7 +199,7 @@ module.exports = function (app, express, passport) {
                         bitSize: req.body.bitSize
                     };
 
-                    if (drillLog.holes == undefined){
+                    if (drillLog.holes == undefined) {
                         drillLog.holes = [];
                     }
                     drillLog.holes.push(hole);
@@ -217,7 +217,7 @@ module.exports = function (app, express, passport) {
                 else {
                     res.status(400).send({
                         success: false,
-                        message: "Project: ["+req.params.id+"] Cannot get drillLog for id: ["+req.params.drillId+"]"
+                        message: "Project: [" + req.params.id + "] Cannot get drillLog for id: [" + req.params.drillId + "]"
                     });
 
                 }
@@ -399,7 +399,7 @@ module.exports = function (app, express, passport) {
         if (req.body.drillLogs) {
             for (var i = 0; i < req.body.drillLogs.length; i++) {
                 var holes = [];
-                if(req.body.drillLogs[i].holes){
+                if (req.body.drillLogs[i].holes) {
                     for (var j = 0; j < req.body.drillLogs[i].holes.length; j++) {
                         var hole = {
                             x: req.body.drillLogs[i].holes[j].x,
@@ -433,8 +433,6 @@ module.exports = function (app, express, passport) {
 
     apiRouter.use(function (req, res, next) {
         // do logging
-        console.log('Somebody just came to our app!');
-
         // check header or url parameters or post parameters for token
         var token = req.body.token || req.headers['token'] || req.headers['x-access-token'];
 
