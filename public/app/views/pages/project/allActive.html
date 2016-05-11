@@ -1,5 +1,10 @@
 <div class="page-header">
-    <h1><i class="fa fa-binoculars"></i> View active Projects</h1>
+    <h1><i class="fa fa-binoculars"></i> Active Projects
+        <a href="/project/create" class="btn btn-default pull-right">
+            <span class="glyphicon glyphicon-plus"></span>
+            Create
+        </a>
+    </h1>
 </div>
 
 <div>
@@ -16,7 +21,7 @@
         <tr>
             <th>Project Name</th>
             <th>Contractors Name</th>
-            <th>Date</th>
+            <!--<th>Date</th>-->
         </tr>
         </thead>
         <tbody>
@@ -24,11 +29,11 @@
         <tr ng-repeat="project in project.activeProjects">
             <td><a href="/project/view/{{project._id}}">{{project.projectName}}</a></td>
             <td>{{project.contractorName}}</td>
-            <td>{{ project.startDate | date : format : timezone}}</td>
+            <!--<td>{{ project.startDate | date : format : timezone}}</td>-->
         </tr>
         </tbody>
     </table>
 
-    <a class="pull-right" href="/closedProject">View Closed Projects</a></br>
-    <a class="pull-right" href="/deletedProject">View Deleted Projects</a>
+    <a class="pull-right" href="/closedProject">Closed Projects</a></br>
+    <a class="pull-right" href="/deletedProject">Deleted Projects</a>
 </div>

@@ -1,6 +1,6 @@
 <div class="page-header">
-    <h1 ng-if="project.type == 'create'"><i class="fa fa-plus"></i> Create Project</h1>
-    <h1 ng-if="project.type == 'edit'"><i class="fa fa-pencil-square-o"></i> Edit Project</h1>
+    <h1 ng-if="project.type == 'create'"><i class="fa fa-plus"></i> <span class="glyphicon glyphicon-plus"></span> Create</h1>
+    <h1 ng-if="project.type == 'edit'"><i class="fa fa-pencil-square-o"></i> Edit </h1>
 </div>
 <hr>
 <!--{{project.projectData}}-->
@@ -183,10 +183,8 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'create'">Create
-                    project
                 </button>
-                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'edit'">Update
-                    project
+                <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="project.type == 'edit'">Edit
                 </button>
             </div>
         </div>

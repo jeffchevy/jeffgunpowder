@@ -5,29 +5,29 @@
 
     <div ng-if="project.projectData.status == 'active' || project.projectData.status == 'closed'" class="btn btn-danger span2 pull-right editProjectButton"
          ng-click="project.deleteProject(project.projectData._id)">
-        <i class="fa fa-trash"></i> Delete Project
+        <i class="fa fa-trash"></i> Delete
     </div>
 
     <div ng-if="project.projectData.status == 'deleted'" class="btn btn-warning span2 pull-right editProjectButton"
          ng-click="project.unDeleteProject(project.projectData._id, project.projectData)">
-        <i class="fa fa-reply"></i> Re-activate Project
+        <i class="fa fa-reply"></i> Re-activate
     </div>
 
     <div ng-if="project.projectData.status == 'active'" class="btn btn-warning span2 pull-right editProjectButton"
          ng-click="project.closeProject(project.projectData._id)">
-        <i class="fa fa-check"></i> Close Project
+        <i class="fa fa-check"></i> Close
     </div>
 
     <div ng-if="project.projectData.status == 'closed'" class="btn btn-warning span2 pull-right editProjectButton"
          ng-click="project.reOpenProject(project.projectData._id)">
-        <i class="fa fa-reply"></i> Re-open Project
+        <i class="fa fa-reply"></i> Re-open
     </div>
 
 
 
     <a ng-if="project.projectData.status == 'active'" href="/project/{{project.projectData._id}}">
         <div class="btn btn-success span2 pull-right editProjectButton">
-            <i class="fa fa-pencil-square-o"></i> Edit Project
+            <i class="fa fa-pencil-square-o"></i> Edit
         </div>
     </a>
 </div>
