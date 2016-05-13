@@ -196,6 +196,7 @@ module.exports = function (app, express, passport) {
                         x: req.body.x,
                         y: req.body.y,
                         z: req.body.z,
+                        date: req.body.date,
                         comments: req.body.comments,
                         bitSize: req.body.bitSize
                     };
