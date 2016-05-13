@@ -171,7 +171,7 @@ module.exports = function (app, express, passport) {
                 hole.y = req.body.y;
                 hole.z = req.body.z;
                 hole.comments = req.body.comments;
-                date: req.body.date;
+                hole.date = req.body.date;
                 hole.bitSize = req.body.bitSize;
                 project.save(function (err, obj) {
                     if (err) {
