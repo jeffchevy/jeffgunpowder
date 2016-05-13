@@ -233,6 +233,9 @@ module.exports = function (app, express, passport) {
                 var drillLog = project.drillLogs.id(req.params.drillId);
                 drillLog.name = req.body.name;
                 drillLog.drillerName = req.body.drillerName;
+                drillLog.pattern = req.body.pattern;
+                drillLog.shotNumber = req.body.shotNumber;
+                drillLog.bitSize = req.body.bitSize;
                 project.save(function (err, obj) {
                     if (err) {
                         res.send(err);
