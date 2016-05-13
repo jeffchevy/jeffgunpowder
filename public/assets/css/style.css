@@ -132,3 +132,13 @@ header .navbar {
     height: 45px;
     margin-top: 5px;
 }
+
+#holeDepthGrid {
+    width: 500px;
+    height: 250px;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #becaff;
+}

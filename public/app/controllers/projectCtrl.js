@@ -147,6 +147,7 @@ angular.module('projectCtrl', ['projectService'])
                     vm.numberOfHoles = totals.holeCount;
                     vm.totalDepth = totals.totalDepth;
                     vm.averageDepth = totals.totalDepth / totals.holeCount;
+                    vm.holeDepthCount = totals.holeDepthCount;
                 });
 
             // function to save the project
@@ -270,21 +271,35 @@ angular.module('projectCtrl', ['projectService'])
                 console.log(project.drillLogs);
                 var holeCount = 0;
                 var totalDepth = 0;
-
+                var holeDepthCount={};
 
                 for (i = 0; i < project.drillLogs.length; i++) {
                     for (h = 0; h < project.drillLogs[i].holes.length; h++) {
                         holeCount = holeCount + 1;
                         totalDepth = totalDepth + project.drillLogs[i].holes[h].z;
+                        //count the number of holes for each depth
+                        if(holeDepthCount[project.drillLogs[i].holes[h].z]) {
+                            //we have one already, increment the count
+                            holeDepthCount[project.drillLogs[i].holes[h].z] = holeDepthCount[project.drillLogs[i].holes[h].z]+1;
+                        }
+                        else {
+                            //this is the first one
+                            holeDepthCount[project.drillLogs[i].holes[h].z] = 1;
+                        }
                         console.log('holeCount: ' + holeCount);
                         console.log('totalDepth: ' + totalDepth);
-
+                        console.log('holeDepthCount: ' + holeDepthCount);
                     }
-
-
                 }
-                return {holeCount: holeCount, totalDepth: totalDepth};
-                // return '1,000,000'
+                //now convert hole depth count to array to be displayed in table
+                // var holeDepthArray = Object.keys(holeDepthCount).map(function(key) {
+                //     return {type: key, name: input[key]};
+                // });
+
+                // display the result
+                // console.log(JSON.stringify(output));
+                
+                return {holeCount: holeCount, totalDepth: totalDepth, holeDepthCount: holeDepthCount};
             }
 
 

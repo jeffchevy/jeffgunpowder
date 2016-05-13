@@ -33,14 +33,7 @@
 </div>
 <!--{{project.projectData}}-->
 <div>
-    <!--TODO Where should this go on the page?-->
-    <div class="calculations">
-        <strong>Total # of holes: </strong>{{project.numberOfHoles}}</br>
-        <strong>Total depth: </strong> {{project.totalDepth}}</br>
-        <strong>average depth: </strong>{{project.averageDepth}}</br>
-    </div>
 
-    <hr>
     <strong>Stake Numbers:</strong> {{project.projectData.stakeNumbers}}<br>
     <strong>Area Number:</strong> {{project.projectData.areaNumber}}<br>
     <strong>Three Rivers Supervisor:</strong> {{project.projectData.supervisor}}<br>
@@ -82,7 +75,22 @@
     </div>
 </div>
 
+<div class="calculations">
+    <strong>Total # of holes: </strong>{{project.numberOfHoles}}</br>
+    <strong>Total depth: </strong> {{project.totalDepth}}</br>
+    <strong>average depth: </strong>{{project.averageDepth}}</br>
+    <!--<div ui-grid="{ data: project.holeDepthArray }" id="holeDepthGrid"></div>-->
+    <table class="table table-striped table-bordered table-condensed">
+        <th>Hole Depth</th><th>Count</th>
+        <tbody>
+        <tr ng-repeat="(key, value) in project.holeDepthCount">
+            <td>{{key}}</td><td>{{value}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
+<hr>
 <div class="row show-hide-message" ng-show="project.message">
     <div class="col-sm-6 col-sm-offset-2">
         <div class="alert alert-info">
