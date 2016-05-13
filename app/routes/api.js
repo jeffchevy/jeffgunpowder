@@ -336,7 +336,9 @@ module.exports = function (app, express, passport) {
                 if (err) res.send(err);
 
                 // set the new project information if it exists in the request
-                stuffTheProject(req, project);
+                project.contractorName = req.body.contractorName;
+                project.projectName = req.body.projectName;
+
                 // save the user
                 project.save(function (err) {
                     if (err) {
