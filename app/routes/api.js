@@ -27,7 +27,8 @@ module.exports = function (app, express, passport) {
 
             res.json({
                 success: true,
-                token: token
+                token: token,
+                username: req.user.name
             });
         });
 
