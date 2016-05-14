@@ -60,10 +60,14 @@
         <div class="well">
             <strong>Name:</strong> {{drillLog.name}} </br>
             <strong>Driller Name:</strong> {{drillLog.drillerName}}
-            <table class="holesTable">
+            <table class="holesTable table table-striped table-striped-column table-bordered table-condensed">
+                <thead><tr><th></th><th ng-repeat="row in drillLog.viewData[0]" >
+                    <bold>{{ $index + 1 }}</bold>
+                </th></tr></thead>
                 <tr ng-repeat="row in drillLog.viewData">
-                    <td ng-repeat="td in row" ng-class="td.day">
-                        <span class="">{{td.z}}</span>
+                    <td><bold>{{ $index + 1 }}</bold></td>
+                    <td ng-repeat="td in row">
+                        <span  ng-class="td.day">{{td.z}}</span>
                         <span ng-class="{true: 'hasComment', false: 'noComment'}[td.comments.length > 1]"
                               uib-popover="Comments: {{td.comments}}, Date: {{td.date | date}}"
                               popover-title="Depth: {{td.z}}"
