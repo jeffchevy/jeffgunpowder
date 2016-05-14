@@ -111,9 +111,6 @@ header .navbar {
     color: white;
     font-weight: bold;
 }
-.hasHole{
-    background: #00bfff;
-}
 
 .hasComment {
     position:relative;
@@ -140,5 +137,37 @@ header .navbar {
 
 .table-striped>tbody>tr:nth-child(odd)>td,
 .table-striped>tbody>tr:nth-child(odd)>th {
-    background-color: #becaff;
+    background-color: #dfdfff;
 }
+
+.day1{ background-color: #33cc33; }
+.day2{ background-color: #ff0000; }
+.day3{ background-color: #0066ff; }
+.day4{ background-color: #ff9900; }
+.day5{ background-color: #ffff00; }
+.day6{ background-color: #cc33ff; }
+.day7{ background-color: #9966ff; }
+.day8{ background-color: #33cc33; }
+.day9{ background-color: #ff0000; }
+.day10{ background-color: #0066ff; }
+.day11{ background-color: #ff9900; }
+.day12{ background-color: #ffff00; }
+.day13{ background-color: #cc33ff; }
+.day14{ background-color: #9966ff; }
+.day15{ background-color: #33cc33; }
+.day16{ background-color: #ff0000; }
+.day17{ background-color: #0066ff; }
+.day18{ background-color: #ff9900; }
+.day19{ background-color: #ffff00; }
+.day20{ background-color: #cc33ff; }
+.day21{ background-color: #9966ff; }
+.day22{ background-color: #33cc33; }
+.day23{ background-color: #ff0000; }
+.day24{ background-color: #0066ff; }
+.day25{ background-color: #ff9900; }
+.day26{ background-color: #ffff00; }
+.day27{ background-color: #cc33ff; }
+.day28{ background-color: #9966ff; }
+.day29{ background-color: #ff9900; }
+.day30{ background-color: #ffff00; }
+.day31{ background-color: #cc33ff; }

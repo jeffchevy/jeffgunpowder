@@ -324,7 +324,12 @@ angular.module('projectCtrl', ['projectService'])
 
                     for (var i = 0; i < holeObject.holes.length; i++) {
                         var hole = holeObject.holes[i];
-                        hole.hasHole = true;
+                        //color the whole based on the day of the month, by adding the appropriate class day1, daye etc
+                        hole.day = '';
+                        if(hole.date) {
+                            var d = new Date(hole.date);
+                            hole.day = 'day' + d.getDate();
+                        }
                         viewData[holeObject.holes[i].y - 1][holeObject.holes[i].x - 1] = hole;  //Subtracting 1 to compensate for the 0 based index of the arrays
                     }
                     vm.projectData.drillLogs[dLog].viewData = viewData;
