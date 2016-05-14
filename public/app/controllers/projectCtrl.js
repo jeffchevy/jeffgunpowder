@@ -330,7 +330,7 @@ angular.module('projectCtrl', ['projectService'])
                             var d = new Date(hole.date);
                             hole.day = 'day' + d.getDate();
                         }
-                        viewData[holeObject.holes[i].y - 1][holeObject.holes[i].x - 1] = hole;  //Subtracting 1 to compensate for the 0 based index of the arrays
+                        viewData[holeObject.holes[i].x - 1][holeObject.holes[i].y - 1] = hole;  //Subtracting 1 to compensate for the 0 based index of the arrays
                     }
                     vm.projectData.drillLogs[dLog].viewData = viewData;
                 }
