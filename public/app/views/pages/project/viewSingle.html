@@ -1,4 +1,11 @@
 <div class="page-header">
+
+    <div class="jumbotron text-center" ng-show="project.processing">
+        <span class="glyphicon glyphicon-repeat spinner"></span>
+
+        <p>Loading Project...</p>
+    </div>
+
     <h2>{{project.projectData.projectName}}
         <small>({{project.projectData.contractorName}})</small>
     </h2>
@@ -55,9 +62,11 @@
         </pre>
     </div>
 
+
     <strong>Drill Logs:</strong> <br>
     <div ng-repeat="drillLog in project.projectData.drillLogs">
-        <div class="well">
+        <!--{{project.projectData.drillLogs}}-->
+        <div>
             <strong>Name:</strong> {{drillLog.name}} </br>
             <strong>Driller Name:</strong> {{drillLog.drillerName}}
             <table class="holesTable table table-striped table-striped-column table-bordered table-condensed">

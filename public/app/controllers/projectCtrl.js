@@ -132,6 +132,9 @@ angular.module('projectCtrl', ['projectService'])
 
             var vm = this;
 
+            // set a processing variable to show loading things
+            vm.processing = true;
+
             // variable to hide/show elements of the view
             // differentiates between create or edit pages
             vm.type = 'edit';
@@ -148,6 +151,9 @@ angular.module('projectCtrl', ['projectService'])
                     vm.totalDepth = totals.totalDepth;
                     vm.averageDepth = totals.totalDepth / totals.holeCount;
                     vm.holeDepthCount = totals.holeDepthCount;
+
+                    //when the project comes back, remove the processing variable
+                    vm.processing = false;
                 });
 
             // function to save the project
@@ -167,13 +173,6 @@ angular.module('projectCtrl', ['projectService'])
                         vm.message = data.message;
                     });
             };
-
-            //Calculate Number of holes, total depth, and average depth
-            // vm.numberOfHoles = totalHoles()
-            // var totals = calculateHoleTotals()
-            // vm.totalDepth = '100,000';
-            //     vm.averageDepth = '432,234';
-
 
             //Add a blank daily log to the object.
             vm.addBlankDailyLog = function () {
@@ -271,16 +270,16 @@ angular.module('projectCtrl', ['projectService'])
                 console.log(project.drillLogs);
                 var holeCount = 0;
                 var totalDepth = 0;
-                var holeDepthCount={};
+                var holeDepthCount = {};
 
                 for (i = 0; i < project.drillLogs.length; i++) {
                     for (h = 0; h < project.drillLogs[i].holes.length; h++) {
                         holeCount = holeCount + 1;
                         totalDepth = totalDepth + project.drillLogs[i].holes[h].z;
                         //count the number of holes for each depth
-                        if(holeDepthCount[project.drillLogs[i].holes[h].z]) {
+                        if (holeDepthCount[project.drillLogs[i].holes[h].z]) {
                             //we have one already, increment the count
-                            holeDepthCount[project.drillLogs[i].holes[h].z] = holeDepthCount[project.drillLogs[i].holes[h].z]+1;
+                            holeDepthCount[project.drillLogs[i].holes[h].z] = holeDepthCount[project.drillLogs[i].holes[h].z] + 1;
                         }
                         else {
                             //this is the first one
@@ -298,7 +297,7 @@ angular.module('projectCtrl', ['projectService'])
 
                 // display the result
                 // console.log(JSON.stringify(output));
-                
+
                 return {holeCount: holeCount, totalDepth: totalDepth, holeDepthCount: holeDepthCount};
             }
 
@@ -326,7 +325,7 @@ angular.module('projectCtrl', ['projectService'])
                         var hole = holeObject.holes[i];
                         //color the whole based on the day of the month, by adding the appropriate class day1, daye etc
                         hole.day = '';
-                        if(hole.date) {
+                        if (hole.date) {
                             var d = new Date(hole.date);
                             hole.day = 'day' + d.getDate();
                         }

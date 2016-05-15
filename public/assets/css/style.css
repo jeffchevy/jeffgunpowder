@@ -125,9 +125,8 @@ header .navbar {
     font-size: .6em;
 }
 
-#3riversLogo {
-    height: 45px;
-    margin-top: 5px;
+.navbar-brand{
+    padding: 8.5px 15px;
 }
 
 #holeDepthGrid {
