@@ -173,7 +173,13 @@ angular.module('projectCtrl', ['projectService'])
                         vm.message = data.message;
                     });
             };
-
+        //function to get the day class from a date, this determines the color to use
+        vm.getDayClass = function (theDate) {
+            if(!theDate){
+                theDate = new Date();
+            }
+            return 'day'+new Date(theDate).getDate();
+        };
             //Add a blank daily log to the object.
             vm.addBlankDailyLog = function () {
                 vm.projectData.dailyLogs.push({});
@@ -285,9 +291,9 @@ angular.module('projectCtrl', ['projectService'])
                             //this is the first one
                             holeDepthCount[project.drillLogs[i].holes[h].z] = 1;
                         }
-                        console.log('holeCount: ' + holeCount);
-                        console.log('totalDepth: ' + totalDepth);
-                        console.log('holeDepthCount: ' + holeDepthCount);
+                        // console.log('holeCount: ' + holeCount);
+                        // console.log('totalDepth: ' + totalDepth);
+                        // console.log('holeDepthCount: ' + holeDepthCount);
                     }
                 }
                 //now convert hole depth count to array to be displayed in table
