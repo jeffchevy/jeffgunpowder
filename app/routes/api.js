@@ -476,7 +476,7 @@ module.exports = function (app, express, passport) {
     });
 
     apiRouter.get('/test', function (req, res) {
-        res.json({message: 'sucess'});
+        res.json({success: true, message: 'valid'});
     });
 
     // on routes that end in /users
