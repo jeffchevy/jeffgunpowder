@@ -179,7 +179,7 @@ module.exports = function (app, express, passport) {
 
     // Get call to return all projects
         .get(function (req, res) {
-            Project.find({}, function (err, proj) {
+            Project.find({}, null, {sort: {projectName:1}}, function (err, proj) {
                 if (err) {
                     res.send(err);
                 }
@@ -415,7 +415,7 @@ module.exports = function (app, express, passport) {
                 if (err) {
                     res.send(err);
                 }
-                res.json(project.dailyLogs);
+                res.json(project.dailyLogs.sort({date: -1}));
             });
         })
 
