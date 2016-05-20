@@ -199,7 +199,7 @@ module.exports = function (app, express, passport) {
                     }
                     return res.status(400).send({message: err.errors[field].message});
                 }
-                res.json({message: 'Project created!', project: project});
+                res.json({success: true,message: 'Project created!', project: project});
             });
         });
 
@@ -283,9 +283,9 @@ module.exports = function (app, express, passport) {
                             var drillLog = obj.drillLogs[obj.drillLogs.length - 1];
                             // return a message
                             // we need to return the object id
-                            res.json({message: "Drill Log Added!", id: drillLog._id.toString()});
+                            res.json({success: true,message: "Drill Log Added!", id: drillLog._id.toString()});
                         } else {
-                            res.json({status: "false", message: "Failed to add!"});
+                            res.json({status: false, message: "Failed to add!"});
                         }
 
                     });
@@ -312,7 +312,7 @@ module.exports = function (app, express, passport) {
                         res.send(err);
                     }
                     // return a message
-                    res.json({message: "Drill Log Entry Updated!"});
+                    res.json({success: true, message: "Drill Log Entry Updated!"});
                 });
             });
         });
@@ -348,7 +348,7 @@ module.exports = function (app, express, passport) {
                         var temp = obj.drillLogs.id(req.params.drillId);
                         var hole = temp._doc.holes[temp._doc.holes.length - 1];
                         // return a message
-                        res.json({message: "Drill Log Entry Added!", id: hole._id.toString()});
+                        res.json({success: true,message: "Drill Log Entry Added!", id: hole._id.toString()});
                     });
                 }
                 else {
@@ -378,7 +378,7 @@ module.exports = function (app, express, passport) {
                         res.send(err);
                     }
                     // return a message
-                    res.json({message: "Drill Log Updated!"});
+                    res.json({success: true, message: "Drill Log Updated!"});
                 });
             });
         });
@@ -404,7 +404,7 @@ module.exports = function (app, express, passport) {
                         res.send(err);
                     }
                     // return a message
-                    res.json({message: "Daily Log Updated!"});
+                    res.json({success: true, message: "Daily Log Updated!"});
                 });
             });
         });
@@ -448,7 +448,7 @@ module.exports = function (app, express, passport) {
                         var dailyLog = obj.dailyLogs[obj.dailyLogs.length - 1];
                         // return a message
                         // we need to return the object id
-                        res.json({message: "DailyLog Added!", id: dailyLog._id.toString()});
+                        res.json({success: true, message: "DailyLog Added!", id: dailyLog._id.toString()});
                     });
                 }
             });
@@ -482,7 +482,7 @@ module.exports = function (app, express, passport) {
                     }
 
                     // return a message
-                    res.json({message: 'project updated!'});
+                    res.json({success: true, message: 'project updated!'});
                 });
 
             });
@@ -501,7 +501,7 @@ module.exports = function (app, express, passport) {
                         res.send(err);
                     }
                     // return a message
-                    res.json({message: 'project deleted!'});
+                    res.json({success: true, message: 'project deleted!'});
                 });
             });
         });
