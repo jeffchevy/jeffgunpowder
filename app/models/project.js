@@ -6,10 +6,9 @@ var DailyLog = new Schema({
     date: {type: Date, default: Date.now},
     gallonsPumped: Number,
     bulkTankPumpedFrom: String,
-    hourMeterStart: String,
-    hourMeterEnd: String,
-    percussionTime: String, // int?
-    name: String,
+    hourMeterStart: Number,
+    hourMeterEnd: Number,
+    percussionTime: Number,
     message: String
 });
 
@@ -23,29 +22,29 @@ var Hole = new Schema({
 });
 
 var DrillLog = new Schema({
-    name: String,
-    drillerName: String,
+    name: {type: String, required: true},
+    drillerName: {type: String, required: true},
+    pattern: {type: String, required: true},
+    shotNumber: {type: Number, required: true},
+    bitSize: {type: String, required: true},
     holes: [Hole]
 });
 
 // drill log schema
 var ProjectSchema = new Schema({
-    jobName: String,
-    contractorsName: String,
-    shotNumber: Number,
-    drillerName: String,
-    startDate: {type: Date, default: Date.now},
-    dailyLogs: [ DailyLog ],
-    drillLogs: [ DrillLog ],
+    projectName: {type: String, required: true},
+    contractorName: {type: String, required: true},
+    dailyLogs: [DailyLog],
+    drillLogs: [DrillLog],
     auditedFlag: {type: Boolean, default: false},
     customer: String,
-    threeRiversSupervisor: String,
+    supervisor: String,
     notes: String,
-    stakeNumbers: String,  //TODO what is this?
+    stakeNumbers: String,
     areaNumber: String,
-    pattern: String,
-    stakeNumber: String,
-});
+    status: {type: String, default: 'active'},
+    closingDate: {type: Date, default: null}
+});//REMINDER - if you are setting a default value here, you need to put an if check around the stuffTheProject for that value.  --  see status.
 
 
 module.exports = mongoose.model('Project', ProjectSchema);

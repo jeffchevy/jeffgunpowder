@@ -42,10 +42,21 @@ angular.module('app.routes', ['ngRoute'])
                 controllerAs: 'user'
             })
             .when('/project', {
-                templateUrl: 'app/views/pages/project/all.html',
+                templateUrl: 'app/views/pages/project/allActive.html',
                 controller: 'projectController',
                 controllerAs: 'project'
             })
+            .when('/closedProject', {
+                templateUrl: 'app/views/pages/project/allClosed.html',
+                controller: 'projectController',
+                controllerAs: 'project'
+            })
+            .when('/deletedProject', {
+                templateUrl: 'app/views/pages/project/allDeleted.html',
+                controller: 'projectController',
+                controllerAs: 'project'
+            })
+        
             .when('/project/create', {
                 templateUrl: 'app/views/pages/project/single.html',
                 controller: 'projectCreateController',
@@ -55,6 +66,16 @@ angular.module('app.routes', ['ngRoute'])
                 templateUrl: 'app/views/pages/project/single.html',
                 controller: 'projectEditController',
                 controllerAs: 'project'
+            })
+            .when('/project/view/:project_id', {
+                templateUrl: 'app/views/pages/project/viewSingle.html',
+                controller: 'projectEditController',
+                controllerAs: 'project'
+            })
+            .when('/reports', {
+                templateUrl: 'app/views/pages/reports/reportsIndex.html'
+                //controller: 'reportsController',
+                //controllerAs: 'report'
             });
 
         $locationProvider.html5Mode(true);

@@ -52,3 +52,287 @@ header .navbar {
         -moz-transform: rotate(360deg);
     }
 }
+
+.loginLogo {
+    position: relative;
+    left: 100px;
+}
+
+.editProjectButton {
+    position: relative;
+    top: -48px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/*.dailyLogsEdit {*/
+/*padding: 10px;*/
+/*border: 1px solid black;*/
+/*background: #ccffcc;*/
+/*margin-bottom: 4px;*/
+/*}*/
+
+/*.notesEdit{*/
+/*position: relative;*/
+/*top: 600px;*/
+/*left: 800px;*/
+/*}*/
+
+/*Daily and Drill Logs*/
+.logSection {
+    margin: 20px;
+}
+
+.log {
+    background: #ECF0F1;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #404040;
+}
+
+.logDeleteButton {
+    position: relative;
+    /*font-size: 2em;*/
+    /*text-align: right;"*/
+    /*right: 0px;*/
+    float: right;
+    /*clear:both;*/
+}
+
+.holesTable {
+
+}
+
+.holesTable tr {
+    height: 20px;
+}
+
+.holesTable td, th {
+    width: 20px;
+    border: 1px solid black;
+    padding: 1px;
+}
+
+.white-text {
+    color: white;
+    font-weight: bold;
+}
+
+.hasComment {
+    position: relative;
+}
+
+.hasComment:before {
+    content: "\f075";
+    /*content: "\f0e5";*/
+    font-family: FontAwesome;
+    left: 16px;
+    position: absolute;
+    top: -1px;
+    font-size: .6em;
+}
+
+.navbar-brand {
+    padding: 8.5px 15px;
+}
+
+#holeDepthGrid {
+    width: 500px;
+    height: 250px;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #dfdfff;
+}
+
+.day1 {
+    background-color: #33cc33;
+    font-weight: bold;
+    color: #000;
+}
+
+.day2 {
+    background-color: #ff0000;
+    font-weight: bold;
+    color: #000;
+}
+
+.day3 {
+    background-color: #0066ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day4 {
+    background-color: #ff9900;
+    font-weight: bold;
+    color: #000;
+}
+
+.day5 {
+    background-color: #ffff00;
+    font-weight: bold;
+    color: #000;
+}
+
+.day6 {
+    background-color: #cc33ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day7 {
+    background-color: #9966ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day8 {
+    background-color: #33cc33;
+    font-weight: bold;
+    color: #000;
+}
+
+.day9 {
+    background-color: #ff0000;
+    font-weight: bold;
+    color: #000;
+}
+
+.day10 {
+    background-color: #0066ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day11 {
+    background-color: #ff9900;
+    font-weight: bold;
+    color: #000;
+}
+
+.day12 {
+    background-color: #ffff00;
+    font-weight: bold;
+    color: #000;
+}
+
+.day13 {
+    background-color: #cc33ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day14 {
+    background-color: #9966ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day15 {
+    background-color: #33cc33;
+    font-weight: bold;
+    color: #000;
+}
+
+.day16 {
+    background-color: #ff0000;
+    font-weight: bold;
+    color: #000;
+}
+
+.day17 {
+    background-color: #0066ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day18 {
+    background-color: #ff9900;
+    font-weight: bold;
+    color: #000;
+}
+
+.day19 {
+    background-color: #ffff00;
+    font-weight: bold;
+    color: #000;
+}
+
+.day20 {
+    background-color: #cc33ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day21 {
+    background-color: #9966ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day22 {
+    background-color: #33cc33;
+    font-weight: bold;
+    color: #000;
+}
+
+.day23 {
+    background-color: #ff0000;
+    font-weight: bold;
+    color: #000;
+}
+
+.day24 {
+    background-color: #0066ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day25 {
+    background-color: #ff9900;
+    font-weight: bold;
+    color: #000;
+}
+
+.day26 {
+    background-color: #ffff00;
+    font-weight: bold;
+    color: #000;
+}
+
+.day27 {
+    background-color: #cc33ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day28 {
+    background-color: #9966ff;
+    font-weight: bold;
+    color: #000;
+}
+
+.day29 {
+    background-color: #ff9900;
+    font-weight: bold;
+    color: #000;
+}
+
+.day30 {
+    background-color: #ffff00;
+    font-weight: bold;
+    color: #000;
+}
+
+.day31 {
+    background-color: #cc33ff;
+    font-weight: bold;
+    color: #000;
+}
+
+/*.buttons{*/
+/*position: relative;*/
+/*top: -10px;*/
+/*}*/

@@ -1,9 +1,9 @@
 <div class="page-header">
     <h1>
         Users
-        <a href="/users/create" class="btn btn-default">
+        <a href="/users/create" class="btn btn-default pull-right">
             <span class="glyphicon glyphicon-plus"></span>
-            New User
+            Create
         </a>
     </h1>
 
@@ -18,7 +18,6 @@
 <table class="table table-bordered table-striped" ng-show="user.users">
     <thead>
     <tr>
-        <th>_id</th>
         <th>Name</th>
         <th>Email</th>
         <th class="col-sm-2"></th>
@@ -26,12 +25,11 @@
     </thead>
     <tbody>
     <tr ng-repeat="person in user.users">
-        <td>{{ person._id }}</td>
         <td>{{ person.name }}</td>
         <td>{{ person.email }}</td>
         <td class="col-sm-2">
-            <a ng-href="/users/{{ person._id }}" class="btn btn-danger">Edit</a>
-            <a href="#" ng-click="user.deleteUser(person._id)" class="btn btn-primary">Delete</a>
+            <a ng-href="/users/{{ person._id }}" title="edit {{ person.name }}" class="label label-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            <a href="#" ng-click="user.deleteUser(person._id)" title="remove {{ person.name }}" class="label label-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
         </td>
     </tr>
     </tbody>
