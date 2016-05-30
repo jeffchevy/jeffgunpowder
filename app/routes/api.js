@@ -565,6 +565,10 @@ module.exports = function (app, express, passport) {
             }
         }
     };
+    apiRouter.get('/test', function (req, res) {
+        res.json({success: true, message: 'valid'});
+    });
+
 
 
     return apiRouter;
