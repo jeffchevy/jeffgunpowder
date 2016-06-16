@@ -373,7 +373,7 @@ module.exports = function (app, express, passport) {
                 drillLog.pattern = req.body.pattern;
                 drillLog.shotNumber = req.body.shotNumber;
                 drillLog.bitSize = req.body.bitSize;
-                drillLog.image = {data: req.body.signature, contentType: req.body.contentType};
+                drillLog.image = req.body.signature;
                 project.save(function (err, obj) {
                     if (err) {
                         res.send(err);

@@ -110,7 +110,8 @@
                     </td>
                 </tr>
             </table>
-            <img ng-src="data:image/JPEG;base64,{{drillLog.image.buffer}}">
+            <span>{{drillLog.image.data.data[0]}}</span>
+            <img ng-src="data:image/JPEG;base64,{{drillLog.image}}">
         </div>
     </div>
 </div>
