@@ -27,7 +27,8 @@ var DrillLog = new Schema({
     pattern: {type: String, required: true},
     shotNumber: {type: Number, required: true},
     bitSize: {type: String, required: true},
-    holes: [Hole]
+    holes: [Hole],
+    image: { data: Buffer, contentType: String }
 });
 
 // drill log schema
