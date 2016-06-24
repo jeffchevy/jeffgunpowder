@@ -374,7 +374,11 @@ module.exports = function (app, express, passport) {
                 drillLog.shotNumber = req.body.shotNumber;
                 drillLog.bitSize = req.body.bitSize;
                 drillLog.customerSignature = req.body.customerSignature;
+                drillLog.customerSignatureDate = req.body.customerSignatureDate;
+                drillLog.customerSignatureName = req.body.customerSignatureName;
                 drillLog.supervisorSignature = req.body.supervisorSignature;
+                drillLog.supervisorSignatureDate = req.body.supervisorSignatureDate;
+                drillLog.supervisorSignatureName = req.body.supervisorSignatureName;
                 project.save(function (err, obj) {
                     if (err) {
                         res.send(err);

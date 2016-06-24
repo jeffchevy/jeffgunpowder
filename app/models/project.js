@@ -29,7 +29,11 @@ var DrillLog = new Schema({
     bitSize: {type: String, required: true},
     holes: [Hole],
     customerSignature: String,
-    supervisorSignature: String
+    customerSignatureDate: {type: Date, default: null},
+    customerSignatureName: String,
+    supervisorSignature: String,
+    supervisorSignatureDate: {type: Date, default: null},
+    supervisorSignatureName: String
 });
 
 // drill log schema
