@@ -270,7 +270,13 @@ module.exports = function (app, express, passport) {
                         pattern: req.body.pattern,
                         shotNumber: req.body.shotNumber,
                         bitSize: req.body.bitSize,
-                        holes: []
+                        holes: [],
+                        customerSignature: req.body.customerSignature,
+                        customerSignatureDate: req.body.customerSignatureDate,
+                        customerSignatureName: req.body.customerSignatureName,
+                        supervisorSignature: req.body.supervisorSignature,
+                        supervisorSignatureDate: req.body.supervisorSignatureDate,
+                        supervisorSignatureName: req.body.supervisorSignatureName
                     };
 
                     project.drillLogs.push(drillLog);
@@ -334,12 +340,6 @@ module.exports = function (app, express, passport) {
                         date: req.body.date,
                         comments: req.body.comments,
                         bitSize: req.body.bitSize,
-                        customerSignature: req.body.customerSignature,
-                        customerSignatureDate: req.body.customerSignatureDate,
-                        customerSignatureName: req.body.customerSignatureName,
-                        supervisorSignature: req.body.supervisorSignature,
-                        supervisorSignatureDate: req.body.supervisorSignatureDate,
-                        supervisorSignatureName: req.body.supervisorSignatureName
                     };
 
                     if (drillLog.holes == undefined) {
