@@ -27,7 +27,13 @@ var DrillLog = new Schema({
     pattern: {type: String, required: true},
     shotNumber: {type: Number, required: true},
     bitSize: {type: String, required: true},
-    holes: [Hole]
+    holes: [Hole],
+    customerSignature: String,
+    customerSignatureDate: {type: Date, default: null},
+    customerSignatureName: String,
+    supervisorSignature: String,
+    supervisorSignatureDate: {type: Date, default: null},
+    supervisorSignatureName: String
 });
 
 // drill log schema

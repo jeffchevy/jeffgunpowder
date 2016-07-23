@@ -270,7 +270,13 @@ module.exports = function (app, express, passport) {
                         pattern: req.body.pattern,
                         shotNumber: req.body.shotNumber,
                         bitSize: req.body.bitSize,
-                        holes: []
+                        holes: [],
+                        customerSignature: req.body.customerSignature,
+                        customerSignatureDate: req.body.customerSignatureDate,
+                        customerSignatureName: req.body.customerSignatureName,
+                        supervisorSignature: req.body.supervisorSignature,
+                        supervisorSignatureDate: req.body.supervisorSignatureDate,
+                        supervisorSignatureName: req.body.supervisorSignatureName
                     };
 
                     project.drillLogs.push(drillLog);
@@ -333,7 +339,7 @@ module.exports = function (app, express, passport) {
                         z: req.body.z,
                         date: req.body.date,
                         comments: req.body.comments,
-                        bitSize: req.body.bitSize
+                        bitSize: req.body.bitSize,
                     };
 
                     if (drillLog.holes == undefined) {
@@ -373,6 +379,12 @@ module.exports = function (app, express, passport) {
                 drillLog.pattern = req.body.pattern;
                 drillLog.shotNumber = req.body.shotNumber;
                 drillLog.bitSize = req.body.bitSize;
+                drillLog.customerSignature = req.body.customerSignature;
+                drillLog.customerSignatureDate = req.body.customerSignatureDate;
+                drillLog.customerSignatureName = req.body.customerSignatureName;
+                drillLog.supervisorSignature = req.body.supervisorSignature;
+                drillLog.supervisorSignatureDate = req.body.supervisorSignatureDate;
+                drillLog.supervisorSignatureName = req.body.supervisorSignatureName;
                 project.save(function (err, obj) {
                     if (err) {
                         res.send(err);
@@ -559,7 +571,13 @@ module.exports = function (app, express, passport) {
                     pattern: req.body.drillLogs[i].pattern,
                     shotNumber: req.body.drillLogs[i].shotNumber,
                     bitSize: req.body.drillLogs[i].bitSize,
-                    holes: holes
+                    holes: holes,
+                    customerSignature: req.body.drillLogs[i].customerSignature,
+                    customerSignatureDate: req.body.drillLogs[i].customerSignatureDate,
+                    customerSignatureName: req.body.drillLogs[i].customerSignatureName,
+                    supervisorSignature: req.body.drillLogs[i].supervisorSignature,
+                    supervisorSignatureDate: req.body.drillLogs[i].supervisorSignatureDate,
+                    supervisorSignatureName: req.body.drillLogs[i].supervisorSignatureName
                 };
                 project.drillLogs.push(drillLog);
             }

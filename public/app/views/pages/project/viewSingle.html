@@ -110,6 +110,14 @@
                     </td>
                 </tr>
             </table>
+            <span>
+                <strong>Customer:</strong>
+                <span>{{drillLog.customerSignatureName}} {{drillLog.customerSignatureDate | date}}</span>
+                <img height='150' ng-src="data:image/JPEG;base64,{{drillLog.customerSignature}}">
+                <strong>Supervisor:</strong>
+                <span>{{drillLog.supervisorSignatureName}} {{drillLog.supervisorSignatureDate | date}}</span>
+                <img height='150' ng-src="data:image/JPEG;base64,{{drillLog.supervisorSignature}}">
+            </span>
         </div>
     </div>
 </div>
