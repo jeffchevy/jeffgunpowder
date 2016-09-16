@@ -344,16 +344,16 @@ angular.module('projectCtrl', ['projectService'])
              */
             function getTableDimensions() {
                 for (dLog = 0; dLog < vm.projectData.drillLogs.length; dLog++) {
-                    var xMax = 10, //start with a minimum value for our x and y table coordinates
-                        yMax = 26;
+                    var xMax = 8, //start with a minimum value for our x and y table coordinates
+                        yMax = 24;
                     var holes = vm.projectData.drillLogs[dLog].holes;
                     holes.forEach(function (hole) {
                         if (hole.x > xMax) xMax = hole.x;
                         if (hole.y > yMax) yMax = hole.y;
                     });
                     console.log(xMax + ' - ' + yMax);
-                    vm.projectData.drillLogs[dLog].xMax = xMax;
-                    vm.projectData.drillLogs[dLog].yMax = yMax;
+                    vm.projectData.drillLogs[dLog].xMax = xMax + 2;
+                    vm.projectData.drillLogs[dLog].yMax = yMax + 2;
                 }
             }
         }
