@@ -145,6 +145,7 @@ angular.module('projectCtrl', ['projectService'])
             Project.get($routeParams.project_id)
                 .success(function (data) {
                     vm.projectData = data;
+                    getTableDimensions();
                     assignHoles();
                     var totals = calculateHoleTotals(data);
                     vm.numberOfHoles = totals.holeCount;
@@ -173,13 +174,13 @@ angular.module('projectCtrl', ['projectService'])
                         vm.message = data.message;
                     });
             };
-        //function to get the day class from a date, this determines the color to use
-        vm.getDayClass = function (theDate) {
-            if(!theDate){
-                theDate = new Date();
-            }
-            return 'day'+new Date(theDate).getDate();
-        };
+            //function to get the day class from a date, this determines the color to use
+            vm.getDayClass = function (theDate) {
+                if (!theDate) {
+                    theDate = new Date();
+                }
+                return 'day' + new Date(theDate).getDate();
+            };
             //Add a blank daily log to the object.
             vm.addBlankDailyLog = function () {
                 vm.projectData.dailyLogs.push({});
@@ -310,18 +311,15 @@ angular.module('projectCtrl', ['projectService'])
 
             //Assigns all holes and no-holes.
             function assignHoles() {
-                //Set the displayed grid size.
-                var gridSizeX = '50', //horizontal rows
-                    gridSizeY = '26'; //vertical columns
 
                 //for each drillLog, look through the holes data and create a viewHoleData object and add it to the drillLog
                 for (dLog = 0; dLog < vm.projectData.drillLogs.length; dLog++) {
                     var holeObject = vm.projectData.drillLogs[dLog];
 
                     var viewData = [];
-                    for (var row = 0; row < gridSizeY; row++) {
+                    for (var row = 0; row < vm.projectData.drillLogs[dLog].xMax; row++) {
                         var rowArray = [];
-                        for (var col = 0; col < gridSizeX; col++) {
+                        for (var col = 0; col < vm.projectData.drillLogs[dLog].yMax; col++) {
                             rowArray.push({hole: false});
                         }
                         viewData.push(rowArray);
@@ -338,6 +336,24 @@ angular.module('projectCtrl', ['projectService'])
                         viewData[holeObject.holes[i].x - 1][holeObject.holes[i].y - 1] = hole;  //Subtracting 1 to compensate for the 0 based index of the arrays
                     }
                     vm.projectData.drillLogs[dLog].viewData = viewData;
+                }
+            }
+
+            /**
+             * Gets the max x and y coordinates for each table and assigns it in the table object.
+             */
+            function getTableDimensions() {
+                for (dLog = 0; dLog < vm.projectData.drillLogs.length; dLog++) {
+                    var xMax = 10, //start with a minimum value for our x and y table coordinates
+                        yMax = 26;
+                    var holes = vm.projectData.drillLogs[dLog].holes;
+                    holes.forEach(function (hole) {
+                        if (hole.x > xMax) xMax = hole.x;
+                        if (hole.y > yMax) yMax = hole.y;
+                    });
+                    console.log(xMax + ' - ' + yMax);
+                    vm.projectData.drillLogs[dLog].xMax = xMax;
+                    vm.projectData.drillLogs[dLog].yMax = yMax;
                 }
             }
         }
