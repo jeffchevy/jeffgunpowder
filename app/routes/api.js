@@ -328,41 +328,54 @@ module.exports = function (app, express, passport) {
     // Create new Drill log entry - DrillLog.Holes.hole
         .post(function (req, res) {
             Project.findById(req.params.id, function (err, project) {
-                if (err) {
+                if (err || project == null) {
                     res.send(err);
                 }
-                var drillLog = project.drillLogs.id(req.params.drillId);
-                if (drillLog != null) {
-                    var hole = {
-                        x: req.body.x,
-                        y: req.body.y,
-                        z: req.body.z,
-                        date: req.body.date,
-                        comments: req.body.comments,
-                        bitSize: req.body.bitSize,
-                    };
+                if (project != null) {
 
-                    if (drillLog.holes == undefined) {
-                        drillLog.holes = [];
-                    }
-                    drillLog.holes.push(hole);
-                    project.save(function (err, obj, test) {
-                        if (err) {
-                            res.send(err);
+                    var drillLog = project.drillLogs.id(req.params.drillId);
+                    if (drillLog != null) {
+                        //{x : req.body.x, y: req.body.y, z:req.body.z }
+                        var checkHoles = drillLog.holes.filter(function (i) {
+                            return (i.x == req.body.x && i.y == req.body.y);
+                        })
+                        if (checkHoles.length > 0 ) {
+                            res.json({success: true,message: "Drill Log Entry Added Previously!", id: checkHoles[0]._id.toString()});
                         }
-                        // we need to return the object id
-                        var temp = obj.drillLogs.id(req.params.drillId);
-                        var hole = temp._doc.holes[temp._doc.holes.length - 1];
-                        // return a message
-                        res.json({success: true,message: "Drill Log Entry Added!", id: hole._id.toString()});
-                    });
-                }
-                else {
-                    res.status(400).send({
-                        success: false,
-                        message: "Project: [" + req.params.id + "] Cannot get drillLog for id: [" + req.params.drillId + "]"
-                    });
+                        else
+                        {
+                            var hole = {
+                                x: req.body.x,
+                                y: req.body.y,
+                                z: req.body.z,
+                                date: req.body.date,
+                                comments: req.body.comments,
+                                bitSize: req.body.bitSize,
+                            };
 
+                            if (drillLog.holes == undefined) {
+                                drillLog.holes = [];
+                            }
+                            drillLog.holes.push(hole);
+                            project.save(function (err, obj, test) {
+                                if (err) {
+                                    res.send(err);
+                                }
+                                // we need to return the object id
+                                var temp = obj.drillLogs.id(req.params.drillId);
+                                var hole = temp._doc.holes[temp._doc.holes.length - 1];
+                                // return a message
+                                res.json({success: true,message: "Drill Log Entry Added!", id: hole._id.toString()});
+                            });
+                        }
+                    }
+                    else {
+                        res.status(400).send({
+                            success: false,
+                            message: "Project: [" + req.params.id + "] Cannot get drillLog for id: [" + req.params.drillId + "]"
+                        });
+
+                    }
                 }
             });
 
