@@ -10,7 +10,8 @@
         <small>({{project.projectData.contractorName}})</small>
     </h2>
 
-    <div ng-if="project.projectData.status == 'active' || project.projectData.status == 'closed'" class="btn btn-danger span2 pull-right editProjectButton"
+    <div ng-if="project.projectData.status == 'active' || project.projectData.status == 'closed'"
+         class="btn btn-danger span2 pull-right editProjectButton"
          ng-click="project.deleteProject(project.projectData._id)">
         <i class="fa fa-trash"></i> Delete
     </div>
@@ -64,7 +65,7 @@
         </table>
     </div>
     <hr>
-    <div  class="col-md-12">
+    <div class="col-md-12">
         <strong>Daily Logs:</strong> <br>
         <div ng-repeat="dailyLog in project.projectData.dailyLogs">
             <div class="col-md-4">
@@ -76,6 +77,9 @@
         <strong>Hour Meter Start:</strong> {{dailyLog.hourMeterStart}}
         <strong>Hour Meter End:</strong> {{dailyLog.hourMeterEnd}}
         <strong>Percussion Time:</strong> {{dailyLog.percussionTime}}
+        <strong>Number of holes drilled:</strong> {{dailyLog.numberOfHolesDrilled}}
+        <strong>Total depth:</strong> {{dailyLog.totalDailyDepth}}
+
         </pre>
             </div>
         </div>

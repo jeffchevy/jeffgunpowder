@@ -2,6 +2,7 @@ var User = require('../models/user');
 var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
 var config = require('../../config/config');
+var moment = require('moment');
 
 module.exports = function (app, express, passport) {
 
@@ -179,7 +180,7 @@ module.exports = function (app, express, passport) {
 
     // Get call to return all projects
         .get(function (req, res) {
-            Project.find({}, null, {sort: {projectName:1}}, function (err, proj) {
+            Project.find({}, null, {sort: {projectName: 1}}, function (err, proj) {
                 if (err) {
                     res.send(err);
                 }
@@ -199,7 +200,7 @@ module.exports = function (app, express, passport) {
                     }
                     return res.status(400).send({message: err.errors[field].message});
                 }
-                res.json({success: true,message: 'Project created!', project: project});
+                res.json({success: true, message: 'Project created!', project: project});
             });
         });
 
@@ -289,7 +290,7 @@ module.exports = function (app, express, passport) {
                             var drillLog = obj.drillLogs[obj.drillLogs.length - 1];
                             // return a message
                             // we need to return the object id
-                            res.json({success: true,message: "Drill Log Added!", id: drillLog._id.toString()});
+                            res.json({success: true, message: "Drill Log Added!", id: drillLog._id.toString()});
                         } else {
                             res.json({status: false, message: "Failed to add!"});
                         }
@@ -339,11 +340,14 @@ module.exports = function (app, express, passport) {
                         var checkHoles = drillLog.holes.filter(function (i) {
                             return (i.x == req.body.x && i.y == req.body.y);
                         })
-                        if (checkHoles.length > 0 ) {
-                            res.json({success: true,message: "Drill Log Entry Added Previously!", id: checkHoles[0]._id.toString()});
+                        if (checkHoles.length > 0) {
+                            res.json({
+                                success: true,
+                                message: "Drill Log Entry Added Previously!",
+                                id: checkHoles[0]._id.toString()
+                            });
                         }
-                        else
-                        {
+                        else {
                             var hole = {
                                 x: req.body.x,
                                 y: req.body.y,
@@ -365,7 +369,7 @@ module.exports = function (app, express, passport) {
                                 var temp = obj.drillLogs.id(req.params.drillId);
                                 var hole = temp._doc.holes[temp._doc.holes.length - 1];
                                 // return a message
-                                res.json({success: true,message: "Drill Log Entry Added!", id: hole._id.toString()});
+                                res.json({success: true, message: "Drill Log Entry Added!", id: hole._id.toString()});
                             });
                         }
                     }
@@ -487,6 +491,29 @@ module.exports = function (app, express, passport) {
                     res.send(err);
                 }
 
+                var holeMap = {}; //Used to store the hole count.
+
+                //Look through the drillLogs for dates and count the number of holes on each date
+                project.drillLogs.forEach(function (dl) {
+                    dl.holes.forEach(function (hole) {
+                        var d = moment(hole.date).format("MM-DD-YYYY");
+                        if (!(d in holeMap)) {
+                            holeMap[d] = {numberHolesDrilled: 1, totalDailyDepth: hole.z};
+                        }
+                        else {
+                            holeMap[d].numberHolesDrilled = holeMap[d].numberHolesDrilled + 1;
+                            holeMap[d].totalDailyDepth = holeMap[d].totalDailyDepth + hole.z;
+                        }
+                    });
+
+                    //look through the daily logs for matching dates and add the # of holes drilled
+                    project.dailyLogs.forEach(function (dailyLog) {
+                        var dailyLogDate = moment(dailyLog.date).format("MM-DD-YYYY");
+                        dailyLog._doc.numberOfHolesDrilled = getHoleValue('numberHolesDrilled', holeMap[dailyLogDate]);
+                        dailyLog._doc.totalDailyDepth = getHoleValue('totalDailyDepth', holeMap[dailyLogDate]);
+                    })
+                });
+
                 res.json(project); // return the users
             });
         })
@@ -601,6 +628,26 @@ module.exports = function (app, express, passport) {
     });
 
 
-
     return apiRouter;
 };
+
+/**
+ * Used to get the value of numberHolesDrilled and totalDailyDepth.  It has a try catch to return 0 if there was no value.
+ * @param name
+ * @param holeMap
+ * @returns {*}
+ */
+function getHoleValue(name, holeMap) {
+    try {
+        switch (name) {
+            case 'numberHolesDrilled':
+                return holeMap.numberHolesDrilled;
+                break;
+            case 'totalDailyDepth':
+                return holeMap.totalDailyDepth;
+                break;
+        }
+    } catch (e) {
+        return 0;
+    }
+}
