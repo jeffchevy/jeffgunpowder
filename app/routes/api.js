@@ -339,7 +339,7 @@ module.exports = function (app, express, passport) {
                         //{x : req.body.x, y: req.body.y, z:req.body.z }
                         var checkHoles = drillLog.holes.filter(function (i) {
                             return (i.x == req.body.x && i.y == req.body.y);
-                        })
+                        });
                         if (checkHoles.length > 0) {
                             res.json({
                                 success: true,
@@ -493,26 +493,50 @@ module.exports = function (app, express, passport) {
 
                 var holeMap = {}; //Used to store the hole count.
 
+
                 //Look through the drillLogs for dates and count the number of holes on each date
                 project.drillLogs.forEach(function (dl) {
-                    dl.holes.forEach(function (hole) {
-                        var d = moment(hole.date).format("MM-DD-YYYY");
-                        if (!(d in holeMap)) {
-                            holeMap[d] = {numberHolesDrilled: 1, totalDailyDepth: hole.z};
-                        }
-                        else {
-                            holeMap[d].numberHolesDrilled = holeMap[d].numberHolesDrilled + 1;
-                            holeMap[d].totalDailyDepth = holeMap[d].totalDailyDepth + hole.z;
-                        }
-                    });
+                        var drillLogsDepthTotal = 0;
+                        var drillLogsCountTotal = 0;
+                        var shotMap = {};
+                        dl.holes.forEach(function (hole) {
+                            var d = moment(hole.date).format("MM-DD-YYYY");
+                            if (!(d in holeMap)) {
+                                holeMap[d] = {numberHolesDrilled: 1, totalDailyDepth: hole.z};
 
-                    //look through the daily logs for matching dates and add the # of holes drilled
-                    project.dailyLogs.forEach(function (dailyLog) {
-                        var dailyLogDate = moment(dailyLog.date).format("MM-DD-YYYY");
-                        dailyLog._doc.numberOfHolesDrilled = getHoleValue('numberHolesDrilled', holeMap[dailyLogDate]);
-                        dailyLog._doc.totalDailyDepth = getHoleValue('totalDailyDepth', holeMap[dailyLogDate]);
-                    })
-                });
+
+                            }
+                            else {
+                                holeMap[d].numberHolesDrilled = holeMap[d].numberHolesDrilled + 1;
+                                holeMap[d].totalDailyDepth = holeMap[d].totalDailyDepth + hole.z;
+                            }
+
+                            //Creating holeDepth map
+                            if (!(hole.z in shotMap)) {
+                                shotMap[hole.z] = 1
+                            } else {
+                                shotMap[hole.z]++;
+                            }
+
+
+                            //Add to the drillLogs totals
+                            drillLogsCountTotal++;
+                            drillLogsDepthTotal = drillLogsDepthTotal + hole.z;
+                        });
+
+                        //look through the daily logs for matching dates and add the # of holes drilled
+                        project.dailyLogs.forEach(function (dailyLog) {
+                            var dailyLogDate = moment(dailyLog.date).format("MM-DD-YYYY");
+                            dailyLog._doc.numberOfHolesDrilled = getHoleValue('numberHolesDrilled', holeMap[dailyLogDate]);
+                            dailyLog._doc.totalDailyDepth = getHoleValue('totalDailyDepth', holeMap[dailyLogDate]);
+                        });
+
+                        dl._doc.totalCount = drillLogsCountTotal;
+                        dl._doc.totalDepth = drillLogsDepthTotal;
+                        dl._doc.shotMap = shotMap;
+                    }
+                );
+
 
                 res.json(project); // return the users
             });

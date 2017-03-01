@@ -1,15 +1,10 @@
-<div class="page-header">
+<div class="jumbotron text-center" ng-show="project.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
 
-    <div class="jumbotron text-center" ng-show="project.processing">
-        <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Project...</p>
+</div>
 
-        <p>Loading Project...</p>
-    </div>
-
-    <h2>{{project.projectData.projectName}}
-        <small>({{project.projectData.contractorName}})</small>
-    </h2>
-
+<div style="position: absolute; right: 100px">
     <div ng-if="project.projectData.status == 'active' || project.projectData.status == 'closed'"
          class="btn btn-danger span2 pull-right editProjectButton"
          ng-click="project.deleteProject(project.projectData._id)">
@@ -38,37 +33,82 @@
         </div>
     </a>
 </div>
-<!--{{project.projectData}}-->
-<div>
-    <div class="calculations col-md-6">
-        <strong>Total # of holes: </strong>{{project.numberOfHoles}}</br>
-        <strong>Total depth: </strong> {{project.totalDepth}}</br>
-        <strong>average depth: </strong>{{project.averageDepth}}</br>
-        <br/>
+
+
+<div class="panel projectInfo col-md-12">
+    <div class="col-md-6">
+        <h2>{{project.projectData.projectName}}
+            <small>({{project.projectData.contractorName}})</small>
+        </h2>
+        <div class="bordered">
+            <strong>Notes: </strong><br>
+            {{project.projectData.notes}}
+        </div>
+
         <strong>Stake Numbers:</strong> {{project.projectData.stakeNumbers}}<br>
         <strong>Area Number:</strong> {{project.projectData.areaNumber}}<br>
         <strong>Three Rivers Supervisor:</strong> {{project.projectData.supervisor}}<br>
         <strong>Status:</strong> {{project.projectData.status}}<br>
         <strong>Closing Date: </strong> {{project.projectData.closingDate}}<br>
-        <strong>Notes:</strong> {{project.projectData.notes}}<br>
     </div>
-    <div class="col-md-3">
-        <table class="table table-striped table-bordered table-condensed col-md-3">
-            <th>Hole Depth</th>
-            <th>Count</th>
-            <tbody>
-            <tr ng-repeat="(key, value) in project.holeDepthCount">
-                <td>{{key}}</td>
-                <td>{{value}}</td>
-            </tr>
-            </tbody>
-        </table>
+
+    <div class="col-md-6">
+        <div class="panel" style="margin-top: 15px;">
+            <h4>Project Totals</h4>
+            # of holes: {{project.numberOfHoles}}<br>
+            Depth: {{project.totalDepth}}<br>
+            Average depth: {{project.averageDepth | number : 2}}<br>
+
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                <th>Hole Depth</th>
+                <th>Count</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key, value) in project.holeDepthCount">
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <hr>
-    <div class="col-md-12">
-        <strong>Daily Logs:</strong> <br>
-        <div ng-repeat="dailyLog in project.projectData.dailyLogs">
-            <div class="col-md-4">
+</div>
+
+
+<div class="panel col-md-12" style="margin-top: 15px;">
+    <h4>Individual Drill Log details:</h4>
+    <div ng-repeat="drillLog in project.projectData.drillLogs">
+
+        <div class="col-md-3">
+            <strong>{{drillLog.name}}</strong><br>
+            Total # holes: {{drillLog.totalCount}}<br>
+            Total depth: {{drillLog.totalDepth}}<br>
+            Average depth: {{drillLog.totalDepth / drillLog.totalCount | number : 2}}<br>
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <th>Hole Depth</th>
+                    <th>Count</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="(key, value) in drillLog.shotMap">
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel col-md-12">
+    <h4>Daily Logs:</h4>
+    <div ng-repeat="dailyLog in project.projectData.dailyLogs">
+        <div class="col-md-4">
         <pre>
         <span ng-class="project.getDayClass(dailyLog.date)"><strong>Date:</strong> {{dailyLog.date | date}}</span>
         <strong>Drill Number:</strong> {{dailyLog.drillNumber}}
@@ -79,42 +119,41 @@
         <strong>Percussion Time:</strong> {{dailyLog.percussionTime}}
         <strong>Number of holes drilled:</strong> {{dailyLog.numberOfHolesDrilled}}
         <strong>Total depth:</strong> {{dailyLog.totalDailyDepth}}
-
         </pre>
-            </div>
         </div>
     </div>
+</div>
 
 
-    <div class="col-md-12">
-        <strong>Drill Logs:</strong> <br>
-        <div ng-repeat="drillLog in project.projectData.drillLogs">
-            <!--{{project.projectData.drillLogs}}-->
-            <strong>Name:</strong> {{drillLog.name}} </br>
-            <strong>Driller Name:</strong> {{drillLog.drillerName}}
-            <table class="holesTable table table-striped table-striped-column table-bordered table-condensed">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th ng-repeat="row in drillLog.viewData[0]">
-                        <bold>{{ $index + 1 }}</bold>
-                    </th>
-                </tr>
-                </thead>
-                <tr ng-repeat="row in drillLog.viewData">
-                    <td>
-                        <bold>{{ $index + 1 }}</bold>
-                    </td>
-                    <td ng-repeat="td in row">
-                        <span ng-class="td.day">{{td.z}}</span>
-                        <span ng-class="{true: 'hasComment', false: 'noComment'}[td.comments.length > 1]"
-                              uib-popover="Comments: {{td.comments}}, Date: {{td.date | date}}"
-                              popover-title="Depth: {{td.z}}"
-                              popover-trigger="mouseenter"></span>
-                    </td>
-                </tr>
-            </table>
-            <span>
+<div class="panel col-md-12">
+    <h4>Drill Logs:</h4>
+    <div ng-repeat="drillLog in project.projectData.drillLogs">
+        <!--{{project.projectData.drillLogs}}-->
+        <strong>Name:</strong> {{drillLog.name}} </br>
+        <strong>Driller Name:</strong> {{drillLog.drillerName}}
+        <table class="holesTable table table-striped table-striped-column table-bordered table-condensed">
+            <thead>
+            <tr>
+                <th></th>
+                <th ng-repeat="row in drillLog.viewData[0]">
+                    <bold>{{ $index + 1 }}</bold>
+                </th>
+            </tr>
+            </thead>
+            <tr ng-repeat="row in drillLog.viewData">
+                <td>
+                    <bold>{{ $index + 1 }}</bold>
+                </td>
+                <td ng-repeat="td in row">
+                    <span ng-class="td.day">{{td.z}}</span>
+                    <span ng-class="{true: 'hasComment', false: 'noComment'}[td.comments.length > 1]"
+                          uib-popover="Comments: {{td.comments}}, Date: {{td.date | date}}"
+                          popover-title="Depth: {{td.z}}"
+                          popover-trigger="mouseenter"></span>
+                </td>
+            </tr>
+        </table>
+        <span>
                 <strong>Customer:</strong>
                 <span>{{drillLog.customerSignatureName}} {{drillLog.customerSignatureDate | date}}</span>
                 <img height='150' ng-src="data:image/JPEG;base64,{{drillLog.customerSignature}}">
@@ -122,14 +161,5 @@
                 <span>{{drillLog.supervisorSignatureName}} {{drillLog.supervisorSignatureDate | date}}</span>
                 <img height='150' ng-src="data:image/JPEG;base64,{{drillLog.supervisorSignature}}">
             </span>
-        </div>
-    </div>
-</div>
-<div class="row show-hide-message" ng-show="project.message">
-    <div class="col-sm-6 col-sm-offset-2">
-        <div class="alert alert-info">
-            {{ project.message }}
-        </div>
-
     </div>
 </div>
