@@ -332,6 +332,15 @@ header .navbar {
     color: #000;
 }
 
+.bordered {
+    background-color: #ecf0f1;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    color: #7b8a8b;
+    font-size: 14px;
+}
+
 /*.buttons{*/
 /*position: relative;*/
 /*top: -10px;*/
