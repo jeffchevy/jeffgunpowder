@@ -339,7 +339,7 @@ module.exports = function (app, express, passport) {
                         //{x : req.body.x, y: req.body.y, z:req.body.z }
                         var checkHoles = drillLog.holes.filter(function (i) {
                             return (i.x == req.body.x && i.y == req.body.y);
-                        })
+                        });
                         if (checkHoles.length > 0) {
                             res.json({
                                 success: true,
