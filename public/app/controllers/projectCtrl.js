@@ -273,6 +273,11 @@ angular.module('projectCtrl', ['projectService'])
             };
 
 
+            /**
+             * Calculate hole totals.
+             * @param project
+             * @returns {{holeCount: number, totalDepth: number, holeDepthCount: {}}}
+             */
             function calculateHoleTotals() {
                 var holeCount = 0;
                 var totalDepth = 0;
